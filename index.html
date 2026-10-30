@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <title>Demo Chat CM motorfas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,20 +19,8 @@
   --pattern-hatch: repeating-linear-gradient(-45deg, transparent 0 6px, var(--hair) 6px 7px);
   --pattern-grid: linear-gradient(var(--hair) 1px, transparent 1px), linear-gradient(90deg, var(--hair) 1px, transparent 1px);
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0a0a0a; --text: #f2f2f2; --muted: #a3a3a3;
-    --line: #f2f2f2; --hair: #2e2e2e;
-    --inv-bg: #f2f2f2; --inv-text: #0a0a0a;
-    --danger: #ff6b60; --warn: #f0a640;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0a0a0a; --text: #f2f2f2; --muted: #a3a3a3;
-  --line: #f2f2f2; --hair: #2e2e2e;
-  --inv-bg: #f2f2f2; --inv-text: #0a0a0a;
-  --danger: #ff6b60; --warn: #f0a640;
-}
+/* Always light: the demo is shown to the client on a white background */
+:root { color-scheme: light; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 56px; }
