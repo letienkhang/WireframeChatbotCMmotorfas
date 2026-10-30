@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo Chat CM motorfas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --text: #0a0a0a; --muted: #5c5c5c;
+  --line: #0a0a0a; --hair: #d9d9d9;
+  --inv-bg: #0a0a0a; --inv-text: #ffffff;
+  --danger: #c4231c; --warn: #a35d00;
+  --font-sans: Inter, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --pattern-hatch: repeating-linear-gradient(-45deg, transparent 0 6px, var(--hair) 6px 7px);
+  --pattern-grid: linear-gradient(var(--hair) 1px, transparent 1px), linear-gradient(90deg, var(--hair) 1px, transparent 1px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a0a0a; --text: #f2f2f2; --muted: #a3a3a3;
+    --line: #f2f2f2; --hair: #2e2e2e;
+    --inv-bg: #f2f2f2; --inv-text: #0a0a0a;
+    --danger: #ff6b60; --warn: #f0a640;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0a0a0a; --text: #f2f2f2; --muted: #a3a3a3;
+  --line: #f2f2f2; --hair: #2e2e2e;
+  --inv-bg: #f2f2f2; --inv-text: #0a0a0a;
+  --danger: #ff6b60; --warn: #f0a640;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 56px; }
+body {
+  margin: 0; font-family: var(--font-sans); font-size: 15px; line-height: 1.6;
+  background: var(--bg); color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+.label {
+  margin: 0; font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+}
+h1 { margin: 0; font-size: clamp(36px, 6vw, 72px); font-weight: 700; line-height: .95; letter-spacing: -.04em; text-transform: uppercase; }
+h2 { margin: 0; font-size: clamp(24px, 3vw, 34px); font-weight: 700; line-height: 1.2; letter-spacing: -.03em; }
+h3 { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -.02em; }
+.lead { margin: 0; max-width: 820px; font-size: 17px; line-height: 1.7; padding-left: 16px; border-left: 3px solid var(--line); }
+.desc { margin: 0; max-width: 760px; font-size: 15px; line-height: 1.65; color: var(--muted); }
+.desc strong { color: var(--text); font-weight: 600; }
+.note { margin: 0; font: 12px/1.55 var(--font-mono); color: var(--muted); padding-left: 10px; border-left: 2px solid var(--line); }
+.small { font-size: 13px; line-height: 1.5; }
+.muted { color: var(--muted); }
+
+/* Layout */
+.band { border-bottom: 1px solid var(--line); }
+.wrap { max-width: 1240px; margin: 0 auto; border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+
+.topbar { position: sticky; top: 0; z-index: 10; background: var(--bg); }
+.topbar .wrap {
+  height: 48px; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  font: 12px var(--font-mono); text-transform: uppercase; letter-spacing: .06em;
+}
+.topbar nav { display: flex; overflow-x: auto; }
+.topbar nav a { text-decoration: none; padding: 6px 10px; border: 1px solid var(--line); white-space: nowrap; }
+.topbar nav a + a { border-left: 0; }
+.topbar nav a:hover { background: var(--inv-bg); color: var(--inv-text); }
+.topbar nav a:focus-visible { outline: 2px solid var(--line); outline-offset: 2px; }
+
+.hero-main { padding: 48px 24px 32px; display: grid; gap: 20px; }
+
+.section-head { padding: 32px 24px 24px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); }
+.sec-no { font: 600 12px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; }
+.sub-head { padding: 20px 24px 16px; display: grid; gap: 6px; border-bottom: 1px solid var(--line); }
+
+/* Cell grid: 1px gap on a line-colored ground draws the shared borders */
+.cells { display: grid; gap: 1px; background: var(--line); }
+.cells > * { background: var(--bg); padding: 20px 20px 22px; display: grid; gap: 10px; align-content: start; }
+.c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cells .kpi { font: 600 22px var(--font-mono); line-height: 1.2; }
+.cells .big { font-size: 20px; font-weight: 700; letter-spacing: -.02em; line-height: 1.25; }
+.role-head { display: flex; align-items: baseline; gap: 10px; }
+.role-head .n { font: 11px var(--font-mono); color: var(--muted); }
+.kv { display: grid; grid-template-columns: 76px 1fr; gap: 4px 10px; font-size: 13px; line-height: 1.5; padding-top: 10px; border-top: 1px solid var(--hair); }
+.kv dt { font: 10px/1.9 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.kv dd { margin: 0; }
+
+.inverse { background: var(--inv-bg) !important; color: var(--inv-text); }
+.inverse .label { color: inherit; opacity: .7; }
+.hatch { background-color: var(--bg) !important; background-image: var(--pattern-hatch); }
+
+.dash { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.dash li { position: relative; padding-left: 16px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.dash li strong { color: var(--text); font-weight: 600; }
+.dash li::before { content: '—'; position: absolute; left: 0; color: var(--text); }
+.inverse .dash li, .inverse .dash li strong, .inverse .dash li::before { color: inherit; }
+
+/* Flow */
+.flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; background: var(--line); border-top: 1px solid var(--line); }
+.flow > div { background: var(--bg); padding: 14px 16px 16px 22px; position: relative; display: grid; gap: 4px; align-content: start; }
+.flow > div:not(:last-child)::after {
+  content: '→'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); z-index: 1;
+  font: 12px var(--font-mono); background: var(--bg); padding: 2px 0;
+}
+.flow .step { font-size: 14.5px; font-weight: 700; line-height: 1.3; }
+.flow .d { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+.flow .current { background: var(--inv-bg); color: var(--inv-text); }
+.flow .current .label, .flow .current .d { color: inherit; opacity: .8; }
+
+/* Components */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 7px 12px; min-height: 34px; border: 1px solid var(--line); border-radius: 0;
+  background: transparent; color: var(--text); text-decoration: none;
+  font: 600 12px/1.2 var(--font-mono); text-transform: uppercase; letter-spacing: .04em; cursor: pointer;
+}
+.btn:hover { background: var(--inv-bg); color: var(--inv-text); }
+.btn:focus-visible { outline: 2px solid var(--line); outline-offset: 2px; }
+.btn-primary { background: var(--inv-bg); color: var(--inv-text); }
+.btn-primary:hover { background: var(--bg); color: var(--text); }
+.btn-danger { border-color: var(--danger); color: var(--danger); }
+.btn-danger:hover { background: var(--danger); color: #fff; }
+.btn.sm { min-height: 28px; padding: 4px 8px; font-size: 11px; }
+
+.tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font: 500 11px/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: .04em;
+  padding: 3px 7px; border: 1px solid var(--line); border-radius: 2px; white-space: nowrap;
+}
+.tag.solid { background: var(--inv-bg); color: var(--inv-text); }
+.tag.soft { border-color: var(--hair); color: var(--muted); }
+.tag.plan { border-style: dashed; font-size: 10px; padding: 1px 5px; }
+.tag.tbd { border-style: dashed; border-color: var(--warn); color: var(--warn); font-size: 10px; padding: 1px 5px; white-space: normal; }
+.tbd-cell { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chip { font: 500 11px/1.4 var(--font-sans); padding: 5px 9px; border: 1px solid var(--line); border-radius: 2px; background: var(--bg); color: var(--text); white-space: nowrap; }
+
+.status {
+  display: inline-block; font: 10px/1.5 var(--font-mono); text-transform: uppercase; letter-spacing: .04em;
+  border: 1px solid var(--line); border-radius: 2px; padding: 1px 6px; white-space: nowrap;
+}
+.status.done { background: var(--inv-bg); color: var(--inv-text); }
+.status.todo { border-color: var(--hair); color: var(--muted); }
+.status.plan { border-style: dashed; }
+.status.error { border-color: var(--danger); color: var(--danger); }
+
+.pin {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  min-width: 22px; height: 18px; padding: 0 4px; border-radius: 2px;
+  font: 600 10px var(--font-mono); background: var(--inv-bg); color: var(--inv-text);
+}
+
+.panel { border: 1px solid var(--line); background: var(--bg); }
+.panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+.panel-head .meta { font: 11px var(--font-mono); border: 1px solid var(--line); border-radius: 2px; padding: 1px 6px; white-space: nowrap; }
+.panel-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 9px 12px; border-top: 1px solid var(--line); font: 11px var(--font-mono); color: var(--muted); }
+
+.table-scroll { overflow-x: auto; }
+.table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13.5px; }
+.table th { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); font: 500 10px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); white-space: nowrap; vertical-align: bottom; }
+.table td { padding: 10px 12px; border-bottom: 1px solid var(--hair); vertical-align: top; line-height: 1.5; }
+.table tr:last-child td { border-bottom: 0; }
+.table .code { font: 12px var(--font-mono); white-space: nowrap; }
+.table .group td { padding: 6px 12px; background: var(--hair); font: 10px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.table .c { text-align: center; white-space: nowrap; }
+.table .yes { font: 600 13px var(--font-mono); }
+.table .no { color: var(--hair); }
+.table .txt { font: 10px var(--font-mono); text-transform: uppercase; letter-spacing: .04em; }
+.matrix th.c { text-align: center; }
+.q { font-weight: 600; }
+.q::before { content: '“'; } .q::after { content: '”'; }
+
+.field { display: grid; gap: 6px; }
+.field > .label { color: var(--text); }
+.input, .select, .textarea {
+  width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 0;
+  background: var(--bg); color: var(--text); font: 14px var(--font-sans);
+}
+.input::placeholder, .textarea::placeholder { color: var(--muted); }
+.input:focus, .select:focus, .textarea:focus { outline: 2px solid var(--line); outline-offset: -1px; }
+.textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+.select.sm { width: auto; padding: 4px 8px; font-size: 12px; }
+.input.sm { padding: 6px 8px; font-size: 12px; }
+
+.alert { border: 1px solid var(--line); border-left: 3px solid var(--warn); padding: 10px 14px; display: grid; gap: 4px; font-size: 13.5px; }
+.alert .label { color: var(--warn); }
+.boxed { border: 1px solid var(--line); border-left: 3px solid var(--line); padding: 12px 14px; display: grid; gap: 4px; font-size: 13.5px; line-height: 1.6; }
+
+/* Chat demo: scenario list + auto-playing phone */
+.demo { display: grid; grid-template-columns: 300px minmax(0, 1fr); }
+.cases { border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+.case {
+  all: unset; cursor: pointer; box-sizing: border-box;
+  display: grid; grid-template-columns: 30px 1fr; gap: 2px 8px;
+  padding: 13px 16px; border-bottom: 1px solid var(--hair);
+}
+.case .n { font: 11px var(--font-mono); color: var(--muted); padding-top: 3px; }
+.case .t { font-size: 14px; font-weight: 600; line-height: 1.35; }
+.case .s { grid-column: 2; font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.case:hover { background: var(--hair); }
+.case:focus-visible { outline: 2px solid var(--line); outline-offset: -2px; }
+.case[aria-current="true"] { background: var(--inv-bg); color: var(--inv-text); }
+.case[aria-current="true"] .n, .case[aria-current="true"] .s { color: inherit; opacity: .8; }
+.demo-stage {
+  padding: 32px 28px; min-width: 0;
+  background-color: var(--bg); background-image: var(--pattern-grid); background-size: 24px 24px; background-position: -1px -1px;
+  display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 28px; align-items: start;
+}
+.phone { width: 100%; max-width: 360px; height: 680px; border: 2px solid var(--line); border-radius: 32px; background: var(--bg); padding: 12px; display: flex; flex-direction: column; }
+.ph-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 6px 12px; border-bottom: 1px solid var(--hair); }
+.ph-head strong { display: block; font-size: 15px; }
+.ph-chat { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 12px 4px; scrollbar-width: thin; }
+.ph-chat > * { flex: none; }
+.ph-chat .msg.bot, .ph-chat > .row, .ph-chat > .btn { align-self: flex-start; }
+.ph-chat .msg.me, .ph-chat > .photo { align-self: flex-end; }
+.ph-chat > .pcard, .ph-chat > .list { align-self: flex-start; width: 100%; max-width: 290px; }
+.list .pmini + .pmini { border-top: 0; margin-top: 0; }
+.opt { display: flex; gap: 10px; padding: 10px; border: 1px solid var(--line); background: var(--bg); }
+.opt + .opt { border-top: 0; }
+.oimg { width: 64px; height: 64px; flex: none; border: 1px solid var(--hair); background-color: var(--bg); background-image: var(--pattern-hatch); display: flex; align-items: center; justify-content: center; font: 9px var(--font-mono); color: var(--muted); text-transform: uppercase; }
+.obody { flex: 1; min-width: 0; display: grid; gap: 3px; }
+.obody .btn { justify-self: start; margin-top: 4px; }
+.opt.out .oimg, .opt.out .price { opacity: .5; }
+.pcard.out .pimg, .pcard.out .price { opacity: .5; }
+.typing { align-self: flex-start; display: inline-flex; gap: 4px; padding: 11px 12px; border: 1px solid var(--hair); }
+.typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: blink 1s infinite; }
+.typing span:nth-child(2) { animation-delay: .15s; }
+.typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+.pop { animation: pop .25s ease-out; }
+@keyframes pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.chip.picked { background: var(--inv-bg); color: var(--inv-text); }
+.ph-input { display: flex; gap: 6px; align-items: center; padding-top: 10px; border-top: 1px solid var(--hair); }
+.fake-input { flex: 1; min-width: 0; height: 40px; border: 1px solid var(--line); padding: 0 12px; font-size: 13px; display: flex; align-items: center; overflow: hidden; white-space: nowrap; }
+.fake-input .ph { color: var(--muted); }
+.caret { flex: none; width: 1px; height: 16px; background: var(--text); margin-left: 1px; animation: caret 1s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+.send { flex: none; width: 40px; height: 40px; background: var(--inv-bg); color: var(--inv-text); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); }
+.demo-side { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.cap-body { padding: 14px 16px 16px; display: grid; gap: 10px; }
+.play {
+  all: unset; cursor: pointer; white-space: nowrap;
+  font: 600 11px var(--font-mono); text-transform: uppercase; letter-spacing: .04em;
+  border: 1px solid var(--line); padding: 3px 7px;
+}
+.play:hover { background: var(--inv-bg); color: var(--inv-text); }
+.play:focus-visible { outline: 2px solid var(--line); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .pop, .typing span, .caret { animation: none; }
+}
+.msg { max-width: 88%; padding: 8px 11px; font-size: 13px; line-height: 1.45; border: 1px solid var(--hair); background: var(--bg); }
+.msg.bot { justify-self: start; }
+.msg.me { justify-self: end; background: var(--inv-bg); color: var(--inv-text); border-color: var(--line); }
+.who { font: 10px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+.pcard { border: 1px solid var(--line); background: var(--bg); }
+.pimg { height: 84px; background-color: var(--bg); background-image: var(--pattern-hatch); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font: 10px var(--font-mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.pbody { padding: 9px 10px 10px; display: grid; gap: 3px; }
+.pname { font-size: 13.5px; font-weight: 700; letter-spacing: -.01em; line-height: 1.3; }
+.meta { font: 10.5px/1.55 var(--font-mono); color: var(--muted); }
+.price { font-size: 14px; font-weight: 700; }
+.pact { display: grid; grid-template-columns: 1fr 1fr; margin-top: 6px; }
+.pact .btn { min-height: 30px; font-size: 10.5px; padding: 4px 6px; }
+.pact .btn + .btn { border-left: 0; }
+.pask { display: flex; width: 100%; border: 0; border-top: 1px solid var(--line); min-height: 36px; font-size: 11px; }
+.pmini { border: 1px solid var(--line); background: var(--bg); padding: 8px 10px; display: flex; gap: 10px; align-items: center; }
+.pmini + .pmini { border-top: 0; margin-top: -8px; }
+.thumb { width: 38px; height: 38px; background-color: var(--bg); background-image: var(--pattern-hatch); border: 1px solid var(--hair); flex: none; }
+.photo { justify-self: end; width: 150px; height: 110px; border: 1px solid var(--line); background-color: var(--bg); background-image: var(--pattern-hatch); display: flex; align-items: center; justify-content: center; font: 10px var(--font-mono); color: var(--muted); text-transform: uppercase; }
+
+/* Wireframe row: mockup on the left, short numbered list on the right */
+.split { display: grid; grid-template-columns: minmax(0, 1fr) 320px; }
+.stage {
+  padding: 28px 24px; min-width: 0;
+  background-color: var(--bg); background-image: var(--pattern-grid); background-size: 24px 24px; background-position: -1px -1px;
+}
+.points { border-left: 1px solid var(--line); display: flex; flex-direction: column; }
+.points ol { margin: 0; padding: 0; list-style: none; }
+.points li { display: grid; grid-template-columns: 30px 1fr; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--hair); }
+.points li .pin { margin-top: 2px; }
+.points .t { font-size: 14px; font-weight: 600; line-height: 1.4; }
+.points .d { font-size: 13px; color: var(--muted); line-height: 1.45; }
+
+.desk { width: 100%; border: 2px solid var(--line); background: var(--bg); }
+.desk-bar { min-height: 44px; display: flex; align-items: center; gap: 16px; padding: 6px 16px; border-bottom: 1px solid var(--line); font: 12px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; flex-wrap: wrap; }
+.desk-bar .push { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+.desk-body { display: grid; grid-template-columns: 190px minmax(0, 1fr); }
+.side { border-right: 1px solid var(--line); }
+.content { padding: 18px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; align-content: start; min-width: 0; }
+.content-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.nav-group-title {
+  margin: 0; padding: 10px 14px; border-bottom: 1px solid var(--line);
+  font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+  background: var(--pattern-hatch);
+}
+.nav-item {
+  all: unset; cursor: pointer; box-sizing: border-box; width: 100%;
+  display: grid; grid-template-columns: 24px 1fr; gap: 6px; align-items: center;
+  padding: 10px 14px; font-size: 13.5px; font-weight: 500;
+  border-bottom: 1px solid var(--hair);
+}
+.nav-item .n { font: 11px var(--font-mono); color: var(--muted); }
+.nav-item:hover { background: var(--hair); }
+.nav-item:focus-visible { outline: 2px solid var(--line); outline-offset: -2px; }
+.nav-item[aria-current="page"] { background: var(--inv-bg); color: var(--inv-text); }
+.nav-item[aria-current="page"] .n { color: inherit; }
+.tabs { display: inline-flex; }
+.tabs .btn + .btn { border-left: 0; }
+.tabs .btn[aria-pressed="true"] { background: var(--inv-bg); color: var(--inv-text); }
+.req { padding: 12px 14px; border-bottom: 1px solid var(--hair); display: grid; gap: 3px; }
+.req[aria-current="true"] { background: var(--hair); }
+.req .top { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.req strong { font-size: 13.5px; }
+.chatlog { display: grid; gap: 8px; padding: 14px 16px; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.steps > div { background: var(--bg); padding: 8px 12px; font: 11px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.steps > .on { background: var(--inv-bg); color: var(--inv-text); }
+
+.pad { padding: 24px; }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+#copyStatus { font: 12px var(--font-mono); color: var(--muted); }
+
+@media (max-width: 1080px) {
+  .demo-stage { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+  .demo-side { width: 100%; max-width: 560px; }
+  .split { grid-template-columns: 1fr; }
+  .points { border-left: 0; border-top: 1px solid var(--line); }
+}
+@media (max-width: 860px) {
+  .topbar .wrap { height: 40px; font-size: 11px; }
+  .topbar .hide-sm { display: none; }
+  .hero-main { padding: 32px 16px 24px; }
+  .c2, .c3 { grid-template-columns: 1fr; }
+  .c4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .flow { grid-template-columns: 1fr; }
+  .flow > div::after { display: none; }
+  .section-head, .sub-head, .pad { padding-left: 16px; padding-right: 16px; }
+  .stage { padding: 20px 12px; }
+  .desk-body { grid-template-columns: minmax(0, 1fr); }
+  .demo { grid-template-columns: minmax(0, 1fr); }
+  .table.stack { min-width: 0; }
+  .table.stack thead { display: none; }
+  .table.stack tr { display: grid; gap: 4px; padding: 12px 14px; border-bottom: 1px solid var(--hair); }
+  .table.stack tr:last-child { border-bottom: 0; }
+  .table.stack td { padding: 0; border: 0; }
+  .table.stack tr.group { padding: 0; border-bottom: 0; }
+  .table.stack tr.group td { padding: 6px 14px; }
+  .table.stack td.code, .table.stack td:last-child { justify-self: start; }
+  .cases { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+  .case { flex: none; width: 200px; border-bottom: 0; border-right: 1px solid var(--hair); }
+  .demo-stage { padding: 20px 12px; }
+  .phone { height: 600px; }
+  .side { border-right: 0; border-bottom: 1px solid var(--line); display: flex; overflow-x: auto; }
+  .side .nav-group-title { display: none; }
+  .side .nav-item { width: auto; flex: none; grid-template-columns: auto auto; border-bottom: 0; border-right: 1px solid var(--hair); }
+  .side .req { flex: none; width: 210px; border-bottom: 0; border-right: 1px solid var(--hair); }
+  .content { padding: 14px; }
+}
+@media (max-width: 560px) {
+  .c4 { grid-template-columns: 1fr; }
+}
+@media print {
+  .topbar, .no-print { display: none !important; }
+  .stage, .demo-stage { background-image: none; }
+  .page-break { break-before: page; }
+}
+
+.flow.f4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.feat { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; padding-top: 10px; border-top: 1px solid var(--hair); }
+.feat li { position: relative; padding-left: 16px; font-size: 14px; line-height: 1.5; }
+.feat li::before { content: '—'; position: absolute; left: 0; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 20px 24px; }
+@media (max-width: 860px) {
+  .flow.f4 { grid-template-columns: 1fr; }
+  .cta { padding: 16px; }
+}
+
+@media (max-width: 1080px) {
+  .demo-side { order: -1; }
+}
+@media (max-width: 860px) {
+  .phone { height: 540px; }
+}
+</style>
+</head>
+<body>
+
+<header class="band topbar">
+  <div class="wrap">
+    <span class="hide-sm">CM motorfas / Chatbot AI</span>
+    <nav aria-label="Mục lục">
+      <a href="Tong-quan-Chatbot-CM-motorfas.html">← Tổng quan</a>
+      <a href="#giao-dien">Demo chat</a>
+    </nav>
+  </div>
+</header>
+
+<!-- 03 GIAO DIỆN CHAT -->
+<section class="band" id="giao-dien">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="sec-no">Demo chat</p>
+      <h2>Xem chatbot trả lời thử</h2>
+      <p class="desc"><strong>10 tình huống</strong> thường gặp. Bấm vào từng tình huống để xem chatbot trả lời như một đoạn video ngắn. Nội dung và giá chỉ là ví dụ, giao diện thật sẽ theo thương hiệu CM motorfas.</p>
+      <p class="note">Đây là bản wireframe để trao đổi, bàn bạc về cách chatbot hoạt động. Giao diện (UI) chính thức với màu sắc, logo, phong cách thương hiệu CM motorfas sẽ được thiết kế riêng ở bước sau.</p>
+    </div>
+    <div class="demo">
+      <div class="cases" id="caseList" aria-label="Các tình huống"></div>
+      <div class="demo-stage">
+        <div class="phone" aria-label="Demo khung chat">
+          <div class="ph-head">
+            <div><strong>CM motorfas</strong><span class="label">Trợ lý phụ tùng</span></div>
+            <span class="tag" id="acct">Khách thường</span>
+          </div>
+          <div class="ph-chat" id="chat" aria-live="polite"></div>
+          <div class="ph-input" aria-hidden="true">
+            <div class="fake-input"><span id="typed"></span><span class="caret"></span></div>
+            <span class="send">→</span>
+          </div>
+        </div>
+        <div class="demo-side">
+          <div class="panel">
+            <div class="panel-head"><span class="label" id="capNo">Tình huống 01</span><span class="meta" id="capTag"></span></div>
+            <div class="cap-body">
+              <h3 id="capTitle"></h3>
+              <p class="desc small" id="capText"></p>
+            </div>
+            <div class="panel-foot">
+              <span>Bấm để xem từng tình huống</span>
+              <span class="row">
+                <button class="btn sm" type="button" id="prevBtn">← Trước</button>
+                <button class="btn sm" type="button" id="replayBtn">Chạy lại</button>
+                <button class="btn sm" type="button" id="nextBtn">Sau →</button>
+              </span>
+            </div>
+          </div>
+                    <p class="note">Chatbot chỉ lấy thông tin có trong dữ liệu CM motorfas, không tự đoán.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="band">
+  <div class="wrap" style="padding: 16px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+    <span class="label">CM motorfas · Chatbot AI tra cứu phụ tùng</span>
+    <span class="label">Demo chat v1 · 30.10.2026</span>
+  </div>
+</footer>
+
+<script>
+/* ---------- Chat demo ---------- */
+const card = (o) => `<div class="pcard${o.out ? ' out' : ''}">
+  ${o.noImg ? '' : '<div class="pimg">Ảnh sản phẩm</div>'}
+  <div class="pbody">
+    <span class="pname">${o.name}</span>
+    <span class="meta">${o.meta}</span>
+    <span class="meta">${o.codes}</span>
+    ${o.fit ? `<span class="small">${o.fit}</span>` : ''}
+    ${o.extra || ''}
+    <div class="row" style="justify-content: space-between"><span class="price">${o.price}</span>${o.out ? '<span class="status todo">Tạm hết hàng</span>' : '<span class="status done">Còn hàng</span>'}</div>
+  </div>
+  <span class="btn pask">Hỏi nhân viên về món này</span>
+</div>`;
+const opt = (name, meta, price, inStock) => `<div class="opt${inStock ? '' : ' out'}"><span class="oimg">Ảnh</span><div class="obody"><strong class="small">${name}</strong><span class="meta">${meta}</span><div class="row" style="justify-content: space-between"><span class="price">${price}</span><span class="status ${inStock ? 'done' : 'todo'}">${inStock ? 'Còn hàng' : 'Tạm hết hàng'}</span></div>${inStock ? '' : '<span class="btn sm">Đặt hàng qua nhân viên</span>'}</div></div>`;
+const mini = (name, price, inStock) => `<div class="pmini"><span class="thumb"></span><div style="flex: 1; display: grid"><strong class="small">${name}</strong><span class="meta">${price}</span></div><span class="status ${inStock ? 'done' : 'todo'}">${inStock ? 'Còn' : 'Hết'}</span></div>`;
+
+const ALL_CASES = [
+  { tag: 'Còn hàng', title: 'Tìm theo mã, sản phẩm còn hàng', sub: 'Khách gõ mã hàng',
+    text: 'Khách gõ mã hàng. Chatbot trả đúng thẻ sản phẩm: ảnh, mã hãng, mã CM, xe lắp được (đã xác minh), giá lẻ và trạng thái Còn hàng.',
+    steps: [
+      ['me', 'PH-AB-01'],
+      ['bot', 'Dạ đây là sản phẩm mã <strong>PH-AB-01</strong> ạ:'],
+      ['raw', card({ name: 'Phuộc sau Air Blade (cặp)', meta: 'Honda · Chính hãng · Cặp · Đen', codes: 'Mã hãng 52400-XXX · Mã CM PH-AB-01', fit: 'Lắp: Air Blade 2020–2023 ✓ đã xác minh', price: '000.000đ' })]
+    ] },
+  { tag: 'Hết hàng', title: 'Sản phẩm đang hết hàng', sub: 'Gõ không dấu, món đã hết',
+    text: 'Khách gõ không dấu, sai chính tả ("vison"). Chatbot vẫn hiểu là lọc gió Vision. Tồn kho lấy từ dữ liệu CM: hết hàng thì báo rõ và mời gặp nhân viên, không tự gợi ý hàng thay thế.',
+    steps: [
+      ['me', 'loc gio vison con khong shop'],
+      ['bot', 'Dạ lọc gió Vision hiện <strong>đang hết hàng</strong> ạ:'],
+      ['raw', card({ out: true, name: 'Lọc gió Vision', meta: 'Honda · Chính hãng · Cái', codes: 'Mã hãng 17210-XXX · Mã CM LG-VS-03', fit: 'Lắp: Vision 2021 trở đi ✓', price: '000.000đ' })],
+      ['bot', 'Anh/chị muốn em nhờ nhân viên kiểm tra ngày có hàng không ạ?'],
+      ['chips', ['Có, gặp nhân viên', 'Tìm món khác']]
+    ] },
+  { tag: 'Nhiều lựa chọn', title: 'Viết tắt, có nhiều lựa chọn', sub: 'phuột = phuộc, AB = Air Blade',
+    text: 'Khách gõ tắt và sai chính tả. Chatbot hiểu "phuột" là phuộc, "AB" là Air Blade, đưa lựa chọn trước. Khách bấm nút để lọc, không phải gõ thêm.',
+    steps: [
+      ['me', 'phuột sau AB 2020'],
+      ['bot', 'Phuộc sau cho Air Blade 2020 có 3 lựa chọn ạ:'],
+      ['raw', `<div class="list">${opt('Phuộc sau chính hãng Honda', 'Honda · Cặp · Mã CM PH-AB-01', '000.000đ', true)}${opt('Phuộc sau hàng OEM', 'OEM · Cặp · Mã CM PH-AB-02', '000.000đ', true)}${opt('Phuộc sau hàng độ', 'Độ · Cặp · Mã CM PH-AB-03', '000.000đ', false)}</div>`],
+      ['chips', ['Chỉ hàng chính hãng', 'Lọc theo giá']],
+      ['pick', 'Chỉ hàng chính hãng'],
+      ['bot', 'Dạ hàng chính hãng có 1 món ạ:'],
+      ['raw', card({ name: 'Phuộc sau Air Blade (cặp)', meta: 'Honda · Chính hãng · Cặp · Đen', codes: 'Mã hãng 52400-XXX · Mã CM PH-AB-01', fit: 'Lắp: Air Blade 2020–2023 ✓', price: '000.000đ' })]
+    ] },
+  { tag: 'Tìm theo giá', title: 'Tìm ổ khóa rẻ cho xe', sub: 'Hỏi dòng xe, loại khóa, xếp theo giá',
+    text: 'Khách chỉ nói muốn tìm ổ khóa rẻ. Chatbot hỏi dòng xe, đời xe và loại khóa bằng nút bấm, rồi đưa các lựa chọn xếp từ rẻ đến đắt, có ảnh và tình trạng hàng. Món tạm hết hàng có nút đặt hàng qua nhân viên.',
+    steps: [
+      ['me', 'có ổ khóa xe loại rẻ không shop'],
+      ['bot', 'Dạ quý khách cho em xin <strong>dòng xe và đời xe</strong> (ví dụ Air Blade 2018, Vision 2021…) để em tìm đúng ổ khóa cho mình ạ.'],
+      ['chips', ['Air Blade 2018', 'Vision 2021', 'SH 2018', 'Xe khác']],
+      ['pick', 'SH 2018'],
+      ['bot', 'Mình cần <strong>ổ khóa điện (ổ khóa cổ)</strong> hay chỉ cần <strong>ổ khóa yên/xăng</strong> ạ?'],
+      ['chips', ['Ổ khóa điện (ổ khóa cổ)', 'Ổ khóa yên/xăng']],
+      ['pick', 'Ổ khóa điện (ổ khóa cổ)'],
+      ['bot', 'Ổ khóa điện cho SH 2018 có 3 lựa chọn, em xếp từ rẻ đến đắt ạ:'],
+      ['raw', `<div class="list">${opt('Bộ khóa Smartkey hàng OEM', 'OEM · Bộ · Lắp: SH 2017–2019 ✓', '000.000đ', true)}${opt('Bộ khóa Smartkey không remote', 'Honda chính hãng · Bộ · Lắp: SH 2017–2019 ✓', '000.000đ', true)}${opt('Bộ khóa Smartkey kèm remote', 'Honda chính hãng · Bộ · Lắp: SH 2017–2019 ✓', '000.000đ', false)}</div>`],
+      ['bot', 'Mẫu tạm hết hàng em có thể nhờ nhân viên đặt hàng giúp mình ạ.']
+    ] },
+  { tag: 'Hỏi lại', title: 'Thiếu thông tin, bot hỏi lại', sub: 'Hỏi đời xe, trước hay sau',
+    text: 'Câu hỏi thiếu thông tin quan trọng. Chatbot hỏi lại bằng nút bấm (đời xe, phanh trước hay sau) để chọn đúng món, khách không phải gõ.',
+    steps: [
+      ['me', 'má phanh vision'],
+      ['bot', 'Vision đời nào ạ? Mỗi đời má phanh khác nhau.'],
+      ['chips', ['2011–2013', '2014–2020', '2021 trở đi']],
+      ['pick', '2021 trở đi'],
+      ['bot', 'Anh/chị cần phanh trước hay sau ạ?'],
+      ['chips', ['Trước', 'Sau', 'Cả hai']],
+      ['pick', 'Sau'],
+      ['raw', card({ name: 'Má phanh sau Vision', meta: 'Honda · Chính hãng · Bộ', codes: 'Mã hãng 43130-XXX · Mã CM MP-VS-05', fit: 'Lắp: Vision 2021 trở đi ✓', price: '000.000đ' })]
+    ] },
+  { tag: 'Chưa chắc', title: 'Chưa xác minh lắp vừa', sub: 'Bot không đoán, chuyển nhân viên',
+    text: 'Dữ liệu chưa xác minh món này lắp được xe khách hỏi. Chatbot nói rõ là chưa có dữ liệu, cho biết xe đã xác minh, và mời gặp nhân viên. Không đoán.',
+    steps: [
+      ['me', 'phuộc PH-AB-01 lắp được winner x không'],
+      ['bot', 'Dạ em <strong>chưa có dữ liệu xác minh</strong> món này lắp được Winner X.<br>Theo dữ liệu, món này lắp được: Air Blade 2020–2023.'],
+      ['bot', 'Em chuyển anh/chị cho nhân viên kiểm tra giúp nhé?'],
+      ['chips', ['Gặp nhân viên', 'Không cần']]
+    ] },
+  { tag: 'Cần làm rõ · Câu 3', title: 'Khách gửi ảnh phụ tùng', sub: 'Bot gợi ý, không khẳng định · cần làm rõ',
+    text: 'Khách chụp ảnh gửi lên. Chatbot gợi ý món có thể đúng nhưng nói rõ là chưa chắc, rồi hỏi thêm mã trên tem hoặc dòng xe để tìm chính xác. Tính năng này cần làm rõ ở câu 3: có cho khách gửi ảnh hay chỉ hỏi bằng chữ (câu hỏi có ảnh tốn chi phí AI cao hơn).',
+    steps: [
+      ['photo'],
+      ['me', 'cái này là gì shop'],
+      ['bot', 'Ảnh này <strong>có thể là</strong> lọc gió xe tay ga, nhưng em chưa chắc ạ. Anh/chị cho em biết thêm:'],
+      ['chips', ['Nhập mã trên tem', 'Chọn dòng xe', 'Gặp nhân viên']],
+      ['pick', 'Chọn dòng xe'],
+      ['bot', 'Xe của anh/chị là xe gì ạ?'],
+      ['chips', ['Vision', 'Air Blade', 'Lead']],
+      ['pick', 'Lead'],
+      ['raw', card({ name: 'Lọc gió Lead 125', meta: 'Honda · Chính hãng · Cái', codes: 'Mã hãng 17210-XXX · Mã CM LG-LD-02', fit: 'Lắp: Lead 125 2018–2022 ✓', price: '000.000đ' })]
+    ] },
+  { tag: 'Khách sỉ', acct: 'Đại lý · Nhóm B', title: 'Khách sỉ xem giá đại lý', sub: 'Đã đăng nhập, đã được duyệt',
+    text: 'Đại lý đã đăng nhập tài khoản được CM duyệt. Máy chủ nhận ra Nhóm B và gắn giá đại lý, kèm giá theo số lượng. Khách không phải nhập gì thêm.',
+    steps: [
+      ['me', 'phuộc sau AB 2020, lấy 10 cặp'],
+      ['bot', 'Dạ giá đại lý cho 10 cặp ạ:'],
+      ['raw', card({ name: 'Phuộc sau Air Blade (cặp)', meta: 'Honda · Chính hãng · Cặp', codes: 'Mã CM PH-AB-01', extra: '<div class="row"><span class="tag solid">Giá đại lý</span></div><span class="small">Từ 10 cặp: <strong>000.000đ</strong> · Từ 50 cặp: <strong>000.000đ</strong></span><span class="meta">Giá lẻ tham khảo 000.000đ</span>', price: '000.000đ / cặp' })]
+    ] },
+  { tag: 'Bảo mật', title: 'Tự nhận là đại lý', sub: 'Chưa đăng nhập, không thấy giá sỉ',
+    text: 'Khách chưa đăng nhập gõ "tôi là đại lý". Chatbot không hiện giá sỉ vì giá do máy chủ chọn theo tài khoản, không theo lời khách nói. Bot mời đăng nhập hoặc đăng ký.',
+    steps: [
+      ['me', 'tôi là đại lý, cho giá sỉ phuộc AB'],
+      ['bot', 'Dạ giá sỉ chỉ hiện khi anh/chị <strong>đăng nhập tài khoản đại lý</strong> đã được CM motorfas duyệt ạ.'],
+      ['chips', ['Đăng nhập', 'Đăng ký đại lý']],
+      ['bot', 'Hiện em gửi anh/chị giá lẻ để tham khảo:'],
+      ['raw', card({ name: 'Phuộc sau Air Blade (cặp)', meta: 'Honda · Chính hãng · Cặp', codes: 'Mã CM PH-AB-01', price: 'Giá lẻ 000.000đ' })]
+    ] },
+  { tag: 'Chuyển NV', title: 'Khách muốn mua', sub: 'Chuyển nhân viên kèm tóm tắt',
+    text: 'Chatbot không nhận đơn. Khách muốn mua thì bot xin tên và số điện thoại, chuyển cho nhân viên kèm tóm tắt món, xe, số lượng. Khách không phải kể lại.',
+    steps: [
+      ['me', 'phuộc sau AB 2020 chính hãng'],
+      ['bot', 'Dạ đây ạ:'],
+      ['raw', card({ name: 'Phuộc sau Air Blade (cặp)', meta: 'Honda · Chính hãng · Cặp', codes: 'Mã CM PH-AB-01', price: '000.000đ' })],
+      ['me', 'ok lấy 1 cặp, có ship về Cần Thơ không'],
+      ['bot', 'Dạ em chuyển anh/chị cho nhân viên để chốt đơn và tư vấn giao hàng. Anh/chị để lại tên và số điện thoại giúp em ạ.'],
+      ['me', 'Minh 0909 xxx xxx'],
+      ['raw', '<div class="boxed" style="align-self: stretch"><span class="label">Đã chuyển cho nhân viên</span><span class="small">Phuộc sau Air Blade 2020 · Chính hãng · 1 cặp<br>Hỏi giao hàng về Cần Thơ<br>Anh Minh · 0909 xxx xxx</span></div>'],
+      ['bot', 'Nhân viên sẽ gọi lại anh/chị trong giờ làm việc ạ.']
+    ] }
+];
+const CASES = ALL_CASES;
+
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const chat = document.getElementById('chat');
+const typed = document.getElementById('typed');
+const list = document.getElementById('caseList');
+let token = 0, cur = 0, auto = false;
+
+list.innerHTML = CASES.map((c, i) =>
+  `<button class="case" type="button" data-i="${i}"><span class="n">${String(i + 1).padStart(2, '0')}</span><span class="t">${c.title}</span><span class="s">${c.sub}</span></button>`
+).join('');
+
+function add(html) {
+  chat.insertAdjacentHTML('beforeend', html);
+  const el = chat.lastElementChild;
+  if (!reduce) el.classList.add('pop');
+  chat.scrollTop = chat.scrollHeight;
+  return el;
+}
+function setPlaceholder() { typed.innerHTML = '<span class="ph">Nhập mã, tên phụ tùng, dòng xe…</span>'; }
+
+async function play(i) {
+  const my = ++token;
+  cur = (i + CASES.length) % CASES.length;
+  const c = CASES[cur];
+  const sleep = (ms) => new Promise((res, rej) => setTimeout(() => (my === token ? res() : rej('stop')), reduce ? 0 : ms));
+  list.querySelectorAll('.case').forEach((b, k) => b.setAttribute('aria-current', String(k === cur)));
+  document.getElementById('capNo').textContent = 'Tình huống ' + String(cur + 1).padStart(2, '0');
+  document.getElementById('capTag').textContent = c.tag;
+  document.getElementById('capTitle').textContent = c.title;
+  document.getElementById('capText').textContent = c.text;
+  const acct = document.getElementById('acct');
+  acct.textContent = c.acct || 'Khách thường';
+  acct.classList.toggle('solid', !!c.acct);
+  chat.innerHTML = '';
+  setPlaceholder();
+  try {
+    add('<div class="msg bot">Chào anh/chị, em có thể tìm phụ tùng theo mã, tên hoặc dòng xe ạ.</div>');
+    await sleep(700);
+    for (const [type, v] of c.steps) {
+      if (type === 'me') {
+        typed.textContent = '';
+        for (const ch of v) { typed.textContent += ch; await sleep(55); }
+        await sleep(350);
+        setPlaceholder();
+        add(`<div class="msg me">${v}</div>`);
+        await sleep(450);
+      } else if (type === 'bot') {
+        const t = add('<div class="typing" aria-hidden="true"><span></span><span></span><span></span></div>');
+        await sleep(950);
+        t.remove();
+        add(`<div class="msg bot">${v}</div>`);
+        await sleep(500);
+      } else if (type === 'raw') {
+        await sleep(250);
+        add(v);
+        await sleep(900);
+      } else if (type === 'chips') {
+        add(`<div class="row">${v.map((x) => `<span class="chip">${x}</span>`).join('')}</div>`);
+        await sleep(700);
+      } else if (type === 'pick') {
+        await sleep(500);
+        const chips = [...chat.querySelectorAll('.chip')].filter((x) => x.textContent === v);
+        if (chips.length) chips[chips.length - 1].classList.add('picked');
+        await sleep(500);
+        add(`<div class="msg me">${v}</div>`);
+        await sleep(450);
+      } else if (type === 'photo') {
+        add('<div class="photo">Ảnh khách chụp</div>');
+        await sleep(700);
+      }
+    }
+    if (auto) { await sleep(3500); play(cur + 1); }
+  } catch (e) { /* replaced by a newer run */ }
+}
+
+list.addEventListener('click', (e) => { const b = e.target.closest('.case'); if (b) play(+b.dataset.i); });
+document.getElementById('prevBtn').addEventListener('click', () => play(cur - 1));
+document.getElementById('nextBtn').addEventListener('click', () => play(cur + 1));
+document.getElementById('replayBtn').addEventListener('click', () => play(cur));
+document.querySelectorAll('.play').forEach((b) => b.addEventListener('click', () => {
+  document.getElementById('giao-dien').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  play(+b.dataset.case - 1);
+}));
+
+// Idle until the viewer picks a scenario
+chat.innerHTML = '<div class="msg bot">Bấm vào một tình huống để xem chatbot trả lời ạ.</div>';
+setPlaceholder();
+document.getElementById('capNo').textContent = 'Chưa chọn tình huống';
+document.getElementById('capTag').textContent = CASES.length + ' tình huống';
+document.getElementById('capTitle').textContent = 'Chọn một tình huống để bắt đầu';
+document.getElementById('capText').textContent = 'Bấm vào tình huống trong danh sách, hoặc bấm "Sau →" để xem lần lượt. Mỗi tình huống chạy như một đoạn video ngắn, chạy xong sẽ dừng lại để anh/chị xem kỹ.';
+cur = -1;
+</script>
+</body>
+</html>
