@@ -401,8 +401,56 @@ h3 { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; letter-spac
   .sysnote strong { color: var(--text); font-size: 14px; }
   .section-head .note { display: none; }
 }
+
+/* Staff page: two placement options */
+.plan-tabs { flex-wrap: wrap; }
+.plan-tabs .btn { min-height: 40px; }
+.side .nav-item.muted { color: var(--muted); }
+.plan-info > div { transition: background-color .2s; }
+.plan-info .inverse .dash li strong { color: inherit; }
+#nhan-vien .req { border-bottom: 1px solid var(--hair); }
+#nhan-vien .req:last-child { border-bottom: 0; }
+@media (max-width: 860px) {
+  .plan-tabs { display: grid; grid-template-columns: 1fr; }
+  .plan-tabs .btn + .btn { border-left: 1px solid var(--line); border-top: 0; }
+  #nhan-vien .row .btn { flex: 1 1 auto; }
+  .side .nav-item.muted { display: none; }
+}
+
+/* Mobile v2: tap-friendly scenario cards, navigation inside the phone */
+.ph-nav, .endnav { display: none; }
+@media (max-width: 860px) {
+  .mbar { display: none !important; }
+  .cases {
+    display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px; background: var(--line); overflow: visible;
+    border-right: 0; border-bottom: 1px solid var(--line);
+  }
+  .cases-title { grid-column: 1 / -1; background: var(--bg); padding: 12px 16px 10px; }
+  .case {
+    width: auto; background: var(--bg); border: 0;
+    grid-template-columns: 1fr; gap: 4px; align-content: start;
+    padding: 12px 14px; min-height: 76px;
+  }
+  .case .n { padding: 0; }
+  .case .t { font-size: 14px; }
+  .case .s { display: none; }
+  .case[aria-current="true"] .n { opacity: .8; }
+  .phone { height: calc(100svh - 56px); min-height: 460px; }
+  .ph-nav {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 2px; border-bottom: 1px solid var(--hair);
+  }
+  .ph-nav .btn { min-width: 44px; min-height: 40px; padding: 0 10px; font-size: 16px; }
+  .ph-nav .ph-title { flex: 1; min-width: 0; text-align: center; font-size: 13.5px; font-weight: 700; line-height: 1.3; }
+  .ph-nav .ph-title small { display: block; font: 10px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 400; }
+  .ph-nav { flex-wrap: wrap; border: 1px dashed var(--muted); border-width: 0 0 1px; }
+  .ph-nav .demo-only { flex-basis: 100%; text-align: center; font: 10px/1.4 var(--font-mono); color: var(--muted); }
+  .endnav { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; align-self: stretch; margin-top: 6px; }
+  .endnav::after { content: 'Nút này chỉ có trong demo'; grid-column: 1 / -1; text-align: center; font: 10px var(--font-mono); color: var(--muted); }
+  .endnav .btn { min-height: 44px; font-size: 11px; }
+}
 </style>
-<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body>
 
@@ -436,6 +484,12 @@ h3 { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; letter-spac
             <div><strong>CM motorfas</strong><span class="label">Trợ lý phụ tùng</span></div>
             <span class="tag" id="acct">Khách thường</span>
           </div>
+          <div class="ph-nav">
+            <button class="btn" type="button" id="pPrev" aria-label="Tình huống trước">←</button>
+            <span class="ph-title" id="pTitle"><small>Demo</small>Chọn tình huống phía trên</span>
+            <button class="btn btn-primary" type="button" id="pNext" aria-label="Tình huống sau">→</button>
+            <span class="demo-only">Thanh chuyển tình huống chỉ để xem demo cho tiện, không có trong giao diện thật</span>
+          </div>
           <div class="ph-chat" id="chat" aria-live="polite"></div>
           <div class="ph-input" aria-hidden="true">
             <div class="fake-input"><span id="typed"></span><span class="caret"></span></div>
@@ -465,6 +519,70 @@ h3 { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; letter-spac
   </div>
 </section>
 
+<!-- TRANG NHÂN VIÊN -->
+<section class="band" id="nhan-vien">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="sec-no">Trang quản lý · Minh họa</p>
+      <h2>Nhân viên nhận khách ở đâu</h2>
+      <p class="desc">Khi khách bấm <strong>"Hỏi nhân viên"</strong> hoặc <strong>"Đặt trước"</strong>, nhân viên thấy ngay yêu cầu kèm tóm tắt: khách cần món gì, xe gì, số lượng, số điện thoại. Phần này đặt ở đâu tùy anh/chị chọn ở <strong>câu 6–7</strong> trong file câu hỏi. Bấm để xem 2 phương án:</p>
+      <div class="tabs plan-tabs" role="group" aria-label="Chọn phương án">
+        <button class="btn" type="button" data-plan="a" aria-pressed="true">A · Trang quản lý riêng</button>
+        <button class="btn" type="button" data-plan="b" aria-pressed="false">B · Gộp vào admin website</button>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="desk" aria-label="Minh họa trang nhân viên">
+        <div class="desk-bar"><span id="planBar"></span><div class="push"><span>● 2 mới</span></div></div>
+        <div class="desk-body">
+          <div class="side" id="planNav"></div>
+          <div class="content">
+            <div class="content-head"><h3>Khách cần hỗ trợ</h3><span class="tag">Hôm nay · 3</span></div>
+            <div class="panel">
+              <div class="req" aria-current="true">
+                <div class="top"><strong>Anh Minh · 0909 xxx xxx</strong><span class="status">Mới</span></div>
+                <span class="small">Muốn mua: Phuộc sau Air Blade 2020 · Chính hãng · 1 cặp</span>
+                <span class="meta">Hỏi giao hàng về Cần Thơ · 10:24</span>
+              </div>
+              <div class="req">
+                <div class="top"><strong>Chị Lan · 0912 xxx xxx</strong><span class="status plan">Đặt trước</span></div>
+                <span class="small">Bộ khóa Smartkey kèm remote · SH 2018 · báo khi có hàng</span>
+                <span class="meta">09:40</span>
+              </div>
+              <div class="req">
+                <div class="top"><strong>Cửa hàng ABC (đại lý)</strong><span class="status done">Đã gọi</span></div>
+                <span class="small">Nồi Exciter 150 · 10 bộ · giá đại lý Nhóm B</span>
+                <span class="meta">Hôm qua</span>
+              </div>
+            </div>
+            <div class="row"><span class="btn btn-primary">Nhận xử lý</span><span class="btn">Xem cuộc chat</span><span class="btn">Đánh dấu đã gọi</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cells c2 plan-info" style="border-top: 1px solid var(--line)">
+      <div data-info="a">
+        <p class="label">A · Trang quản lý riêng của chatbot</p>
+        <ul class="dash">
+          <li><strong>Dữ liệu sản phẩm riêng</strong> cho chatbot, cập nhật bằng file</li>
+          <li>Nhân viên đăng nhập <strong>một trang riêng</strong> để nhận khách</li>
+          <li>Làm nhanh, không ảnh hưởng website</li>
+          <li>Lưu ý: nếu website cũng bán sản phẩm thì phải cập nhật giá ở 2 nơi</li>
+        </ul>
+      </div>
+      <div data-info="b">
+        <p class="label">B · Gộp vào admin website</p>
+        <ul class="dash">
+          <li>Chatbot <strong>dùng dữ liệu sản phẩm của website</strong></li>
+          <li>Nhân viên nhận khách ngay trên <strong>trang admin quen thuộc</strong>, em thêm mục "Chatbot"</li>
+          <li>Chỉ cập nhật 1 nơi, giá trên web và chatbot luôn giống nhau</li>
+          <li>Lưu ý: cần team website cho phép em kết nối vào hệ thống</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer class="band">
   <div class="wrap" style="padding: 16px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap">
     <span class="label">CM motorfas · Chatbot AI tra cứu phụ tùng</span>
@@ -486,7 +604,7 @@ const card = (o) => `<div class="pcard${o.out ? ' out' : ''}">
   </div>
   <span class="btn pask">Hỏi nhân viên về món này</span>
 </div>`;
-const opt = (name, meta, price, inStock) => `<div class="opt${inStock ? '' : ' out'}"><span class="oimg">Ảnh</span><div class="obody"><strong class="small">${name}</strong><span class="meta">${meta}</span><div class="row" style="justify-content: space-between"><span class="price">${price}</span><span class="status ${inStock ? 'done' : 'todo'}">${inStock ? 'Còn hàng' : 'Tạm hết hàng'}</span></div>${inStock ? '' : '<span class="btn sm">Đặt hàng qua nhân viên</span>'}</div></div>`;
+const opt = (name, meta, price, inStock) => `<div class="opt${inStock ? '' : ' out'}"><span class="oimg">Ảnh</span><div class="obody"><strong class="small">${name}</strong><span class="meta">${meta}</span><div class="row" style="justify-content: space-between"><span class="price">${price}</span><span class="status ${inStock ? 'done' : 'todo'}">${inStock ? 'Còn hàng' : 'Hết hàng'}</span></div>${inStock ? '' : '<span class="btn sm">Đặt trước</span>'}</div></div>`;
 const mini = (name, price, inStock) => `<div class="pmini"><span class="thumb"></span><div style="flex: 1; display: grid"><strong class="small">${name}</strong><span class="meta">${price}</span></div><span class="status ${inStock ? 'done' : 'todo'}">${inStock ? 'Còn' : 'Hết'}</span></div>`;
 
 const ALL_CASES = [
@@ -507,7 +625,7 @@ const ALL_CASES = [
       ['chips', ['Có, gặp nhân viên', 'Tìm món khác']]
     ] },
   { tag: 'Nhiều lựa chọn', title: 'Viết tắt, có nhiều lựa chọn', sub: 'phuột = phuộc, AB = Air Blade',
-    text: 'Khách gõ tắt và sai chính tả. Chatbot hiểu "phu���t" là phuộc, "AB" là Air Blade, đưa lựa chọn trước. Khách bấm nút để lọc, không phải gõ thêm.',
+    text: 'Khách gõ tắt và sai chính tả. Chatbot hiểu "phuột" là phuộc, "AB" là Air Blade, đưa lựa chọn trước. Khách bấm nút để lọc, không phải gõ thêm.',
     steps: [
       ['me', 'phuột sau AB 2020'],
       ['bot', 'Phuộc sau cho Air Blade 2020 có 3 lựa chọn ạ:'],
@@ -518,7 +636,7 @@ const ALL_CASES = [
       ['raw', card({ name: 'Phuộc sau Air Blade (cặp)', meta: 'Honda · Chính hãng · Cặp · Đen', codes: 'Mã hãng 52400-XXX · Mã CM PH-AB-01', fit: 'Lắp: Air Blade 2020–2023 ✓', price: '000.000đ' })]
     ] },
   { tag: 'Tìm theo giá', title: 'Tìm ổ khóa rẻ cho xe', sub: 'Hỏi dòng xe, loại khóa, xếp theo giá',
-    text: 'Khách chỉ nói muốn tìm ổ khóa rẻ. Chatbot hỏi dòng xe, đời xe và loại khóa bằng nút bấm, rồi đưa các lựa chọn xếp từ rẻ đến đắt, có ảnh và tình trạng hàng. Món tạm hết hàng có nút đặt hàng qua nhân viên.',
+    text: 'Khách chỉ nói muốn tìm ổ khóa rẻ. Chatbot hỏi dòng xe, đời xe và loại khóa bằng nút bấm, rồi đưa các lựa chọn xếp từ rẻ đến đắt, có ảnh và tình trạng hàng. Mẫu đã hết hàng thì khách có thể đặt trước, nhân viên sẽ liên hệ báo khi có hàng.',
     steps: [
       ['me', 'có ổ khóa xe loại rẻ không shop'],
       ['bot', 'Dạ quý khách cho em xin <strong>dòng xe và đời xe</strong> (ví dụ Air Blade 2018, Vision 2021…) để em tìm đúng ổ khóa cho mình ạ.'],
@@ -529,7 +647,8 @@ const ALL_CASES = [
       ['pick', 'Ổ khóa điện (ổ khóa cổ)'],
       ['bot', 'Ổ khóa điện cho SH 2018 có 3 lựa chọn, em xếp từ rẻ đến đắt ạ:'],
       ['raw', `<div class="list">${opt('Bộ khóa Smartkey hàng OEM', 'OEM · Bộ · Lắp: SH 2017–2019 ✓', '000.000đ', true)}${opt('Bộ khóa Smartkey không remote', 'Honda chính hãng · Bộ · Lắp: SH 2017–2019 ✓', '000.000đ', true)}${opt('Bộ khóa Smartkey kèm remote', 'Honda chính hãng · Bộ · Lắp: SH 2017–2019 ✓', '000.000đ', false)}</div>`],
-      ['bot', 'Mẫu tạm hết hàng em có thể nhờ nhân viên đặt hàng giúp mình ạ.']
+      ['bot', 'Mẫu <strong>kèm remote hiện đã hết hàng</strong> ạ. Nếu mình cần mẫu này, mình có thể <strong>đặt trước</strong>, nhân viên sẽ liên hệ báo mình khi có hàng.'],
+      ['chips', ['Đặt trước mẫu kèm remote', 'Chọn mẫu còn hàng']]
     ] },
   { tag: 'Hỏi lại', title: 'Thiếu thông tin, bot hỏi lại', sub: 'Hỏi đời xe, trước hay sau',
     text: 'Câu hỏi thiếu thông tin quan trọng. Chatbot hỏi lại bằng nút bấm (đời xe, phanh trước hay sau) để chọn đúng món, khách không phải gõ.',
@@ -601,9 +720,10 @@ const typed = document.getElementById('typed');
 const list = document.getElementById('caseList');
 let token = 0, cur = 0, auto = false;
 
-list.innerHTML = CASES.map((c, i) =>
+list.innerHTML = '<p class="label cases-title" style="display: none">Chạm vào một tình huống để xem</p>' + CASES.map((c, i) =>
   `<button class="case" type="button" data-i="${i}"><span class="n">${String(i + 1).padStart(2, '0')}</span><span class="t">${c.title}</span><span class="s">${c.sub}</span></button>`
 ).join('');
+if (window.matchMedia('(max-width: 860px)').matches) list.querySelector('.cases-title').style.display = '';
 const sel = document.getElementById('caseSelect');
 sel.innerHTML = '<option value="" disabled selected>Chọn tình huống (' + CASES.length + ')</option>' +
   CASES.map((c, i) => `<option value="${i}">${String(i + 1).padStart(2, '0')} · ${c.title}</option>`).join('');
@@ -634,8 +754,9 @@ async function play(i) {
   chat.innerHTML = '';
   setPlaceholder();
   sel.value = String(cur);
+  document.getElementById('pTitle').innerHTML = `<small>Tình huống ${String(cur + 1).padStart(2, '0')} / ${CASES.length}</small>${c.title}`;
   if (mobile.matches) {
-    const y = document.querySelector('.mbar').getBoundingClientRect().top + window.scrollY - 40;
+    const y = document.querySelector('.phone').getBoundingClientRect().top + window.scrollY - 48;
     if (Math.abs(window.scrollY - y) > 24) window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
   }
   try {
@@ -675,6 +796,8 @@ async function play(i) {
         await sleep(700);
       }
     }
+    await sleep(400);
+    add(`<div class="endnav"><button class="btn" type="button" data-nav="top">↑ Chọn tình huống</button><button class="btn btn-primary" type="button" data-nav="next">Xem tiếp →</button></div>`);
     if (auto) { await sleep(3500); play(cur + 1); }
   } catch (e) { /* replaced by a newer run */ }
 }
@@ -687,13 +810,51 @@ sel.addEventListener('change', () => play(+sel.value));
 document.getElementById('mPrev').addEventListener('click', () => play(cur < 0 ? CASES.length - 1 : cur - 1));
 document.getElementById('mNext').addEventListener('click', () => play(cur + 1));
 document.getElementById('mReplay').addEventListener('click', () => play(cur < 0 ? 0 : cur));
+document.getElementById('pPrev').addEventListener('click', () => play(cur < 0 ? CASES.length - 1 : cur - 1));
+document.getElementById('pNext').addEventListener('click', () => play(cur + 1));
+chat.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-nav]');
+  if (!b) return;
+  if (b.dataset.nav === 'next') play(cur + 1);
+  else list.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+});
 document.querySelectorAll('.play').forEach((b) => b.addEventListener('click', () => {
   document.getElementById('giao-dien').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
   play(+b.dataset.case - 1);
 }));
 
+// Staff page: switch between the two placement options
+const PLANS = {
+  a: {
+    bar: 'CM motorfas · Quản lý chatbot (trang riêng)',
+    nav: '<p class="nav-group-title">Quản lý chatbot</p>' +
+      '<span class="nav-item" aria-current="page"><span class="n">01</span>Khách cần hỗ trợ</span>' +
+      '<span class="nav-item"><span class="n">02</span>Dữ liệu sản phẩm</span>' +
+      '<span class="nav-item"><span class="n">03</span>Khách sỉ</span>' +
+      '<span class="nav-item"><span class="n">04</span>Thống kê</span>'
+  },
+  b: {
+    bar: 'Admin website CM motorfas',
+    nav: '<p class="nav-group-title">Website · có sẵn</p>' +
+      '<span class="nav-item muted"><span class="n">—</span>Đơn hàng</span>' +
+      '<span class="nav-item muted"><span class="n">—</span>Sản phẩm</span>' +
+      '<span class="nav-item muted"><span class="n">—</span>Khách hàng</span>' +
+      '<p class="nav-group-title">Chatbot · em làm thêm</p>' +
+      '<span class="nav-item" aria-current="page"><span class="n">01</span>Khách cần hỗ trợ</span>' +
+      '<span class="nav-item"><span class="n">02</span>Cài đặt chatbot</span>'
+  }
+};
+function setPlan(p) {
+  document.getElementById('planBar').textContent = PLANS[p].bar;
+  document.getElementById('planNav').innerHTML = PLANS[p].nav;
+  document.querySelectorAll('[data-plan]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.plan === p)));
+  document.querySelectorAll('[data-info]').forEach((d) => d.classList.toggle('inverse', d.dataset.info === p));
+}
+document.querySelectorAll('[data-plan]').forEach((b) => b.addEventListener('click', () => setPlan(b.dataset.plan)));
+setPlan('a');
+
 // Idle until the viewer picks a scenario
-chat.innerHTML = '<div class="msg bot">Bấm vào một tình huống để xem chatbot trả lời ạ.</div><div class="sysnote"><strong>Cách xem trên điện thoại</strong><span>Chọn tình huống ở ô phía trên, hoặc bấm → để xem lần lượt. Mỗi tình huống chạy xong sẽ dừng lại.</span></div>';
+chat.innerHTML = '<div class="msg bot">Bấm vào một tình huống để xem chatbot trả lời ạ.</div><div class="sysnote"><strong>Cách xem trên điện thoại</strong><span>Chạm vào một thẻ tình huống phía trên, hoặc bấm → để xem lần lượt. Mỗi tình huống chạy xong sẽ dừng lại.</span></div>';
 setPlaceholder();
 document.getElementById('capNo').textContent = 'Chưa chọn tình huống';
 document.getElementById('capTag').textContent = CASES.length + ' tình huống';
