@@ -590,26 +590,18 @@ h3 { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; letter-spac
       <p class="sec-no">Báo giá</p>
       <h2>Báo giá chatbot</h2>
     </div>
-    <iframe id="baoGiaFrame" title="Báo giá chatbot CM motorfas" style="display: block; width: 100%; height: 1600px; border: 0; border-top: 1px solid var(--line)" srcdoc="&lt;!doctype html&gt;
-&lt;html lang=&quot;vi&quot;&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;utf-8&quot;&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-&lt;meta name=&quot;color-scheme&quot; content=&quot;light&quot;&gt;
-&lt;title&gt;Báo giá Chatbot CM motorfas&lt;/title&gt;
-&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
-&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
-&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
-&lt;style&gt;
-:root {
+    <!-- BAO-GIA:START (tự sinh từ Bao-gia-Chatbot-CM-motorfas.html, đừng sửa tay) -->
+    <div id="baoGiaHost" style="border-top: 1px solid var(--line)"></div>
+    <template id="baoGiaTpl"><style>
+:host {
   color-scheme: light;
   --bg: #ffffff; --text: #0a0a0a; --muted: #5c5c5c; --line: #0a0a0a; --hair: #d9d9d9;
   --inv-bg: #0a0a0a; --inv-text: #ffffff;
   --font-sans: Inter, system-ui, sans-serif;
-  --font-mono: &#x27;IBM Plex Mono&#x27;, ui-monospace, Menlo, monospace;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 var(--font-sans); -webkit-font-smoothing: antialiased; }
+.bg-root { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 var(--font-sans); -webkit-font-smoothing: antialiased; }
 .wrap { max-width: 1040px; margin: 0 auto; padding: 40px 24px 56px; display: grid; gap: 28px; }
 .label { margin: 0; font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 h1 { margin: 0; font-size: clamp(26px, 4vw, 38px); line-height: 1.15; letter-spacing: -.03em; }
@@ -657,7 +649,7 @@ tr.on td { background: #f7f7f2; }
   .ai.perm td.num { text-align: left; font-size: 12px; white-space: normal; }
   .calc-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .stats { grid-template-columns: minmax(0, 1fr); }
-  .wrap &gt; * { min-width: 0; }
+  .wrap > * { min-width: 0; }
   .stat { border-right: 0; border-bottom: 1px solid var(--hair); }
   .stat:last-child { border-bottom: 0; }
 }
@@ -683,218 +675,227 @@ tr.on td { background: #f7f7f2; }
   .ai td.num { text-align: left; }
   .ai td.num::before { content: attr(data-l); color: var(--muted); }
 }
-&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div class=&quot;wrap&quot;&gt;
-  &lt;header style=&quot;display: grid; gap: 8px&quot;&gt;
-    &lt;p class=&quot;label&quot;&gt;Báo giá sơ bộ · 31/10/2026 · Lê Tiến Khang&lt;/p&gt;
-    &lt;h1&gt;Chatbot AI tra cứu phụ tùng CM motorfas&lt;/h1&gt;
-    &lt;p class=&quot;desc&quot;&gt;Gói cơ bản gồm các tính năng theo file yêu cầu và &lt;a href=&quot;https://wireframechatbotcmmotorfas.vercel.app/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot; style=&quot;color: inherit; text-decoration: underline; font-weight: 600&quot;&gt;bản demo&lt;/a&gt;. Tuỳ chọn cộng thêm là các tính năng có thể làm thêm khi cần, báo giá riêng. Đơn vị VNĐ.&lt;/p&gt;
-    &lt;div class=&quot;desc&quot; style=&quot;font-size: 14px; margin-top: 10px&quot;&gt;&lt;b style=&quot;color: var(--text)&quot;&gt;Gói cơ bản mang lại:&lt;/b&gt;&lt;ul style=&quot;margin: 6px 0 0; padding-left: 18px; display: grid; gap: 3px&quot;&gt;&lt;li&gt;&lt;b style=&quot;color: var(--text)&quot;&gt;Bán hàng 24/7:&lt;/b&gt; khách hỏi giờ nào cũng được trả lời ngay, đúng món, đúng giá, đúng xe.&lt;/li&gt;&lt;li&gt;&lt;b style=&quot;color: var(--text)&quot;&gt;Không sót khách:&lt;/b&gt; khách muốn mua là nhân viên nhận tin Telegram liền, gọi lại chốt đơn.&lt;/li&gt;&lt;li&gt;&lt;b style=&quot;color: var(--text)&quot;&gt;Đỡ việc nhân viên:&lt;/b&gt; không phải trả lời mãi câu “bao nhiêu, còn không, lắp xe gì”.&lt;/li&gt;&lt;li&gt;&lt;b style=&quot;color: var(--text)&quot;&gt;Chủ nắm hết:&lt;/b&gt; tự đổi giá, thêm hàng, phân quyền nhân viên, biết khách hỏi gì nhiều, kiểm soát tiền AI.&lt;/li&gt;&lt;li&gt;&lt;b style=&quot;color: var(--text)&quot;&gt;Chi phí thấp:&lt;/b&gt; vận hành chỉ khoảng 130.000đ mỗi tháng, cộng tiền AI tính theo số câu khách hỏi.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
-  &lt;/header&gt;
+</style><div class="bg-root"><div class="wrap">
+  <header style="display: grid; gap: 8px">
+    <p class="label">Báo giá sơ bộ · 31/10/2026 · Lê Tiến Khang</p>
+    <h1>Chatbot AI tra cứu phụ tùng CM motorfas</h1>
+    <p class="desc">Gói cơ bản gồm các tính năng theo file yêu cầu và <a href="https://wireframechatbotcmmotorfas.vercel.app/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline; font-weight: 600">bản demo</a>. Tuỳ chọn cộng thêm là các tính năng có thể làm thêm khi cần, báo giá riêng. Đơn vị VNĐ.</p>
+    <div class="desc" style="font-size: 14px; margin-top: 10px"><b style="color: var(--text)">Gói cơ bản mang lại:</b><ul style="margin: 6px 0 0; padding-left: 18px; display: grid; gap: 3px"><li><b style="color: var(--text)">Bán hàng 24/7:</b> khách hỏi giờ nào cũng được trả lời ngay, đúng món, đúng giá, đúng xe.</li><li><b style="color: var(--text)">Không sót khách:</b> khách muốn mua là nhân viên nhận tin Telegram liền, gọi lại chốt đơn.</li><li><b style="color: var(--text)">Đỡ việc nhân viên:</b> không phải trả lời mãi câu “bao nhiêu, còn không, lắp xe gì”.</li><li><b style="color: var(--text)">Chủ nắm hết:</b> tự đổi giá, thêm hàng, phân quyền nhân viên, biết khách hỏi gì nhiều, kiểm soát tiền AI.</li><li><b style="color: var(--text)">Chi phí thấp:</b> vận hành chỉ khoảng 130.000đ mỗi tháng, cộng tiền AI tính theo số câu khách hỏi.</li></ul></div>
+  </header>
 
-  &lt;section class=&quot;panel&quot;&gt;
-    &lt;div class=&quot;panel-head&quot;&gt;&lt;h2&gt;A. Gói cơ bản&lt;/h2&gt;&lt;span class=&quot;label&quot; id=&quot;baseCount&quot;&gt;&lt;/span&gt;&lt;/div&gt;
-    &lt;table&gt;
-      &lt;thead&gt;&lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;Tính năng&lt;/th&gt;&lt;th&gt;Mô tả&lt;/th&gt;&lt;th class=&quot;num&quot;&gt;Chi phí&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-      &lt;tbody id=&quot;base&quot;&gt;&lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/section&gt;
+  <section class="panel">
+    <div class="panel-head"><h2>A. Gói cơ bản</h2><span class="label" id="baseCount"></span></div>
+    <table>
+      <thead><tr><th>#</th><th>Tính năng</th><th>Mô tả</th><th class="num">Chi phí</th></tr></thead>
+      <tbody id="base"></tbody>
+    </table>
+  </section>
 
-  &lt;section class=&quot;panel&quot;&gt;
-    &lt;div class=&quot;panel-head&quot;&gt;&lt;h2&gt;Phân quyền trong trang quản lý&lt;/h2&gt;&lt;span class=&quot;label&quot;&gt;Đi kèm gói cơ bản&lt;/span&gt;&lt;/div&gt;
-    &lt;div style=&quot;padding: 14px 16px 4px&quot;&gt;&lt;p class=&quot;desc&quot; style=&quot;font-size: 14px&quot;&gt;Mỗi người đăng nhập chỉ thấy đúng phần việc của mình. Chủ có quyền cao nhất và là người duy nhất thấy toàn bộ bảng giá sỉ, chi phí và dữ liệu sao lưu.&lt;/p&gt;&lt;/div&gt;
-    &lt;table class=&quot;ai perm&quot;&gt;
-      &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Việc&lt;/th&gt;&lt;th class=&quot;num&quot;&gt;Chủ&lt;/th&gt;&lt;th class=&quot;num&quot;&gt;Quản lý&lt;/th&gt;&lt;th class=&quot;num&quot;&gt;Nhân viên&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-      &lt;tbody&gt;&lt;tr class=&quot;group&quot;&gt;&lt;td colspan=&quot;4&quot;&gt;Sản phẩm&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Xem sản phẩm, giá lẻ, tồn kho&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;Có&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Xem giá sỉ&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;Khi Chủ cho phép&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Thêm, sửa từng sản phẩm&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Tải file Excel cập nhật&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có, tự duyệt&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;Tải lên, chờ Chủ duyệt&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Xuất Excel bảng giá (có giá sỉ)&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;—&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Xem lịch sử cập nhật&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có, khôi phục được&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;Chỉ xem&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;tr class=&quot;group&quot;&gt;&lt;td colspan=&quot;4&quot;&gt;Khách và nhân viên&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Danh sách khách cần hỗ trợ, đánh dấu đã gọi&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;Có&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Nhận thông báo email, Telegram&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Tuỳ cài đặt&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;Tuỳ cài đặt&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;Tuỳ cài đặt&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Cài thời gian nhắc khách chờ quá hạn (ví dụ 15 phút)&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Tạo, khóa tài khoản, đặt lại mật khẩu và phân quyền&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;—&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;tr class=&quot;group&quot;&gt;&lt;td colspan=&quot;4&quot;&gt;Chatbot và hệ thống&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Sửa nội dung chatbot (lời chào, thông tin cửa hàng, giao hàng, bảo hành)&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Sửa bảng từ đồng nghĩa&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Xem lại lịch sử chat&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Xem thống kê lượt hỏi, món hỏi nhiều&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Xem chi phí AI, đặt ngân sách, bật/tắt AI&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;—&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Cài đặt kết nối: website gắn chatbot, tài khoản AI, đổi nhà cung cấp AI&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;—&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Tải bản sao lưu dữ liệu&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Chủ: &quot;&gt;Có&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Quản lý: &quot;&gt;—&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Nhân viên: &quot;&gt;—&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/section&gt;
+  <section class="panel">
+    <div class="panel-head"><h2>Phân quyền trong trang quản lý</h2><span class="label">Đi kèm gói cơ bản</span></div>
+    <div style="padding: 14px 16px 4px"><p class="desc" style="font-size: 14px">Mỗi người đăng nhập chỉ thấy đúng phần việc của mình. Chủ có quyền cao nhất và là người duy nhất thấy toàn bộ bảng giá sỉ, chi phí và dữ liệu sao lưu.</p></div>
+    <table class="ai perm">
+      <thead><tr><th>Việc</th><th class="num">Chủ</th><th class="num">Quản lý</th><th class="num">Nhân viên</th></tr></thead>
+      <tbody><tr class="group"><td colspan="4">Sản phẩm</td></tr><tr><td class="name">Xem sản phẩm, giá lẻ, tồn kho</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">Có</td></tr><tr><td class="name">Xem giá sỉ</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">Khi Chủ cho phép</td></tr><tr><td class="name">Thêm, sửa từng sản phẩm</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Tải file Excel cập nhật</td><td class="num" data-l="Chủ: ">Có, tự duyệt</td><td class="num" data-l="Quản lý: ">Tải lên, chờ Chủ duyệt</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Xuất Excel bảng giá (có giá sỉ)</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">—</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Xem lịch sử cập nhật</td><td class="num" data-l="Chủ: ">Có, khôi phục được</td><td class="num" data-l="Quản lý: ">Chỉ xem</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr class="group"><td colspan="4">Khách và nhân viên</td></tr><tr><td class="name">Danh sách khách cần hỗ trợ, đánh dấu đã gọi</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">Có</td></tr><tr><td class="name">Nhận thông báo email, Telegram</td><td class="num" data-l="Chủ: ">Tuỳ cài đặt</td><td class="num" data-l="Quản lý: ">Tuỳ cài đặt</td><td class="num" data-l="Nhân viên: ">Tuỳ cài đặt</td></tr><tr><td class="name">Cài thời gian nhắc khách chờ quá hạn (ví dụ 15 phút)</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Tạo, khóa tài khoản, đặt lại mật khẩu và phân quyền</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">—</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr class="group"><td colspan="4">Chatbot và hệ thống</td></tr><tr><td class="name">Sửa nội dung chatbot (lời chào, thông tin cửa hàng, giao hàng, bảo hành)</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Sửa bảng từ đồng nghĩa</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Xem lại lịch sử chat</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Xem thống kê lượt hỏi, món hỏi nhiều</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Xem chi phí AI, đặt ngân sách, bật/tắt AI</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">—</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Cài đặt kết nối: website gắn chatbot, tài khoản AI, đổi nhà cung cấp AI</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">—</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Tải bản sao lưu dữ liệu</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">—</td><td class="num" data-l="Nhân viên: ">—</td></tr></tbody>
+    </table>
+  </section>
 
-  &lt;section class=&quot;panel&quot;&gt;
-    &lt;div class=&quot;panel-head&quot;&gt;&lt;h2&gt;B. Tuỳ chọn cộng thêm&lt;/h2&gt;&lt;span class=&quot;label&quot;&gt;Báo giá riêng khi cần&lt;/span&gt;&lt;/div&gt;
-    &lt;table&gt;
-      &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Mã&lt;/th&gt;&lt;th&gt;Tính năng&lt;/th&gt;&lt;th&gt;Mô tả&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-      &lt;tbody id=&quot;opts&quot;&gt;&lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/section&gt;
+  <section class="panel">
+    <div class="panel-head"><h2>B. Tuỳ chọn cộng thêm</h2><span class="label">Báo giá riêng khi cần</span></div>
+    <table>
+      <thead><tr><th>Mã</th><th>Tính năng</th><th>Mô tả</th></tr></thead>
+      <tbody id="opts"></tbody>
+    </table>
+  </section>
 
-  &lt;section class=&quot;total&quot; aria-live=&quot;polite&quot;&gt;
-    &lt;span class=&quot;label&quot;&gt;Tổng chi phí gói cơ bản&lt;/span&gt;&lt;span class=&quot;big&quot; id=&quot;total&quot;&gt;&lt;/span&gt;
-  &lt;/section&gt;
+  <section class="total" aria-live="polite">
+    <span class="label">Tổng chi phí gói cơ bản</span><span class="big" id="total"></span>
+  </section>
 
-  &lt;section class=&quot;panel&quot;&gt;
-    &lt;div class=&quot;panel-head&quot;&gt;&lt;h2&gt;C. Chi phí AI hằng tháng&lt;/h2&gt;&lt;span class=&quot;label&quot;&gt;CM trả trực tiếp cho nhà cung cấp AI&lt;/span&gt;&lt;/div&gt;
-    &lt;div style=&quot;padding: 14px 16px 4px; display: grid; gap: 8px&quot;&gt;
-      &lt;p class=&quot;desc&quot; style=&quot;font-size: 14px&quot;&gt;Mỗi lần khách hỏi, chatbot dùng AI để hiểu câu hỏi và trả lời, nên tốn một khoản nhỏ tính theo từng câu. CM chọn một nhà cung cấp AI (Claude, ChatGPT hoặc Gemini) và thanh toán thẳng bằng tài khoản của chủ sở hữu, không qua em. Đổi nhà cung cấp chỉ cần đổi cài đặt, không phải làm lại chatbot. Trang quản lý có giới hạn lượt hỏi và cảnh báo khi gần chạm ngân sách.&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;table class=&quot;ai&quot;&gt;
-      &lt;thead&gt;&lt;tr&gt;&lt;th&gt;AI&lt;/th&gt;&lt;th class=&quot;num&quot;&gt;1 câu hỏi&lt;/th&gt;&lt;th class=&quot;num&quot;&gt;100 câu/ngày&lt;br&gt;(≈ 3.000/tháng)&lt;/th&gt;&lt;th class=&quot;num&quot;&gt;300 câu/ngày&lt;br&gt;(≈ 9.000/tháng)&lt;/th&gt;&lt;th class=&quot;num&quot;&gt;1.000 câu/ngày&lt;br&gt;(≈ 30.000/tháng)&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-      &lt;tbody&gt;&lt;tr class=&quot;group&quot;&gt;&lt;td colspan=&quot;5&quot;&gt;Rẻ nhất&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Claude Haiku 5.5&lt;br&gt;&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt;Anthropic&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;1 câu: &quot;&gt;khoảng 35đ&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;100 câu/ngày: &quot;&gt;105.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;300 câu/ngày: &quot;&gt;315.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;1.000 câu/ngày: &quot;&gt;1.050.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;GPT-6 Luna&lt;br&gt;&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt;OpenAI (ChatGPT)&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;1 câu: &quot;&gt;khoảng 35đ&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;100 câu/ngày: &quot;&gt;105.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;300 câu/ngày: &quot;&gt;315.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;1.000 câu/ngày: &quot;&gt;1.050.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Gemini 3.1 Flash-Lite&lt;br&gt;&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt;Google&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;1 câu: &quot;&gt;khoảng 90đ&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;100 câu/ngày: &quot;&gt;270.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;300 câu/ngày: &quot;&gt;810.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;1.000 câu/ngày: &quot;&gt;2.700.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr class=&quot;group&quot;&gt;&lt;td colspan=&quot;5&quot;&gt;Thông minh hơn&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Gemini 3.6 Flash&lt;br&gt;&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt;Google · giá tăng gấp đôi từ 01/2027&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;1 câu: &quot;&gt;khoảng 265đ&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;100 câu/ngày: &quot;&gt;795.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;300 câu/ngày: &quot;&gt;2.400.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;1.000 câu/ngày: &quot;&gt;7.950.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;GPT-6.1 Terra&lt;br&gt;&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt;OpenAI (ChatGPT)&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;1 câu: &quot;&gt;khoảng 350đ&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;100 câu/ngày: &quot;&gt;1.050.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;300 câu/ngày: &quot;&gt;3.150.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;1.000 câu/ngày: &quot;&gt;10.500.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Claude Sonnet 5.5&lt;br&gt;&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt;Anthropic&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;1 câu: &quot;&gt;khoảng 700đ&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;100 câu/ngày: &quot;&gt;2.100.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;300 câu/ngày: &quot;&gt;6.300.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;1.000 câu/ngày: &quot;&gt;21.000.000đ&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt; /tháng&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
-    &lt;/table&gt;
-    &lt;div style=&quot;padding: 10px 16px 14px; display: grid; gap: 6px&quot;&gt;
-      &lt;p class=&quot;note&quot;&gt;Em đề xuất bắt đầu với nhóm &quot;Rẻ nhất&quot;. Chạy thử bằng bộ câu hỏi mẫu, nếu trả lời tiếng Việt chưa tốt thì chuyển lên nhóm &quot;Thông minh hơn&quot;.&lt;/p&gt;
-      &lt;p class=&quot;note&quot;&gt;Số liệu là ước tính theo bảng giá chính thức của Anthropic, OpenAI, Google (10/2026), tỉ giá khoảng 26.000đ/USD, mỗi câu trả lời trung bình. Giá nhà cung cấp có thể thay đổi. Chi phí thực tế xem được trong trang quản lý.&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;div style=&quot;padding: 16px 16px 10px; border-top: 1px solid var(--line); display: grid; gap: 6px&quot;&gt;
-      &lt;h3 style=&quot;margin: 0; font-size: 15px&quot;&gt;Mỗi tháng trả bao nhiêu? Tự tính theo lượng khách&lt;/h3&gt;
-      &lt;p class=&quot;desc&quot; style=&quot;font-size: 14px&quot;&gt;Chọn AI và nhập lượng khách, số tiền mỗi tháng tự tính lại. Số có sẵn là ví dụ: giờ cao điểm 60 khách, giờ bình thường 15 khách (lúc 10, lúc 20).&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;calc-grid&quot;&gt;
-      &lt;div class=&quot;field wide&quot;&gt;&lt;label for=&quot;cAi&quot;&gt;AI sử dụng&lt;/label&gt;&lt;select id=&quot;cAi&quot;&gt;&lt;/select&gt;&lt;/div&gt;
-      &lt;div class=&quot;field&quot;&gt;&lt;label for=&quot;cPeak&quot;&gt;Khách mỗi giờ lúc cao điểm&lt;/label&gt;&lt;input id=&quot;cPeak&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;1000&quot; step=&quot;1&quot; value=&quot;60&quot; inputmode=&quot;numeric&quot;&gt;&lt;/div&gt;&lt;div class=&quot;field&quot;&gt;&lt;label for=&quot;cPeakH&quot;&gt;Số giờ cao điểm mỗi ngày&lt;/label&gt;&lt;input id=&quot;cPeakH&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;24&quot; step=&quot;1&quot; value=&quot;2&quot; inputmode=&quot;numeric&quot;&gt;&lt;/div&gt;&lt;div class=&quot;field&quot;&gt;&lt;label for=&quot;cNorm&quot;&gt;Khách mỗi giờ lúc bình thường&lt;/label&gt;&lt;input id=&quot;cNorm&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;1000&quot; step=&quot;1&quot; value=&quot;15&quot; inputmode=&quot;numeric&quot;&gt;&lt;/div&gt;&lt;div class=&quot;field&quot;&gt;&lt;label for=&quot;cNormH&quot;&gt;Số giờ bình thường mỗi ngày&lt;/label&gt;&lt;input id=&quot;cNormH&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;24&quot; step=&quot;1&quot; value=&quot;8&quot; inputmode=&quot;numeric&quot;&gt;&lt;/div&gt;&lt;div class=&quot;field&quot;&gt;&lt;label for=&quot;cQ&quot;&gt;Mỗi khách hỏi khoảng (câu)&lt;/label&gt;&lt;input id=&quot;cQ&quot; type=&quot;number&quot; min=&quot;0&quot; max=&quot;200&quot; step=&quot;1&quot; value=&quot;10&quot; inputmode=&quot;numeric&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;stats&quot;&gt;
-      &lt;div class=&quot;stat&quot;&gt;&lt;span class=&quot;label&quot;&gt;Số câu hỏi mỗi tháng&lt;/span&gt;&lt;b id=&quot;rQ&quot;&gt;&lt;/b&gt;&lt;/div&gt;
-      &lt;div class=&quot;stat&quot;&gt;&lt;span class=&quot;label&quot;&gt;Tiền AI mỗi tháng&lt;/span&gt;&lt;b id=&quot;rAi&quot;&gt;&lt;/b&gt;&lt;/div&gt;
-      &lt;div class=&quot;stat&quot;&gt;&lt;span class=&quot;label&quot;&gt;Tổng phải trả mỗi tháng&lt;/span&gt;&lt;b id=&quot;rAll&quot;&gt;&lt;/b&gt;&lt;span class=&quot;sub&quot;&gt;gồm máy chủ khoảng 130.000đ&lt;/span&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;p class=&quot;status&quot; id=&quot;rCap&quot;&gt;&lt;/p&gt;
-    &lt;div style=&quot;padding: 4px 16px 10px; display: grid; gap: 6px&quot;&gt;
-      &lt;h3 style=&quot;margin: 0; font-size: 15px&quot;&gt;Hệ thống chịu được bao nhiêu khách cùng lúc?&lt;/h3&gt;
-      &lt;p class=&quot;desc&quot; style=&quot;font-size: 14px&quot;&gt;Hệ thống được làm và chạy thử cho &lt;b&gt;60 khách hỏi cùng lúc&lt;/b&gt;. Đông hơn vẫn chạy được, chỉ cần làm thêm vài việc dưới đây.&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;table class=&quot;ai&quot;&gt;
-      &lt;thead&gt;&lt;tr&gt;&lt;th&gt;Khách cùng lúc&lt;/th&gt;&lt;th class=&quot;num&quot; style=&quot;text-align:left&quot;&gt;Cần làm gì&lt;/th&gt;&lt;th class=&quot;num&quot;&gt;Tốn thêm&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-      &lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Đến 60 khách&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Cần làm: &quot; style=&quot;white-space:normal;text-align:left&quot;&gt;Không cần làm gì. Đã chạy thử trước khi bàn giao.&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Tốn thêm: &quot; style=&quot;white-space: normal&quot;&gt;Không&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;61–80 khách&lt;br&gt;&lt;span class=&quot;meta&quot; style=&quot;font-weight:400&quot;&gt;ví dụ 70 khách&lt;/span&gt;&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Cần làm: &quot; style=&quot;white-space:normal;text-align:left&quot;&gt;Vẫn chạy bình thường. Nên nạp tài khoản AI từ 100 USD để AI không bị giới hạn lúc đông.&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Tốn thêm: &quot; style=&quot;white-space: normal&quot;&gt;Không (tiền nạp trừ dần vào tiền AI)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;81–400 khách&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Cần làm: &quot; style=&quot;white-space:normal;text-align:left&quot;&gt;Nạp tài khoản AI từ 100 USD, tăng bộ nhớ máy chủ, chạy thử lại với số khách mới.&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Tốn thêm: &quot; style=&quot;white-space: normal&quot;&gt;Máy chủ thêm vài USD/tháng&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;name&quot;&gt;Trên 400 khách&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Cần làm: &quot; style=&quot;white-space:normal;text-align:left&quot;&gt;Cần xem lại toàn bộ hệ thống và gói lưu trữ dữ liệu.&lt;/td&gt;&lt;td class=&quot;num&quot; data-l=&quot;Tốn thêm: &quot; style=&quot;white-space: normal&quot;&gt;Báo giá riêng&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
-    &lt;/table&gt;
-    &lt;div style=&quot;padding: 10px 16px 14px; display: grid; gap: 6px&quot;&gt;
-      &lt;p class=&quot;note&quot;&gt;Tiền AI là ước tính: số thấp là khi bật bộ nhớ đệm (rẻ hơn khoảng 40%), số cao là trường hợp xấu nhất. Tiền thật tính theo số câu khách hỏi và xem được trong trang quản lý.&lt;/p&gt;
-      &lt;p class=&quot;note&quot;&gt;Lỡ đông quá mức, khách chỉ phải chờ thêm vài giây, chatbot tự xử lý lần lượt, không báo lỗi. Mỗi khách tối đa 30 câu mỗi giờ để tránh tốn tiền vô ích.&lt;/p&gt;
-    &lt;/div&gt;
-  &lt;/section&gt;
+  <section class="panel">
+    <div class="panel-head"><h2>C. Chi phí AI hằng tháng</h2><span class="label">CM trả trực tiếp cho nhà cung cấp AI</span></div>
+    <div style="padding: 14px 16px 4px; display: grid; gap: 8px">
+      <p class="desc" style="font-size: 14px">Mỗi lần khách hỏi, chatbot dùng AI để hiểu câu hỏi và trả lời, nên tốn một khoản nhỏ tính theo từng câu. CM chọn một nhà cung cấp AI (Claude, ChatGPT hoặc Gemini) và thanh toán thẳng bằng tài khoản của chủ sở hữu, không qua em. Đổi nhà cung cấp chỉ cần đổi cài đặt, không phải làm lại chatbot. Trang quản lý có giới hạn lượt hỏi và cảnh báo khi gần chạm ngân sách.</p>
+    </div>
+    <table class="ai">
+      <thead><tr><th>AI</th><th class="num">1 câu hỏi</th><th class="num">100 câu/ngày<br>(≈ 3.000/tháng)</th><th class="num">300 câu/ngày<br>(≈ 9.000/tháng)</th><th class="num">1.000 câu/ngày<br>(≈ 30.000/tháng)</th></tr></thead>
+      <tbody><tr class="group"><td colspan="5">Rẻ nhất</td></tr><tr><td class="name">Claude Haiku 5.5<br><span class="meta" style="font-weight:400">Anthropic</span></td><td class="num" data-l="1 câu: ">khoảng 35đ</td><td class="num" data-l="100 câu/ngày: ">105.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="300 câu/ngày: ">315.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="1.000 câu/ngày: ">1.050.000đ<span class="meta" style="font-weight:400"> /tháng</span></td></tr><tr><td class="name">GPT-6 Luna<br><span class="meta" style="font-weight:400">OpenAI (ChatGPT)</span></td><td class="num" data-l="1 câu: ">khoảng 35đ</td><td class="num" data-l="100 câu/ngày: ">105.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="300 câu/ngày: ">315.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="1.000 câu/ngày: ">1.050.000đ<span class="meta" style="font-weight:400"> /tháng</span></td></tr><tr><td class="name">Gemini 3.1 Flash-Lite<br><span class="meta" style="font-weight:400">Google</span></td><td class="num" data-l="1 câu: ">khoảng 90đ</td><td class="num" data-l="100 câu/ngày: ">270.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="300 câu/ngày: ">810.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="1.000 câu/ngày: ">2.700.000đ<span class="meta" style="font-weight:400"> /tháng</span></td></tr><tr class="group"><td colspan="5">Thông minh hơn</td></tr><tr><td class="name">Gemini 3.6 Flash<br><span class="meta" style="font-weight:400">Google · giá tăng gấp đôi từ 01/2027</span></td><td class="num" data-l="1 câu: ">khoảng 265đ</td><td class="num" data-l="100 câu/ngày: ">795.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="300 câu/ngày: ">2.400.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="1.000 câu/ngày: ">7.950.000đ<span class="meta" style="font-weight:400"> /tháng</span></td></tr><tr><td class="name">GPT-6.1 Terra<br><span class="meta" style="font-weight:400">OpenAI (ChatGPT)</span></td><td class="num" data-l="1 câu: ">khoảng 350đ</td><td class="num" data-l="100 câu/ngày: ">1.050.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="300 câu/ngày: ">3.150.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="1.000 câu/ngày: ">10.500.000đ<span class="meta" style="font-weight:400"> /tháng</span></td></tr><tr><td class="name">Claude Sonnet 5.5<br><span class="meta" style="font-weight:400">Anthropic</span></td><td class="num" data-l="1 câu: ">khoảng 700đ</td><td class="num" data-l="100 câu/ngày: ">2.100.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="300 câu/ngày: ">6.300.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="1.000 câu/ngày: ">21.000.000đ<span class="meta" style="font-weight:400"> /tháng</span></td></tr></tbody>
+    </table>
+    <div style="padding: 10px 16px 14px; display: grid; gap: 6px">
+      <p class="note">Em đề xuất bắt đầu với nhóm "Rẻ nhất". Chạy thử bằng bộ câu hỏi mẫu, nếu trả lời tiếng Việt chưa tốt thì chuyển lên nhóm "Thông minh hơn".</p>
+      <p class="note">Số liệu là ước tính theo bảng giá chính thức của Anthropic, OpenAI, Google (10/2026), tỉ giá khoảng 26.000đ/USD, mỗi câu trả lời trung bình. Giá nhà cung cấp có thể thay đổi. Chi phí thực tế xem được trong trang quản lý.</p>
+    </div>
+    <div style="padding: 16px 16px 10px; border-top: 1px solid var(--line); display: grid; gap: 6px">
+      <h3 style="margin: 0; font-size: 15px">Mỗi tháng trả bao nhiêu? Tự tính theo lượng khách</h3>
+      <p class="desc" style="font-size: 14px">Chọn AI và nhập lượng khách, số tiền mỗi tháng tự tính lại. Số có sẵn là ví dụ: giờ cao điểm 60 khách, giờ bình thường 15 khách (lúc 10, lúc 20).</p>
+    </div>
+    <div class="calc-grid">
+      <div class="field wide"><label for="cAi">AI sử dụng</label><select id="cAi"></select></div>
+      <div class="field"><label for="cPeak">Khách mỗi giờ lúc cao điểm</label><input id="cPeak" type="number" min="0" max="1000" step="1" value="60" inputmode="numeric"></div><div class="field"><label for="cPeakH">Số giờ cao điểm mỗi ngày</label><input id="cPeakH" type="number" min="0" max="24" step="1" value="2" inputmode="numeric"></div><div class="field"><label for="cNorm">Khách mỗi giờ lúc bình thường</label><input id="cNorm" type="number" min="0" max="1000" step="1" value="15" inputmode="numeric"></div><div class="field"><label for="cNormH">Số giờ bình thường mỗi ngày</label><input id="cNormH" type="number" min="0" max="24" step="1" value="8" inputmode="numeric"></div><div class="field"><label for="cQ">Mỗi khách hỏi khoảng (câu)</label><input id="cQ" type="number" min="0" max="200" step="1" value="10" inputmode="numeric"></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="label">Số câu hỏi mỗi tháng</span><b id="rQ"></b></div>
+      <div class="stat"><span class="label">Tiền AI mỗi tháng</span><b id="rAi"></b></div>
+      <div class="stat"><span class="label">Tổng phải trả mỗi tháng</span><b id="rAll"></b><span class="sub">gồm máy chủ khoảng 130.000đ</span></div>
+    </div>
+    <p class="status" id="rCap"></p>
+    <div style="padding: 4px 16px 10px; display: grid; gap: 6px">
+      <h3 style="margin: 0; font-size: 15px">Hệ thống chịu được bao nhiêu khách cùng lúc?</h3>
+      <p class="desc" style="font-size: 14px">Hệ thống được làm và chạy thử cho <b>60 khách hỏi cùng lúc</b>. Đông hơn vẫn chạy được, chỉ cần làm thêm vài việc dưới đây.</p>
+    </div>
+    <table class="ai">
+      <thead><tr><th>Khách cùng lúc</th><th class="num" style="text-align:left">Cần làm gì</th><th class="num">Tốn thêm</th></tr></thead>
+      <tbody><tr><td class="name">Đến 60 khách</td><td class="num" data-l="Cần làm: " style="white-space:normal;text-align:left">Không cần làm gì. Đã chạy thử trước khi bàn giao.</td><td class="num" data-l="Tốn thêm: " style="white-space: normal">Không</td></tr><tr><td class="name">61–80 khách<br><span class="meta" style="font-weight:400">ví dụ 70 khách</span></td><td class="num" data-l="Cần làm: " style="white-space:normal;text-align:left">Vẫn chạy bình thường. Nên nạp tài khoản AI từ 100 USD để AI không bị giới hạn lúc đông.</td><td class="num" data-l="Tốn thêm: " style="white-space: normal">Không (tiền nạp trừ dần vào tiền AI)</td></tr><tr><td class="name">81–400 khách</td><td class="num" data-l="Cần làm: " style="white-space:normal;text-align:left">Nạp tài khoản AI từ 100 USD, tăng bộ nhớ máy chủ, chạy thử lại với số khách mới.</td><td class="num" data-l="Tốn thêm: " style="white-space: normal">Máy chủ thêm vài USD/tháng</td></tr><tr><td class="name">Trên 400 khách</td><td class="num" data-l="Cần làm: " style="white-space:normal;text-align:left">Cần xem lại toàn bộ hệ thống và gói lưu trữ dữ liệu.</td><td class="num" data-l="Tốn thêm: " style="white-space: normal">Báo giá riêng</td></tr></tbody>
+    </table>
+    <div style="padding: 10px 16px 14px; display: grid; gap: 6px">
+      <p class="note">Tiền AI là ước tính: số thấp là khi bật bộ nhớ đệm (rẻ hơn khoảng 40%), số cao là trường hợp xấu nhất. Tiền thật tính theo số câu khách hỏi và xem được trong trang quản lý.</p>
+      <p class="note">Lỡ đông quá mức, khách chỉ phải chờ thêm vài giây, chatbot tự xử lý lần lượt, không báo lỗi. Mỗi khách tối đa 30 câu mỗi giờ để tránh tốn tiền vô ích.</p>
+    </div>
+  </section>
 
 
-  &lt;p class=&quot;note&quot;&gt;Chi phí vận hành khác do chủ sở hữu trả trực tiếp: trang quản lý trên Vercel miễn phí · backend trên Railway khoảng 5 USD/tháng · dữ liệu MongoDB Atlas miễn phí (512MB) · sao lưu Cloudflare R2 miễn phí · tên miền nếu dùng riêng.&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
+  <p class="note">Chi phí vận hành khác do chủ sở hữu trả trực tiếp: trang quản lý trên Vercel miễn phí · backend trên Railway khoảng 5 USD/tháng · dữ liệu MongoDB Atlas miễn phí (512MB) · sao lưu Cloudflare R2 miễn phí · tên miền nếu dùng riêng.</p>
+</div></div></template>
+    <script>
+    (() => {
+      const host = document.getElementById('baoGiaHost');
+      const shadow = host.attachShadow({ mode: 'open' });
+      shadow.appendChild(document.getElementById('baoGiaTpl').content.cloneNode(true));
+      const doc = {
+        getElementById: (id) => shadow.getElementById(id),
+        querySelector: (s) => shadow.querySelector(s),
+        querySelectorAll: (s) => shadow.querySelectorAll(s),
+        createElement: (t) => document.createElement(t),
+        documentElement: document.documentElement,
+        body: document.body,
+      };
+      (function (document) {
 // Giá từng tính năng (VNĐ). Sửa số ở đây, tổng tự tính lại.
 const BASE = [
-  [&#x27;Khách chat và tìm phụ tùng&#x27;, [
-    [&#x27;Nút chat trên website&#x27;, &#x27;Góc website có nút chat, khách bấm vào là hỏi được ngay, không cần cài ứng dụng hay đăng ký. Chỉ cần dán 1 dòng mã là gắn được vào bất kỳ website nào của chủ sở hữu. Xem tốt trên cả điện thoại và máy tính. Ngoài nút chat gắn trên website, còn có một link chat riêng để gửi cho khách qua tin nhắn hoặc dán lên mạng xã hội.&#x27;, 1000000],
-    [&#x27;Hiểu cách khách gõ&#x27;, &#x27;Khách gõ có dấu hay không dấu, viết tắt, gõ sai chính tả, dùng tên gọi quen miệng, chatbot đều nhận ra đúng món. Ví dụ: “phuộc sau Air Blade”, “phuoc sau air blade”, “phuột sau AB” hay “giảm xóc sau AB” đều được hiểu là cùng một món.&#x27;, 300000],
-    [&#x27;Tìm đúng phụ tùng&#x27;, &#x27;Khách hỏi theo cách nào cũng tìm ra món cần: gõ mã hàng (ví dụ “35100K35V32”), tên món (“khóa máy smartkey”), hay dòng xe và đời xe (“má phanh Vision 2021”).&#x27;, 1000000],
-    [&#x27;Lọc và sắp xếp&#x27;, &#x27;Khách thu hẹp kết quả theo loại hàng, hãng, khoảng giá. Ví dụ: “chỉ hàng chính hãng”, “dưới 500 nghìn”. Các lựa chọn được xếp từ rẻ đến đắt.&#x27;, 600000],
-    [&#x27;Hỏi lại cho đúng món&#x27;, &#x27;Khi khách hỏi chưa đủ thông tin, chatbot hỏi lại bằng nút bấm để khách chỉ cần chạm. Ví dụ khách hỏi “má phanh Vision”, chatbot hỏi tiếp “Vision đời nào ạ?” với các nút 2011–2013 / 2014–2020 / 2021 trở đi.&#x27;, 800000],
-    [&#x27;Trả lời như nhân viên bán hàng&#x27;, &#x27;Trả lời ngắn gọn, lịch sự, đưa lựa chọn trước rồi mới hỏi thêm. Nhớ những gì khách đã nói, không hỏi lại. Chỉ trả lời theo dữ liệu của chủ sở hữu: không biết thì nói chưa có thông tin và mời gặp nhân viên, không tự bịa mã, giá, hàng tồn hay xe lắp vừa. Đây là phần khó nhất: phải hướng dẫn AI và chạy thử nhiều lần với câu hỏi thật để AI không tự bịa giá, mã hay xe lắp vừa, vì một câu trả lời sai có thể làm khách mua nhầm. Không tự kết luận hai món thay thế được cho nhau chỉ vì giống tên hoặc cùng kích thước. Có bộ dữ liệu kiểm thử: khoảng 100 câu hỏi thật kèm câu trả lời đúng, mỗi lần chỉnh chatbot đều chạy lại cả bộ để chắc không trả lời sai.&#x27;, 1800000],
+  ['Khách chat và tìm phụ tùng', [
+    ['Nút chat trên website', 'Góc website có nút chat, khách bấm vào là hỏi được ngay, không cần cài ứng dụng hay đăng ký. Chỉ cần dán 1 dòng mã là gắn được vào bất kỳ website nào của chủ sở hữu. Xem tốt trên cả điện thoại và máy tính. Ngoài nút chat gắn trên website, còn có một link chat riêng để gửi cho khách qua tin nhắn hoặc dán lên mạng xã hội.', 1000000],
+    ['Hiểu cách khách gõ', 'Khách gõ có dấu hay không dấu, viết tắt, gõ sai chính tả, dùng tên gọi quen miệng, chatbot đều nhận ra đúng món. Ví dụ: “phuộc sau Air Blade”, “phuoc sau air blade”, “phuột sau AB” hay “giảm xóc sau AB” đều được hiểu là cùng một món.', 300000],
+    ['Tìm đúng phụ tùng', 'Khách hỏi theo cách nào cũng tìm ra món cần: gõ mã hàng (ví dụ “35100K35V32”), tên món (“khóa máy smartkey”), hay dòng xe và đời xe (“má phanh Vision 2021”).', 1000000],
+    ['Lọc và sắp xếp', 'Khách thu hẹp kết quả theo loại hàng, hãng, khoảng giá. Ví dụ: “chỉ hàng chính hãng”, “dưới 500 nghìn”. Các lựa chọn được xếp từ rẻ đến đắt.', 600000],
+    ['Hỏi lại cho đúng món', 'Khi khách hỏi chưa đủ thông tin, chatbot hỏi lại bằng nút bấm để khách chỉ cần chạm. Ví dụ khách hỏi “má phanh Vision”, chatbot hỏi tiếp “Vision đời nào ạ?” với các nút 2011–2013 / 2014–2020 / 2021 trở đi.', 800000],
+    ['Trả lời như nhân viên bán hàng', 'Trả lời ngắn gọn, lịch sự, đưa lựa chọn trước rồi mới hỏi thêm. Nhớ những gì khách đã nói, không hỏi lại. Chỉ trả lời theo dữ liệu của chủ sở hữu: không biết thì nói chưa có thông tin và mời gặp nhân viên, không tự bịa mã, giá, hàng tồn hay xe lắp vừa. Đây là phần khó nhất: phải hướng dẫn AI và chạy thử nhiều lần với câu hỏi thật để AI không tự bịa giá, mã hay xe lắp vừa, vì một câu trả lời sai có thể làm khách mua nhầm. Không tự kết luận hai món thay thế được cho nhau chỉ vì giống tên hoặc cùng kích thước. Có bộ dữ liệu kiểm thử: khoảng 100 câu hỏi thật kèm câu trả lời đúng, mỗi lần chỉnh chatbot đều chạy lại cả bộ để chắc không trả lời sai.', 1800000],
   ]],
-  [&#x27;Hiển thị sản phẩm&#x27;, [
-    [&#x27;Thẻ sản phẩm&#x27;, &#x27;Mỗi món hiện thành một thẻ gọn trong khung chat, gồm: ảnh, tên, hãng, mã hãng, mã của chủ sở hữu, biến thể, màu, vị trí lắp (trước/sau, trái/phải), quy cách bán (cái, bộ, cặp), thông số chính và giá.&#x27;, 800000],
-    [&#x27;Còn hàng / hết hàng, xe lắp được&#x27;, &#x27;Thẻ ghi rõ món đang còn hay hết hàng, và lắp được cho xe nào. Ví dụ: “Lắp: Air Blade 2020–2023”. Chỉ hiện những xe đã được CM xác nhận.&#x27;, 600000],
-    [&#x27;Nhiều lựa chọn cùng lúc&#x27;, &#x27;Khi có nhiều món phù hợp, chatbot hiện danh sách có ảnh, giá và tình trạng hàng để khách so sánh. Ví dụ: phuộc sau AB có 3 loại chính hãng, OEM, hàng độ.&#x27;, 600000],
+  ['Hiển thị sản phẩm', [
+    ['Thẻ sản phẩm', 'Mỗi món hiện thành một thẻ gọn trong khung chat, gồm: ảnh, tên, hãng, mã hãng, mã của chủ sở hữu, biến thể, màu, vị trí lắp (trước/sau, trái/phải), quy cách bán (cái, bộ, cặp), thông số chính và giá.', 800000],
+    ['Còn hàng / hết hàng, xe lắp được', 'Thẻ ghi rõ món đang còn hay hết hàng, và lắp được cho xe nào. Ví dụ: “Lắp: Air Blade 2020–2023”. Chỉ hiện những xe đã được CM xác nhận.', 600000],
+    ['Nhiều lựa chọn cùng lúc', 'Khi có nhiều món phù hợp, chatbot hiện danh sách có ảnh, giá và tình trạng hàng để khách so sánh. Ví dụ: phuộc sau AB có 3 loại chính hãng, OEM, hàng độ.', 600000],
   ]],
-  [&#x27;Giá cho từng loại khách&#x27;, [
-    [&#x27;Giá lẻ cho khách thường&#x27;, &#x27;Khách vãng lai, hoặc khách chưa phải đại lý, chỉ thấy giá lẻ trên thẻ sản phẩm.&#x27;, 750000],
-    [&#x27;Giá sỉ cho đại lý&#x27;, &#x27;Đại lý đã đăng nhập trên website của chủ sở hữu thì chatbot tự nhận ra và hiện giá sỉ đúng nhóm đại lý, kèm giá theo số lượng nếu có. Người chưa đăng nhập mà tự nhận là đại lý trong chat thì vẫn chỉ thấy giá lẻ. Phần này dùng lại cách hiển thị của giá lẻ, chỉ thêm bước nhận diện đại lý từ website và lấy đúng cột giá sỉ, nên chi phí thấp hơn. Việc duyệt tài khoản đại lý và chia nhóm đại lý làm trên website của chủ sở hữu; chatbot nhận đúng nhóm từ website. Giá sỉ chỉ được tính trên máy chủ, không bao giờ gửi cả bảng giá sỉ xuống trình duyệt của khách.&#x27;, 550000],
+  ['Giá cho từng loại khách', [
+    ['Giá lẻ cho khách thường', 'Khách vãng lai, hoặc khách chưa phải đại lý, chỉ thấy giá lẻ trên thẻ sản phẩm.', 750000],
+    ['Giá sỉ cho đại lý', 'Đại lý đã đăng nhập trên website của chủ sở hữu thì chatbot tự nhận ra và hiện giá sỉ đúng nhóm đại lý, kèm giá theo số lượng nếu có. Người chưa đăng nhập mà tự nhận là đại lý trong chat thì vẫn chỉ thấy giá lẻ. Phần này dùng lại cách hiển thị của giá lẻ, chỉ thêm bước nhận diện đại lý từ website và lấy đúng cột giá sỉ, nên chi phí thấp hơn. Việc duyệt tài khoản đại lý và chia nhóm đại lý làm trên website của chủ sở hữu; chatbot nhận đúng nhóm từ website. Giá sỉ chỉ được tính trên máy chủ, không bao giờ gửi cả bảng giá sỉ xuống trình duyệt của khách.', 550000],
   ]],
-  [&#x27;Chuyển cho nhân viên&#x27;, [
-    [&#x27;Khách gặp nhân viên&#x27;, &#x27;Khi khách muốn mua hoặc chatbot chưa trả lời được, chatbot xin tên và số điện thoại của khách. Nhân viên nhận toàn bộ thông tin: khách cần món gì, xe gì, bao nhiêu cái và cả cuộc chat, rồi gọi điện hoặc nhắn Zalo liên hệ trực tiếp với khách. Khách không phải kể lại.&#x27;, 1000000],
-    [&#x27;Danh sách khách chờ&#x27;, &#x27;Trang quản lý có danh sách khách cần hỗ trợ, kèm thời gian hẹn liên hệ. Nhân viên bấm vào là xem lại cuộc chat, gọi hoặc nhắn tin cho khách, xong bấm “Đã gọi” để cập nhật trạng thái và ghi nhận ai đã hỗ trợ, lúc nào. Khách nào quá giờ hẹn mà chưa ai liên hệ, hệ thống tự nhắc lại cho quản lý và nhân viên. Ví dụ: quá 15 phút chưa ai nhận thì báo lại.&#x27;, 900000],
-    [&#x27;Báo ngay qua email và Telegram&#x27;, &#x27;Có khách cần hỗ trợ, ngoài hiện trong trang quản lý, nhân viên còn nhận tin ngay qua email và Telegram trên điện thoại (gửi đến email và Telegram đã cài trong tài khoản từng nhân viên). Tin Telegram có đủ tên, số điện thoại, món khách cần và nút “Đã gọi”: nhân viên bấm nút ngay trong Telegram là hệ thống tự cập nhật danh sách khách chờ, ghi nhận ai đã hỗ trợ, và báo cho những người còn lại biết khách đã có người nhận để không gọi trùng.&#x27;, 1000000],
+  ['Chuyển cho nhân viên', [
+    ['Khách gặp nhân viên', 'Khi khách muốn mua hoặc chatbot chưa trả lời được, chatbot xin tên và số điện thoại của khách. Nhân viên nhận toàn bộ thông tin: khách cần món gì, xe gì, bao nhiêu cái và cả cuộc chat, rồi gọi điện hoặc nhắn Zalo liên hệ trực tiếp với khách. Khách không phải kể lại.', 1000000],
+    ['Danh sách khách chờ', 'Trang quản lý có danh sách khách cần hỗ trợ, kèm thời gian hẹn liên hệ. Nhân viên bấm vào là xem lại cuộc chat, gọi hoặc nhắn tin cho khách, xong bấm “Đã gọi” để cập nhật trạng thái và ghi nhận ai đã hỗ trợ, lúc nào. Khách nào quá giờ hẹn mà chưa ai liên hệ, hệ thống tự nhắc lại cho quản lý và nhân viên. Ví dụ: quá 15 phút chưa ai nhận thì báo lại.', 900000],
+    ['Báo ngay qua email và Telegram', 'Có khách cần hỗ trợ, ngoài hiện trong trang quản lý, nhân viên còn nhận tin ngay qua email và Telegram trên điện thoại (gửi đến email và Telegram đã cài trong tài khoản từng nhân viên). Tin Telegram có đủ tên, số điện thoại, món khách cần và nút “Đã gọi”: nhân viên bấm nút ngay trong Telegram là hệ thống tự cập nhật danh sách khách chờ, ghi nhận ai đã hỗ trợ, và báo cho những người còn lại biết khách đã có người nhận để không gọi trùng.', 1000000],
   ]],
-  [&#x27;Trang quản lý · sản phẩm&#x27;, [
-    [&#x27;Thêm, sửa sản phẩm ngay trên trang quản lý&#x27;, &#x27;Chủ và Quản lý có thể thêm món mới hoặc sửa từng món ngay trên trang quản lý, không cần làm file Excel: đổi giá lẻ, giá sỉ, tồn kho, xe lắp được, link ảnh, hoặc chuyển sang ngừng bán. Ảnh dùng luôn link có sẵn của chủ sở hữu, link nào không mở được thì hệ thống báo. Sửa xong chatbot dùng thông tin mới ngay, và mọi thay đổi đều được ghi lại.&#x27;, 1200000],
-    [&#x27;Cập nhật nhiều món bằng file Excel&#x27;, &#x27;Khi cần đổi giá hay thêm hàng loạt, chỉ cần tải file Excel lên. Trước khi áp dụng, hệ thống cho xem rõ món nào đổi giá (giá cũ → giá mới), món nào mới, dòng nào bị lỗi. Chủ bấm “Duyệt” thì chatbot mới dùng giá mới, tránh sửa nhầm. Phần khó là kiểm tra từng dòng trong file (sai định dạng, mã trùng, giá bất thường) và so với dữ liệu cũ trước khi áp dụng, để một file sai không làm hỏng cả bảng giá.&#x27;, 750000],
-    [&#x27;Xuất Excel bảng giá&#x27;, &#x27;Nút “Xuất Excel” tải về toàn bộ bảng giá đúng mẫu file nhập, có cả giá lẻ và giá sỉ từng nhóm đại lý. Chỉ tài khoản Chủ (quyền cao nhất) mới thấy và dùng được nút này, nhân viên không xem hay tải được bảng giá sỉ. File tải về cũng là bản sao lưu dễ đọc, sửa xong tải lên lại là cập nhật.&#x27;, 100000],
-    [&#x27;Xem lại các lần cập nhật&#x27;, &#x27;Lưu lại mọi thay đổi, dù sửa trực tiếp hay qua file Excel: ai làm, lúc nào, đổi những gì. Lỡ sửa nhầm thì quay lại bản trước được. Lịch sử giữ 20 ngày gần nhất rồi tự xoá, để tiết kiệm bộ nhớ vì đang dùng gói lưu trữ miễn phí.&#x27;, 500000],
+  ['Trang quản lý · sản phẩm', [
+    ['Thêm, sửa sản phẩm ngay trên trang quản lý', 'Chủ và Quản lý có thể thêm món mới hoặc sửa từng món ngay trên trang quản lý, không cần làm file Excel: đổi giá lẻ, giá sỉ, tồn kho, xe lắp được, link ảnh, hoặc chuyển sang ngừng bán. Ảnh dùng luôn link có sẵn của chủ sở hữu, link nào không mở được thì hệ thống báo. Sửa xong chatbot dùng thông tin mới ngay, và mọi thay đổi đều được ghi lại.', 1200000],
+    ['Cập nhật nhiều món bằng file Excel', 'Khi cần đổi giá hay thêm hàng loạt, chỉ cần tải file Excel lên. Trước khi áp dụng, hệ thống cho xem rõ món nào đổi giá (giá cũ → giá mới), món nào mới, dòng nào bị lỗi. Chủ bấm “Duyệt” thì chatbot mới dùng giá mới, tránh sửa nhầm. Phần khó là kiểm tra từng dòng trong file (sai định dạng, mã trùng, giá bất thường) và so với dữ liệu cũ trước khi áp dụng, để một file sai không làm hỏng cả bảng giá.', 750000],
+    ['Xuất Excel bảng giá', 'Nút “Xuất Excel” tải về toàn bộ bảng giá đúng mẫu file nhập, có cả giá lẻ và giá sỉ từng nhóm đại lý. Chỉ tài khoản Chủ (quyền cao nhất) mới thấy và dùng được nút này, nhân viên không xem hay tải được bảng giá sỉ. File tải về cũng là bản sao lưu dễ đọc, sửa xong tải lên lại là cập nhật.', 100000],
+    ['Xem lại các lần cập nhật', 'Lưu lại mọi thay đổi, dù sửa trực tiếp hay qua file Excel: ai làm, lúc nào, đổi những gì. Lỡ sửa nhầm thì quay lại bản trước được. Lịch sử giữ 20 ngày gần nhất rồi tự xoá, để tiết kiệm bộ nhớ vì đang dùng gói lưu trữ miễn phí.', 500000],
   ]],
-  [&#x27;Trang quản lý · cài đặt&#x27;, [
-    [&#x27;Nội dung chatbot&#x27;, &#x27;Quản lý tự sửa được, không cần nhờ lập trình: tên chatbot, hình đại diện, màu sắc, câu chào, thông tin cơ bản của cửa hàng (địa chỉ, giờ mở cửa, số điện thoại), thông tin giao hàng và bảo hành. Chatbot trả lời theo đúng nội dung này.&#x27;, 550000],
-    [&#x27;Bảng từ đồng nghĩa&#x27;, &#x27;Quản lý tự thêm cách gọi khác của món hàng và dòng xe, chatbot hiểu ngay, không cần nhờ lập trình. Ví dụ: “phuột = phuộc”, “giảm xóc = phuộc”, “AB = Air Blade”, “hàng zin = chính hãng”.&#x27;, 400000],
+  ['Trang quản lý · cài đặt', [
+    ['Nội dung chatbot', 'Quản lý tự sửa được, không cần nhờ lập trình: tên chatbot, hình đại diện, màu sắc, câu chào, thông tin cơ bản của cửa hàng (địa chỉ, giờ mở cửa, số điện thoại), thông tin giao hàng và bảo hành. Chatbot trả lời theo đúng nội dung này.', 550000],
+    ['Bảng từ đồng nghĩa', 'Quản lý tự thêm cách gọi khác của món hàng và dòng xe, chatbot hiểu ngay, không cần nhờ lập trình. Ví dụ: “phuột = phuộc”, “giảm xóc = phuộc”, “AB = Air Blade”, “hàng zin = chính hãng”.', 400000],
   ]],
-  [&#x27;Trang quản lý · nhân viên và thống kê&#x27;, [
-    [&#x27;Tài khoản nhân viên&#x27;, &#x27;Có 3 cấp quyền: Chủ (quyền cao nhất), Quản lý, Nhân viên. Mỗi tài khoản chỉ thấy đúng phần được phép (xem bảng phân quyền bên dưới). Mỗi tài khoản cài email và Telegram riêng, chọn có nhận thông báo khách cần hỗ trợ hay không. Nhân viên nghỉ thì khóa tài khoản, thông báo cũng dừng gửi.&#x27;, 500000],
-    [&#x27;Xem lại lịch sử chat&#x27;, &#x27;Xem lại mọi cuộc chat trong 25 ngày gần nhất, tìm theo ngày, số điện thoại hoặc từ khoá. Thấy rõ khách hỏi gì, chatbot trả lời gì, để biết chỗ nào trả lời chưa đúng mà bổ sung dữ liệu hoặc từ đồng nghĩa.&#x27;, 500000],
-    [&#x27;Thống kê và kiểm soát chi phí&#x27;, &#x27;Xem mỗi ngày có bao nhiêu lượt hỏi, món nào được hỏi nhiều, khách tìm gì mà chưa có. Bảng chi phí AI: hôm nay, tháng này đã dùng bao nhiêu token và hết bao nhiêu tiền (tính từ số liệu nhà cung cấp AI trả về sau mỗi câu), kèm số câu hỏi để biết trung bình mỗi câu tốn bao nhiêu. Đặt ngân sách tháng: gần chạm thì báo qua Telegram, chạm thì tự tắt AI. Có công tắc bật/tắt AI bất cứ lúc nào: khi tắt, khung chat vẫn mở nhưng không gọi AI, chỉ hiện thông tin cửa hàng và xin tên, số điện thoại để nhân viên gọi lại, nên không tốn thêm tiền AI. Nội dung chat chỉ giữ 25 ngày, quá 25 ngày hệ thống tự xoá hẳn để dữ liệu luôn nằm trong gói lưu trữ miễn phí. Số liệu thống kê vẫn được giữ lâu dài. Giới hạn lượt hỏi cho từng khách (ví dụ tối đa 30 câu mỗi giờ), để một người hỏi liên tục hoặc phá cũng không làm tốn tiền AI.&#x27;, 2400000],
-    [&#x27;Ghi nhớ câu hỏi hay gặp (không cần làm)&#x27;, &#x27;Đã cân nhắc và đề xuất không làm, nên không tính tiền. Lý do: hai câu gần giống nhau như “phuộc sau AB 2020” và “phuộc sau AB 2023” rất dễ bị coi là một, dẫn tới trả nhầm món. Trong khi đó, nhà cung cấp AI đã có sẵn bộ nhớ đệm giúp giảm khoảng 40% tiền AI mà không có rủi ro sai, nên phần tiết kiệm thêm không đáng. Câu hỏi về địa chỉ, giờ mở cửa, giao hàng, bảo hành vẫn được trả lời theo nội dung cài đặt ở mục 19.&#x27;, 600000, &#x27;bỏ&#x27;],
+  ['Trang quản lý · nhân viên và thống kê', [
+    ['Tài khoản nhân viên', 'Có 3 cấp quyền: Chủ (quyền cao nhất), Quản lý, Nhân viên. Mỗi tài khoản chỉ thấy đúng phần được phép (xem bảng phân quyền bên dưới). Mỗi tài khoản cài email và Telegram riêng, chọn có nhận thông báo khách cần hỗ trợ hay không. Nhân viên nghỉ thì khóa tài khoản, thông báo cũng dừng gửi.', 500000],
+    ['Xem lại lịch sử chat', 'Xem lại mọi cuộc chat trong 25 ngày gần nhất, tìm theo ngày, số điện thoại hoặc từ khoá. Thấy rõ khách hỏi gì, chatbot trả lời gì, để biết chỗ nào trả lời chưa đúng mà bổ sung dữ liệu hoặc từ đồng nghĩa.', 500000],
+    ['Thống kê và kiểm soát chi phí', 'Xem mỗi ngày có bao nhiêu lượt hỏi, món nào được hỏi nhiều, khách tìm gì mà chưa có. Bảng chi phí AI: hôm nay, tháng này đã dùng bao nhiêu token và hết bao nhiêu tiền (tính từ số liệu nhà cung cấp AI trả về sau mỗi câu), kèm số câu hỏi để biết trung bình mỗi câu tốn bao nhiêu. Đặt ngân sách tháng: gần chạm thì báo qua Telegram, chạm thì tự tắt AI. Có công tắc bật/tắt AI bất cứ lúc nào: khi tắt, khung chat vẫn mở nhưng không gọi AI, chỉ hiện thông tin cửa hàng và xin tên, số điện thoại để nhân viên gọi lại, nên không tốn thêm tiền AI. Nội dung chat chỉ giữ 25 ngày, quá 25 ngày hệ thống tự xoá hẳn để dữ liệu luôn nằm trong gói lưu trữ miễn phí. Số liệu thống kê vẫn được giữ lâu dài. Giới hạn lượt hỏi cho từng khách (ví dụ tối đa 30 câu mỗi giờ), để một người hỏi liên tục hoặc phá cũng không làm tốn tiền AI.', 2400000],
+    ['Ghi nhớ câu hỏi hay gặp (không cần làm)', 'Đã cân nhắc và đề xuất không làm, nên không tính tiền. Lý do: hai câu gần giống nhau như “phuộc sau AB 2020” và “phuộc sau AB 2023” rất dễ bị coi là một, dẫn tới trả nhầm món. Trong khi đó, nhà cung cấp AI đã có sẵn bộ nhớ đệm giúp giảm khoảng 40% tiền AI mà không có rủi ro sai, nên phần tiết kiệm thêm không đáng. Câu hỏi về địa chỉ, giờ mở cửa, giao hàng, bảo hành vẫn được trả lời theo nội dung cài đặt ở mục 19.', 600000, 'bỏ'],
   ]],
-  [&#x27;Cài đặt và bàn giao&#x27;, [
-    [&#x27;Cài đặt, chạy thử, sao lưu và bàn giao&#x27;, &#x27;Cài toàn bộ hệ thống bằng tài khoản đứng tên chủ sở hữu, chọn cách rẻ nhất mà vẫn chạy ổn định: trang quản lý (cài đặt, phân quyền, xem thống kê) chạy trên Vercel, gói miễn phí; phần xử lý chạy các tính năng của chatbot (backend) chạy trên Railway, khoảng 5 USD/tháng do chủ sở hữu trả; dữ liệu sản phẩm và chat lưu trên MongoDB Atlas, gói miễn phí 512MB. Dữ liệu tự sao lưu ra một nơi khác lúc 2 giờ sáng mỗi ngày, vào kho lưu trữ riêng tư Cloudflare R2 đứng tên chủ sở hữu (dung lượng miễn phí, chi phí gần như bằng 0); giữ 7 bản gần nhất và 4 bản hằng tuần, sao lưu lỗi thì báo qua Telegram, đã thử khôi phục trước khi bàn giao. Chạy thử bằng bộ câu hỏi mẫu hai bên thống nhất, sửa đến khi trả lời đúng. Hướng dẫn sử dụng và bàn giao toàn bộ mã nguồn.&#x27;, 2000000],
+  ['Cài đặt và bàn giao', [
+    ['Cài đặt, chạy thử, sao lưu và bàn giao', 'Cài toàn bộ hệ thống bằng tài khoản đứng tên chủ sở hữu, chọn cách rẻ nhất mà vẫn chạy ổn định: trang quản lý (cài đặt, phân quyền, xem thống kê) chạy trên Vercel, gói miễn phí; phần xử lý chạy các tính năng của chatbot (backend) chạy trên Railway, khoảng 5 USD/tháng do chủ sở hữu trả; dữ liệu sản phẩm và chat lưu trên MongoDB Atlas, gói miễn phí 512MB. Dữ liệu tự sao lưu ra một nơi khác lúc 2 giờ sáng mỗi ngày, vào kho lưu trữ riêng tư Cloudflare R2 đứng tên chủ sở hữu (dung lượng miễn phí, chi phí gần như bằng 0); giữ 7 bản gần nhất và 4 bản hằng tuần, sao lưu lỗi thì báo qua Telegram, đã thử khôi phục trước khi bàn giao. Chạy thử bằng bộ câu hỏi mẫu hai bên thống nhất, sửa đến khi trả lời đúng. Hướng dẫn sử dụng và bàn giao toàn bộ mã nguồn.', 2000000],
   ]],
 ];
 const OPTS = [
-  [&#x27;A&#x27;, &#x27;Nhân viên chat trực tiếp với khách&#x27;, &#x27;Nhân viên vào cùng khung chat, trả lời khách ngay như nhắn tin.&#x27;],
-  [&#x27;B&#x27;, &#x27;Đặt hàng ngay trong chat&#x27;, &#x27;Khách chọn món bằng nút “Thêm vào giỏ” hoặc nhắn như nói chuyện: “lấy 2 cặp phuộc này”, “bỏ cái khóa ra”, “đổi thành 3 cái”. Giỏ hiện tạm tính theo đúng giá của khách (lẻ hoặc sỉ). Khách để lại tên, số điện thoại, địa chỉ giao hàng rồi bấm “Đặt hàng”, nhận mã đơn ngay trong chat. Đơn vào trang quản lý và báo qua email, Telegram; nhân viên gọi xác nhận, báo cách thanh toán, rồi bấm “Đã xác nhận” (bấm ngay trong Telegram cũng được). Trang quản lý có danh sách đơn theo trạng thái: Mới → Đã xác nhận → Đã giao, hoặc Huỷ. Khách hỏi “đơn của tôi sao rồi” thì chatbot báo trạng thái theo mã đơn. Đơn hàng lưu lâu dài, không tự xoá như nội dung chat. Chưa gồm thanh toán online.&#x27;],
-  [&#x27;C&#x27;, &#x27;Đặt trước món hết hàng&#x27;, &#x27;Cần có tuỳ chọn B. Món đang hết hàng khách vẫn đặt được như đơn thường, đơn được ghi “Đặt trước”. Khi có hàng, nhân viên gọi lại xác nhận và giao.&#x27;],
-  [&#x27;D&#x27;, &#x27;Chatbot trên Zalo&#x27;, &#x27;Khách nhắn vào Zalo OA của chủ sở hữu cũng được chatbot trả lời.&#x27;],
-  [&#x27;E&#x27;, &#x27;Chatbot trên Facebook&#x27;, &#x27;Khách nhắn vào Fanpage của chủ sở hữu cũng được chatbot trả lời.&#x27;],
-  [&#x27;F&#x27;, &#x27;Tìm phụ tùng bằng ảnh&#x27;, &#x27;Khách chụp ảnh món cần tìm gửi lên, chatbot gợi ý món giống và hỏi thêm cho chắc.&#x27;],
-  [&#x27;G&#x27;, &#x27;Trang báo giá cho nhân viên&#x27;, &#x27;Trang riêng trong trang quản lý để nhân viên tra mã, tồn kho và chọn báo giá sỉ hoặc giá lẻ cho từng khách khi khách gọi điện hoặc đến cửa hàng. Không chọn mục này thì nhân viên vẫn dùng chatbot như khách thường (thấy giá lẻ).&#x27;],
+  ['A', 'Nhân viên chat trực tiếp với khách', 'Nhân viên vào cùng khung chat, trả lời khách ngay như nhắn tin.'],
+  ['B', 'Đặt hàng ngay trong chat', 'Khách chọn món bằng nút “Thêm vào giỏ” hoặc nhắn như nói chuyện: “lấy 2 cặp phuộc này”, “bỏ cái khóa ra”, “đổi thành 3 cái”. Giỏ hiện tạm tính theo đúng giá của khách (lẻ hoặc sỉ). Khách để lại tên, số điện thoại, địa chỉ giao hàng rồi bấm “Đặt hàng”, nhận mã đơn ngay trong chat. Đơn vào trang quản lý và báo qua email, Telegram; nhân viên gọi xác nhận, báo cách thanh toán, rồi bấm “Đã xác nhận” (bấm ngay trong Telegram cũng được). Trang quản lý có danh sách đơn theo trạng thái: Mới → Đã xác nhận → Đã giao, hoặc Huỷ. Khách hỏi “đơn của tôi sao rồi” thì chatbot báo trạng thái theo mã đơn. Đơn hàng lưu lâu dài, không tự xoá như nội dung chat. Chưa gồm thanh toán online.'],
+  ['C', 'Đặt trước món hết hàng', 'Cần có tuỳ chọn B. Món đang hết hàng khách vẫn đặt được như đơn thường, đơn được ghi “Đặt trước”. Khi có hàng, nhân viên gọi lại xác nhận và giao.'],
+  ['D', 'Chatbot trên Zalo', 'Khách nhắn vào Zalo OA của chủ sở hữu cũng được chatbot trả lời.'],
+  ['E', 'Chatbot trên Facebook', 'Khách nhắn vào Fanpage của chủ sở hữu cũng được chatbot trả lời.'],
+  ['F', 'Tìm phụ tùng bằng ảnh', 'Khách chụp ảnh món cần tìm gửi lên, chatbot gợi ý món giống và hỏi thêm cho chắc.'],
+  ['G', 'Trang báo giá cho nhân viên', 'Trang riêng trong trang quản lý để nhân viên tra mã, tồn kho và chọn báo giá sỉ hoặc giá lẻ cho từng khách khi khách gọi điện hoặc đến cửa hàng. Không chọn mục này thì nhân viên vẫn dùng chatbot như khách thường (thấy giá lẻ).'],
 ];
-const vnd = (n) =&gt; n.toLocaleString(&#x27;vi-VN&#x27;) + &#x27;đ&#x27;;
-const esc = (s) =&gt; s.replace(/&amp;/g, &#x27;&amp;amp;&#x27;).replace(/&lt;/g, &#x27;&amp;lt;&#x27;);
+const vnd = (n) => n.toLocaleString('vi-VN') + 'đ';
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 
-let i = 0, baseTotal = 0, html = &#x27;&#x27;;
+let i = 0, baseTotal = 0, html = '';
 for (const [g, items] of BASE) {
-  html += `&lt;tr class=&quot;group&quot;&gt;&lt;td colspan=&quot;4&quot;&gt;${esc(g)}&lt;/td&gt;&lt;/tr&gt;`;
-  // Mục có đánh dấu &#x27;bỏ&#x27;: hiện giá gạch ngang, không cộng vào tổng.
+  html += `<tr class="group"><td colspan="4">${esc(g)}</td></tr>`;
+  // Mục có đánh dấu 'bỏ': hiện giá gạch ngang, không cộng vào tổng.
   for (const [name, d, price, skip] of items) {
     i++; if (!skip) baseTotal += price;
-    html += `&lt;tr&gt;&lt;td class=&quot;n&quot;&gt;${String(i).padStart(2, &#x27;0&#x27;)}&lt;/td&gt;&lt;td class=&quot;name&quot;&gt;${esc(name)}&lt;/td&gt;&lt;td class=&quot;d&quot;&gt;${esc(d)}&lt;/td&gt;&lt;td class=&quot;num p&quot;&gt;${skip ? `&lt;s style=&quot;color: var(--muted)&quot;&gt;${vnd(price)}&lt;/s&gt;` : vnd(price)}&lt;/td&gt;&lt;/tr&gt;`;
+    html += `<tr><td class="n">${String(i).padStart(2, '0')}</td><td class="name">${esc(name)}</td><td class="d">${esc(d)}</td><td class="num p">${skip ? `<s style="color: var(--muted)">${vnd(price)}</s>` : vnd(price)}</td></tr>`;
   }
 }
-html += `&lt;tr class=&quot;sum&quot;&gt;&lt;td&gt;&lt;/td&gt;&lt;td class=&quot;name&quot;&gt;Cộng gói cơ bản&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td class=&quot;num p&quot;&gt;${vnd(baseTotal)}&lt;/td&gt;&lt;/tr&gt;`;
-document.getElementById(&#x27;base&#x27;).innerHTML = html;
-document.getElementById(&#x27;baseCount&#x27;).textContent = i + &#x27; tính năng&#x27;;
+html += `<tr class="sum"><td></td><td class="name">Cộng gói cơ bản</td><td></td><td class="num p">${vnd(baseTotal)}</td></tr>`;
+document.getElementById('base').innerHTML = html;
+document.getElementById('baseCount').textContent = i + ' tính năng';
 
-document.getElementById(&#x27;opts&#x27;).innerHTML = OPTS.map(([c, name, d]) =&gt;
-  `&lt;tr&gt;&lt;td class=&quot;n&quot;&gt;${c}&lt;/td&gt;&lt;td class=&quot;name&quot;&gt;${esc(name)}&lt;/td&gt;&lt;td class=&quot;d&quot;&gt;${esc(d)}&lt;/td&gt;&lt;/tr&gt;`
-).join(&#x27;&#x27;);
-document.getElementById(&#x27;total&#x27;).textContent = vnd(baseTotal);
+document.getElementById('opts').innerHTML = OPTS.map(([c, name, d]) =>
+  `<tr><td class="n">${c}</td><td class="name">${esc(name)}</td><td class="d">${esc(d)}</td></tr>`
+).join('');
+document.getElementById('total').textContent = vnd(baseTotal);
 
-// Điện thoại: mô tả dài thu gọn 3 dòng, bấm &quot;Xem thêm&quot; để mở.
-document.querySelectorAll(&#x27;#base td.d, #opts td.d&#x27;).forEach((td) =&gt; {
-  if (td.textContent.length &lt; 160) return;
-  td.classList.add(&#x27;clamp&#x27;);
-  const more = document.createElement(&#x27;td&#x27;);
-  more.className = &#x27;more-td&#x27;;
-  more.innerHTML = &#x27;&lt;button type=&quot;button&quot; class=&quot;more&quot;&gt;Xem thêm&lt;/button&gt;&#x27;;
-  more.firstChild.addEventListener(&#x27;click&#x27;, (e) =&gt; {
-    const open = td.classList.toggle(&#x27;clamp&#x27;);
-    e.target.textContent = open ? &#x27;Xem thêm&#x27; : &#x27;Thu gọn&#x27;;
+// Điện thoại: mô tả dài thu gọn 3 dòng, bấm "Xem thêm" để mở.
+document.querySelectorAll('#base td.d, #opts td.d').forEach((td) => {
+  if (td.textContent.length < 160) return;
+  td.classList.add('clamp');
+  const more = document.createElement('td');
+  more.className = 'more-td';
+  more.innerHTML = '<button type="button" class="more">Xem thêm</button>';
+  more.firstChild.addEventListener('click', (e) => {
+    const open = td.classList.toggle('clamp');
+    e.target.textContent = open ? 'Xem thêm' : 'Thu gọn';
   });
-  td.closest(&#x27;tr&#x27;).appendChild(more);
+  td.closest('tr').appendChild(more);
 });
 // Bảng tự tính tiền AI mỗi tháng (giá mỗi câu lấy từ bảng chi phí AI ở trên).
 const AI_PRICES = [
-  [&#x27;Claude Haiku 5.5 (Anthropic)&#x27;, 35], [&#x27;GPT-6 Luna (OpenAI)&#x27;, 35], [&#x27;Gemini 3.1 Flash-Lite (Google)&#x27;, 90],
-  [&#x27;Gemini 3.6 Flash (Google)&#x27;, 265], [&#x27;GPT-6.1 Terra (OpenAI)&#x27;, 350], [&#x27;Claude Sonnet 5.5 (Anthropic)&#x27;, 700],
+  ['Claude Haiku 5.5 (Anthropic)', 35], ['GPT-6 Luna (OpenAI)', 35], ['Gemini 3.1 Flash-Lite (Google)', 90],
+  ['Gemini 3.6 Flash (Google)', 265], ['GPT-6.1 Terra (OpenAI)', 350], ['Claude Sonnet 5.5 (Anthropic)', 700],
 ];
 const SERVER_VND = 130000;
-const cAi = document.getElementById(&#x27;cAi&#x27;);
-cAi.innerHTML = AI_PRICES.map(([n, p], k) =&gt; `&lt;option value=&quot;${k}&quot;${k === 1 ? &#x27; selected&#x27; : &#x27;&#x27;}&gt;${esc(n.replace(/ \(.*\)$/, &#x27;&#x27;))} · ${p}đ/câu&lt;/option&gt;`).join(&#x27;&#x27;);
-const num = (id) =&gt; Math.max(0, +document.getElementById(id).value || 0);
-const round1k = (n) =&gt; Math.round(n / 1000) * 1000;
+const cAi = document.getElementById('cAi');
+cAi.innerHTML = AI_PRICES.map(([n, p], k) => `<option value="${k}"${k === 1 ? ' selected' : ''}>${esc(n.replace(/ \(.*\)$/, ''))} · ${p}đ/câu</option>`).join('');
+const num = (id) => Math.max(0, +document.getElementById(id).value || 0);
+const round1k = (n) => Math.round(n / 1000) * 1000;
 function calc() {
   const perQ = AI_PRICES[+cAi.value][1];
-  const peak = num(&#x27;cPeak&#x27;);
-  const qMonth = (peak * num(&#x27;cPeakH&#x27;) + num(&#x27;cNorm&#x27;) * num(&#x27;cNormH&#x27;)) * num(&#x27;cQ&#x27;) * 30;
+  const peak = num('cPeak');
+  const qMonth = (peak * num('cPeakH') + num('cNorm') * num('cNormH')) * num('cQ') * 30;
   const hi = qMonth * perQ, lo = hi * 0.6;
-  document.getElementById(&#x27;rQ&#x27;).textContent = qMonth.toLocaleString(&#x27;vi-VN&#x27;);
-  document.getElementById(&#x27;rAi&#x27;).textContent = vnd(round1k(lo)) + &#x27; – &#x27; + vnd(round1k(hi));
-  document.getElementById(&#x27;rAll&#x27;).textContent = vnd(round1k(lo + SERVER_VND)) + &#x27; – &#x27; + vnd(round1k(hi + SERVER_VND));
-  const st = document.getElementById(&#x27;rCap&#x27;);
-  st.className = &#x27;status&#x27; + (peak &gt; 80 ? &#x27; bad&#x27; : peak &gt; 60 ? &#x27; warn&#x27; : &#x27;&#x27;);
-  st.textContent = peak &lt;= 60
+  document.getElementById('rQ').textContent = qMonth.toLocaleString('vi-VN');
+  document.getElementById('rAi').textContent = vnd(round1k(lo)) + ' – ' + vnd(round1k(hi));
+  document.getElementById('rAll').textContent = vnd(round1k(lo + SERVER_VND)) + ' – ' + vnd(round1k(hi + SERVER_VND));
+  const st = document.getElementById('rCap');
+  st.className = 'status' + (peak > 80 ? ' bad' : peak > 60 ? ' warn' : '');
+  st.textContent = peak <= 60
     ? `Giờ cao điểm ${peak} khách: trong mức hệ thống đã chạy thử (60 khách cùng lúc), không cần làm gì thêm.`
-    : peak &lt;= 80
+    : peak <= 80
       ? `Giờ cao điểm ${peak} khách: vẫn chạy bình thường. Nên nạp tài khoản AI từ 100 USD để AI không bị giới hạn lúc đông.`
       : `Giờ cao điểm ${peak} khách: vượt mức đã chạy thử. Cần nạp tài khoản AI từ 100 USD, tăng máy chủ và chạy thử lại (xem bảng bên dưới).`;
 }
-document.querySelector(&#x27;.calc-grid&#x27;).addEventListener(&#x27;input&#x27;, calc);
+document.querySelector('.calc-grid').addEventListener('input', calc);
 calc();
 
 // Khi được nhúng trong trang demo: báo chiều cao để khung tự giãn theo nội dung.
 if (window.parent !== window) {
-  const postHeight = () =&gt; parent.postMessage({ baoGiaHeight: document.documentElement.scrollHeight }, &#x27;*&#x27;);
+  const postHeight = () => parent.postMessage({ baoGiaHeight: document.documentElement.scrollHeight }, '*');
   new ResizeObserver(postHeight).observe(document.body);
-  window.addEventListener(&#x27;load&#x27;, postHeight);
+  window.addEventListener('load', postHeight);
 }
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-"></iframe>
+})(doc);
+    })();
+    </script>
+    <!-- BAO-GIA:END -->
   </div>
 </section>
 
@@ -906,11 +907,6 @@ if (window.parent !== window) {
 </footer>
 
 <script>
-/* ---------- Báo giá nhúng: tự chỉnh chiều cao khung theo nội dung ---------- */
-window.addEventListener('message', (e) => {
-  const h = e.data && e.data.baoGiaHeight;
-  if (h) document.getElementById('baoGiaFrame').style.height = h + 'px';
-});
 
 /* ---------- Chat demo ---------- */
 const card = (o) => `<div class="pcard${o.out ? ' out' : ''}">
