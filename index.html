@@ -4,596 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Demo Chat CM motorfas</title>
+<title>Báo giá Website CM motorfas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #ffffff; --text: #0a0a0a; --muted: #5c5c5c;
-  --line: #0a0a0a; --hair: #d9d9d9;
-  --inv-bg: #0a0a0a; --inv-text: #ffffff;
-  --danger: #c4231c; --warn: #a35d00;
-  --font-sans: Inter, system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --pattern-hatch: repeating-linear-gradient(-45deg, transparent 0 6px, var(--hair) 6px 7px);
-  --pattern-grid: linear-gradient(var(--hair) 1px, transparent 1px), linear-gradient(90deg, var(--hair) 1px, transparent 1px);
-}
-/* Always light: the demo is shown to the client on a white background */
-:root { color-scheme: light; }
-
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 56px; }
-body {
-  margin: 0; font-family: var(--font-sans); font-size: 15px; line-height: 1.6;
-  background: var(--bg); color: var(--text);
-  -webkit-font-smoothing: antialiased;
-}
-a { color: inherit; }
-.label {
-  margin: 0; font-family: var(--font-mono); font-size: 11px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
-}
-h1 { margin: 0; font-size: clamp(36px, 6vw, 72px); font-weight: 700; line-height: .95; letter-spacing: -.04em; text-transform: uppercase; }
-h2 { margin: 0; font-size: clamp(24px, 3vw, 34px); font-weight: 700; line-height: 1.2; letter-spacing: -.03em; }
-h3 { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -.02em; }
-.lead { margin: 0; max-width: 820px; font-size: 17px; line-height: 1.7; padding-left: 16px; border-left: 3px solid var(--line); }
-.desc { margin: 0; max-width: 760px; font-size: 15px; line-height: 1.65; color: var(--muted); }
-.desc strong { color: var(--text); font-weight: 600; }
-.note { margin: 0; font: 12px/1.55 var(--font-mono); color: var(--muted); padding-left: 10px; border-left: 2px solid var(--line); }
-.small { font-size: 13px; line-height: 1.5; }
-.muted { color: var(--muted); }
-
-/* Layout */
-.band { border-bottom: 1px solid var(--line); }
-.wrap { max-width: 1240px; margin: 0 auto; border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
-
-.topbar { position: sticky; top: 0; z-index: 10; background: var(--bg); }
-.topbar .wrap {
-  height: 48px; padding: 0 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px;
-  font: 12px var(--font-mono); text-transform: uppercase; letter-spacing: .06em;
-}
-.topbar nav { display: flex; overflow-x: auto; }
-.topbar nav a { text-decoration: none; padding: 6px 10px; border: 1px solid var(--line); white-space: nowrap; }
-.topbar nav a + a { border-left: 0; }
-.topbar nav a:hover { background: var(--inv-bg); color: var(--inv-text); }
-.topbar nav a:focus-visible { outline: 2px solid var(--line); outline-offset: 2px; }
-
-.hero-main { padding: 48px 24px 32px; display: grid; gap: 20px; }
-
-.section-head { padding: 32px 24px 24px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); }
-.sec-no { font: 600 12px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; }
-.sub-head { padding: 20px 24px 16px; display: grid; gap: 6px; border-bottom: 1px solid var(--line); }
-
-/* Cell grid: 1px gap on a line-colored ground draws the shared borders */
-.cells { display: grid; gap: 1px; background: var(--line); }
-.cells > * { background: var(--bg); padding: 20px 20px 22px; display: grid; gap: 10px; align-content: start; }
-.c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.cells .kpi { font: 600 22px var(--font-mono); line-height: 1.2; }
-.cells .big { font-size: 20px; font-weight: 700; letter-spacing: -.02em; line-height: 1.25; }
-.role-head { display: flex; align-items: baseline; gap: 10px; }
-.role-head .n { font: 11px var(--font-mono); color: var(--muted); }
-.kv { display: grid; grid-template-columns: 76px 1fr; gap: 4px 10px; font-size: 13px; line-height: 1.5; padding-top: 10px; border-top: 1px solid var(--hair); }
-.kv dt { font: 10px/1.9 var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-.kv dd { margin: 0; }
-
-.inverse { background: var(--inv-bg) !important; color: var(--inv-text); }
-.inverse .label { color: inherit; opacity: .7; }
-.hatch { background-color: var(--bg) !important; background-image: var(--pattern-hatch); }
-
-.dash { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
-.dash li { position: relative; padding-left: 16px; font-size: 14px; line-height: 1.5; color: var(--muted); }
-.dash li strong { color: var(--text); font-weight: 600; }
-.dash li::before { content: '—'; position: absolute; left: 0; color: var(--text); }
-.inverse .dash li, .inverse .dash li strong, .inverse .dash li::before { color: inherit; }
-
-/* Flow */
-.flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; background: var(--line); border-top: 1px solid var(--line); }
-.flow > div { background: var(--bg); padding: 14px 16px 16px 22px; position: relative; display: grid; gap: 4px; align-content: start; }
-.flow > div:not(:last-child)::after {
-  content: '→'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); z-index: 1;
-  font: 12px var(--font-mono); background: var(--bg); padding: 2px 0;
-}
-.flow .step { font-size: 14.5px; font-weight: 700; line-height: 1.3; }
-.flow .d { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
-.flow .current { background: var(--inv-bg); color: var(--inv-text); }
-.flow .current .label, .flow .current .d { color: inherit; opacity: .8; }
-
-/* Components */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 7px 12px; min-height: 34px; border: 1px solid var(--line); border-radius: 0;
-  background: transparent; color: var(--text); text-decoration: none;
-  font: 600 12px/1.2 var(--font-mono); text-transform: uppercase; letter-spacing: .04em; cursor: pointer;
-}
-.btn:hover { background: var(--inv-bg); color: var(--inv-text); }
-.btn:focus-visible { outline: 2px solid var(--line); outline-offset: 2px; }
-.btn-primary { background: var(--inv-bg); color: var(--inv-text); }
-.btn-primary:hover { background: var(--bg); color: var(--text); }
-.btn-danger { border-color: var(--danger); color: var(--danger); }
-.btn-danger:hover { background: var(--danger); color: #fff; }
-.btn.sm { min-height: 28px; padding: 4px 8px; font-size: 11px; }
-
-.tag {
-  display: inline-flex; align-items: center; gap: 4px;
-  font: 500 11px/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: .04em;
-  padding: 3px 7px; border: 1px solid var(--line); border-radius: 2px; white-space: nowrap;
-}
-.tag.solid { background: var(--inv-bg); color: var(--inv-text); }
-.tag.soft { border-color: var(--hair); color: var(--muted); }
-.tag.plan { border-style: dashed; font-size: 10px; padding: 1px 5px; }
-.tag.tbd { border-style: dashed; border-color: var(--warn); color: var(--warn); font-size: 10px; padding: 1px 5px; white-space: normal; }
-.tbd-cell { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.chip { font: 500 11px/1.4 var(--font-sans); padding: 5px 9px; border: 1px solid var(--line); border-radius: 2px; background: var(--bg); color: var(--text); white-space: nowrap; }
-
-.status {
-  display: inline-block; font: 10px/1.5 var(--font-mono); text-transform: uppercase; letter-spacing: .04em;
-  border: 1px solid var(--line); border-radius: 2px; padding: 1px 6px; white-space: nowrap;
-}
-.status.done { background: var(--inv-bg); color: var(--inv-text); }
-.status.todo { border-color: var(--hair); color: var(--muted); }
-.status.plan { border-style: dashed; }
-.status.error { border-color: var(--danger); color: var(--danger); }
-
-.pin {
-  display: inline-flex; align-items: center; justify-content: center; flex: none;
-  min-width: 22px; height: 18px; padding: 0 4px; border-radius: 2px;
-  font: 600 10px var(--font-mono); background: var(--inv-bg); color: var(--inv-text);
-}
-
-.panel { border: 1px solid var(--line); background: var(--bg); }
-.panel-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
-.panel-head .meta { font: 11px var(--font-mono); border: 1px solid var(--line); border-radius: 2px; padding: 1px 6px; white-space: nowrap; }
-.panel-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 9px 12px; border-top: 1px solid var(--line); font: 11px var(--font-mono); color: var(--muted); }
-
-.table-scroll { overflow-x: auto; }
-.table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13.5px; }
-.table th { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line); font: 500 10px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); white-space: nowrap; vertical-align: bottom; }
-.table td { padding: 10px 12px; border-bottom: 1px solid var(--hair); vertical-align: top; line-height: 1.5; }
-.table tr:last-child td { border-bottom: 0; }
-.table .code { font: 12px var(--font-mono); white-space: nowrap; }
-.table .group td { padding: 6px 12px; background: var(--hair); font: 10px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-.table .c { text-align: center; white-space: nowrap; }
-.table .yes { font: 600 13px var(--font-mono); }
-.table .no { color: var(--hair); }
-.table .txt { font: 10px var(--font-mono); text-transform: uppercase; letter-spacing: .04em; }
-.matrix th.c { text-align: center; }
-.q { font-weight: 600; }
-.q::before { content: '“'; } .q::after { content: '”'; }
-
-.field { display: grid; gap: 6px; }
-.field > .label { color: var(--text); }
-.input, .select, .textarea {
-  width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 0;
-  background: var(--bg); color: var(--text); font: 14px var(--font-sans);
-}
-.input::placeholder, .textarea::placeholder { color: var(--muted); }
-.input:focus, .select:focus, .textarea:focus { outline: 2px solid var(--line); outline-offset: -1px; }
-.textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
-.select.sm { width: auto; padding: 4px 8px; font-size: 12px; }
-.input.sm { padding: 6px 8px; font-size: 12px; }
-
-.alert { border: 1px solid var(--line); border-left: 3px solid var(--warn); padding: 10px 14px; display: grid; gap: 4px; font-size: 13.5px; }
-.alert .label { color: var(--warn); }
-.boxed { border: 1px solid var(--line); border-left: 3px solid var(--line); padding: 12px 14px; display: grid; gap: 4px; font-size: 13.5px; line-height: 1.6; }
-
-/* Chat demo: scenario list + auto-playing phone */
-.demo { display: grid; grid-template-columns: 300px minmax(0, 1fr); }
-.cases { border-right: 1px solid var(--line); display: flex; flex-direction: column; }
-.case {
-  all: unset; cursor: pointer; box-sizing: border-box;
-  display: grid; grid-template-columns: 30px 1fr; gap: 2px 8px;
-  padding: 13px 16px; border-bottom: 1px solid var(--hair);
-}
-.case .n { font: 11px var(--font-mono); color: var(--muted); padding-top: 3px; }
-.case .t { font-size: 14px; font-weight: 600; line-height: 1.35; }
-.case .s { grid-column: 2; font-size: 12.5px; color: var(--muted); line-height: 1.4; }
-.case:hover { background: var(--hair); }
-.case:focus-visible { outline: 2px solid var(--line); outline-offset: -2px; }
-.case[aria-current="true"] { background: var(--inv-bg); color: var(--inv-text); }
-.case[aria-current="true"] .n, .case[aria-current="true"] .s { color: inherit; opacity: .8; }
-.demo-stage {
-  padding: 32px 28px; min-width: 0;
-  background-color: var(--bg); background-image: var(--pattern-grid); background-size: 24px 24px; background-position: -1px -1px;
-  display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 28px; align-items: start;
-}
-.phone { width: 100%; max-width: 360px; height: 680px; border: 2px solid var(--line); border-radius: 32px; background: var(--bg); padding: 12px; display: flex; flex-direction: column; }
-.ph-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 6px 12px; border-bottom: 1px solid var(--hair); }
-.ph-head strong { display: block; font-size: 15px; }
-.ph-chat { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 12px 4px; scrollbar-width: thin; }
-.ph-chat > * { flex: none; }
-.ph-chat .msg.bot, .ph-chat > .row, .ph-chat > .btn { align-self: flex-start; }
-.ph-chat .msg.me, .ph-chat > .photo { align-self: flex-end; }
-.ph-chat > .pcard, .ph-chat > .list { align-self: flex-start; width: 100%; max-width: 290px; }
-.list .pmini + .pmini { border-top: 0; margin-top: 0; }
-.opt { display: flex; gap: 10px; padding: 10px; border: 1px solid var(--line); background: var(--bg); }
-.opt + .opt { border-top: 0; }
-.oimg { width: 64px; height: 64px; flex: none; border: 1px solid var(--hair); background-color: var(--bg); background-image: var(--pattern-hatch); display: flex; align-items: center; justify-content: center; font: 9px var(--font-mono); color: var(--muted); text-transform: uppercase; }
-.obody { flex: 1; min-width: 0; display: grid; gap: 3px; }
-.obody .btn { justify-self: start; margin-top: 4px; }
-.opt.out .oimg, .opt.out .price { opacity: .5; }
-.pcard.out .pimg, .pcard.out .price { opacity: .5; }
-.typing { align-self: flex-start; display: inline-flex; gap: 4px; padding: 11px 12px; border: 1px solid var(--hair); }
-.typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: blink 1s infinite; }
-.typing span:nth-child(2) { animation-delay: .15s; }
-.typing span:nth-child(3) { animation-delay: .3s; }
-@keyframes blink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
-.pop { animation: pop .25s ease-out; }
-@keyframes pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.chip.picked { background: var(--inv-bg); color: var(--inv-text); }
-.ph-input { display: flex; gap: 6px; align-items: center; padding-top: 10px; border-top: 1px solid var(--hair); }
-.fake-input { flex: 1; min-width: 0; height: 40px; border: 1px solid var(--line); padding: 0 12px; font-size: 13px; display: flex; align-items: center; overflow: hidden; white-space: nowrap; }
-.fake-input .ph { color: var(--muted); }
-.caret { flex: none; width: 1px; height: 16px; background: var(--text); margin-left: 1px; animation: caret 1s steps(1) infinite; }
-@keyframes caret { 50% { opacity: 0; } }
-.send { flex: none; width: 40px; height: 40px; background: var(--inv-bg); color: var(--inv-text); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); }
-.demo-side { display: grid; gap: 14px; align-content: start; min-width: 0; }
-.cap-body { padding: 14px 16px 16px; display: grid; gap: 10px; }
-.play {
-  all: unset; cursor: pointer; white-space: nowrap;
-  font: 600 11px var(--font-mono); text-transform: uppercase; letter-spacing: .04em;
-  border: 1px solid var(--line); padding: 3px 7px;
-}
-.play:hover { background: var(--inv-bg); color: var(--inv-text); }
-.play:focus-visible { outline: 2px solid var(--line); outline-offset: 2px; }
-@media (prefers-reduced-motion: reduce) {
-  .pop, .typing span, .caret { animation: none; }
-}
-.msg { max-width: 88%; padding: 8px 11px; font-size: 13px; line-height: 1.45; border: 1px solid var(--hair); background: var(--bg); }
-.msg.bot { justify-self: start; }
-.msg.me { justify-self: end; background: var(--inv-bg); color: var(--inv-text); border-color: var(--line); }
-.who { font: 10px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-.row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-
-.pcard { border: 1px solid var(--line); background: var(--bg); }
-.pimg { height: 84px; background-color: var(--bg); background-image: var(--pattern-hatch); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font: 10px var(--font-mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
-.pbody { padding: 9px 10px 10px; display: grid; gap: 3px; }
-.pname { font-size: 13.5px; font-weight: 700; letter-spacing: -.01em; line-height: 1.3; }
-.meta { font: 10.5px/1.55 var(--font-mono); color: var(--muted); }
-.price { font-size: 14px; font-weight: 700; }
-.pact { display: grid; grid-template-columns: 1fr 1fr; margin-top: 6px; }
-.pact .btn { min-height: 30px; font-size: 10.5px; padding: 4px 6px; }
-.pact .btn + .btn { border-left: 0; }
-.pask { display: flex; width: 100%; border: 0; border-top: 1px solid var(--line); min-height: 36px; font-size: 11px; }
-.pmini { border: 1px solid var(--line); background: var(--bg); padding: 8px 10px; display: flex; gap: 10px; align-items: center; }
-.pmini + .pmini { border-top: 0; margin-top: -8px; }
-.thumb { width: 38px; height: 38px; background-color: var(--bg); background-image: var(--pattern-hatch); border: 1px solid var(--hair); flex: none; }
-.photo { justify-self: end; width: 150px; height: 110px; border: 1px solid var(--line); background-color: var(--bg); background-image: var(--pattern-hatch); display: flex; align-items: center; justify-content: center; font: 10px var(--font-mono); color: var(--muted); text-transform: uppercase; }
-
-/* Wireframe row: mockup on the left, short numbered list on the right */
-.split { display: grid; grid-template-columns: minmax(0, 1fr) 320px; }
-.stage {
-  padding: 28px 24px; min-width: 0;
-  background-color: var(--bg); background-image: var(--pattern-grid); background-size: 24px 24px; background-position: -1px -1px;
-}
-.points { border-left: 1px solid var(--line); display: flex; flex-direction: column; }
-.points ol { margin: 0; padding: 0; list-style: none; }
-.points li { display: grid; grid-template-columns: 30px 1fr; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--hair); }
-.points li .pin { margin-top: 2px; }
-.points .t { font-size: 14px; font-weight: 600; line-height: 1.4; }
-.points .d { font-size: 13px; color: var(--muted); line-height: 1.45; }
-
-.desk { width: 100%; border: 2px solid var(--line); background: var(--bg); }
-.desk-bar { min-height: 44px; display: flex; align-items: center; gap: 16px; padding: 6px 16px; border-bottom: 1px solid var(--line); font: 12px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; flex-wrap: wrap; }
-.desk-bar .push { margin-left: auto; display: flex; gap: 10px; align-items: center; }
-.desk-body { display: grid; grid-template-columns: 190px minmax(0, 1fr); }
-.side { border-right: 1px solid var(--line); }
-.content { padding: 18px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; align-content: start; min-width: 0; }
-.content-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
-.nav-group-title {
-  margin: 0; padding: 10px 14px; border-bottom: 1px solid var(--line);
-  font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
-  background: var(--pattern-hatch);
-}
-.nav-item {
-  all: unset; cursor: pointer; box-sizing: border-box; width: 100%;
-  display: grid; grid-template-columns: 24px 1fr; gap: 6px; align-items: center;
-  padding: 10px 14px; font-size: 13.5px; font-weight: 500;
-  border-bottom: 1px solid var(--hair);
-}
-.nav-item .n { font: 11px var(--font-mono); color: var(--muted); }
-.nav-item:hover { background: var(--hair); }
-.nav-item:focus-visible { outline: 2px solid var(--line); outline-offset: -2px; }
-.nav-item[aria-current="page"] { background: var(--inv-bg); color: var(--inv-text); }
-.nav-item[aria-current="page"] .n { color: inherit; }
-.tabs { display: inline-flex; }
-.tabs .btn + .btn { border-left: 0; }
-.tabs .btn[aria-pressed="true"] { background: var(--inv-bg); color: var(--inv-text); }
-.req { padding: 12px 14px; border-bottom: 1px solid var(--hair); display: grid; gap: 3px; }
-.req[aria-current="true"] { background: var(--hair); }
-.req .top { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
-.req strong { font-size: 13.5px; }
-.chatlog { display: grid; gap: 8px; padding: 14px 16px; }
-.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-.steps > div { background: var(--bg); padding: 8px 12px; font: 11px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-.steps > .on { background: var(--inv-bg); color: var(--inv-text); }
-
-.pad { padding: 24px; }
-.actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-#copyStatus { font: 12px var(--font-mono); color: var(--muted); }
-
-@media (max-width: 1080px) {
-  .demo-stage { grid-template-columns: minmax(0, 1fr); justify-items: center; }
-  .demo-side { width: 100%; max-width: 560px; }
-  .split { grid-template-columns: 1fr; }
-  .points { border-left: 0; border-top: 1px solid var(--line); }
-}
-@media (max-width: 860px) {
-  .topbar .wrap { height: 40px; font-size: 11px; }
-  .topbar .hide-sm { display: none; }
-  .hero-main { padding: 32px 16px 24px; }
-  .c2, .c3 { grid-template-columns: 1fr; }
-  .c4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .flow { grid-template-columns: 1fr; }
-  .flow > div::after { display: none; }
-  .section-head, .sub-head, .pad { padding-left: 16px; padding-right: 16px; }
-  .stage { padding: 20px 12px; }
-  .desk-body { grid-template-columns: minmax(0, 1fr); }
-  .demo { grid-template-columns: minmax(0, 1fr); }
-  .table.stack { min-width: 0; }
-  .table.stack thead { display: none; }
-  .table.stack tr { display: grid; gap: 4px; padding: 12px 14px; border-bottom: 1px solid var(--hair); }
-  .table.stack tr:last-child { border-bottom: 0; }
-  .table.stack td { padding: 0; border: 0; }
-  .table.stack tr.group { padding: 0; border-bottom: 0; }
-  .table.stack tr.group td { padding: 6px 14px; }
-  .table.stack td.code, .table.stack td:last-child { justify-self: start; }
-  .cases { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); }
-  .case { flex: none; width: 200px; border-bottom: 0; border-right: 1px solid var(--hair); }
-  .demo-stage { padding: 20px 12px; }
-  .phone { height: 600px; }
-  .side { border-right: 0; border-bottom: 1px solid var(--line); display: flex; overflow-x: auto; }
-  .side .nav-group-title { display: none; }
-  .side .nav-item { width: auto; flex: none; grid-template-columns: auto auto; border-bottom: 0; border-right: 1px solid var(--hair); }
-  .side .req { flex: none; width: 210px; border-bottom: 0; border-right: 1px solid var(--hair); }
-  .content { padding: 14px; }
-}
-@media (max-width: 560px) {
-  .c4 { grid-template-columns: 1fr; }
-}
-@media print {
-  .topbar, .no-print { display: none !important; }
-  .stage, .demo-stage { background-image: none; }
-  .page-break { break-before: page; }
-}
-
-.flow.f4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.feat { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; padding-top: 10px; border-top: 1px solid var(--hair); }
-.feat li { position: relative; padding-left: 16px; font-size: 14px; line-height: 1.5; }
-.feat li::before { content: '—'; position: absolute; left: 0; }
-.cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 20px 24px; }
-@media (max-width: 860px) {
-  .flow.f4 { grid-template-columns: 1fr; }
-  .cta { padding: 16px; }
-}
-
-@media (max-width: 1080px) {
-  .demo-side { order: -1; }
-}
-@media (max-width: 860px) {
-  .phone { height: 540px; }
-}
-
-/* Mobile: one sticky picker + a full-height phone; scenario notes live inside the chat */
-.mbar, .sysnote { display: none; }
-@media (max-width: 860px) {
-  .cases, .demo-side { display: none; }
-  .mbar {
-    display: flex; gap: 6px; align-items: center;
-    position: sticky; top: 40px; z-index: 5;
-    padding: 8px 12px; background: var(--bg); border-bottom: 1px solid var(--line);
-  }
-  .mbar .btn { min-width: 44px; min-height: 44px; padding: 0 10px; font-size: 16px; }
-  .msel { flex: 1; min-width: 0; display: flex; }
-  .msel .select { min-height: 44px; font-size: 14px; font-weight: 600; }
-  .demo-stage { padding: 12px; }
-  .phone { max-width: none; height: calc(100svh - 112px); min-height: 440px; border-radius: 20px; padding: 8px; }
-  .ph-chat > .pcard, .ph-chat > .list { max-width: none; }
-  .msg { font-size: 14px; }
-  .chip { font-size: 13px; padding: 7px 10px; }
-  .sysnote {
-    display: grid; gap: 4px; align-self: stretch;
-    padding: 10px 12px; border: 1px dashed var(--line);
-    font-size: 13px; line-height: 1.5; color: var(--muted);
-  }
-  .sysnote strong { color: var(--text); font-size: 14px; }
-  .section-head .note { display: none; }
-}
-
-/* Staff page: two placement options */
-.plan-tabs { flex-wrap: wrap; }
-.plan-tabs .btn { min-height: 40px; }
-.side .nav-item.muted { color: var(--muted); }
-.plan-info > div { transition: background-color .2s; }
-.plan-info .inverse .dash li strong { color: inherit; }
-#nhan-vien .req { border-bottom: 1px solid var(--hair); }
-#nhan-vien .req:last-child { border-bottom: 0; }
-@media (max-width: 860px) {
-  .plan-tabs { display: grid; grid-template-columns: 1fr; }
-  .plan-tabs .btn + .btn { border-left: 1px solid var(--line); border-top: 0; }
-  #nhan-vien .row .btn { flex: 1 1 auto; }
-  .side .nav-item.muted { display: none; }
-}
-
-/* Mobile v2: tap-friendly scenario cards, navigation inside the phone */
-.ph-nav, .endnav { display: none; }
-@media (max-width: 860px) {
-  .mbar { display: none !important; }
-  .cases {
-    display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1px; background: var(--line); overflow: visible;
-    border-right: 0; border-bottom: 1px solid var(--line);
-  }
-  .cases-title { grid-column: 1 / -1; background: var(--bg); padding: 12px 16px 10px; }
-  .case {
-    width: auto; background: var(--bg); border: 0;
-    grid-template-columns: 1fr; gap: 4px; align-content: start;
-    padding: 12px 14px; min-height: 76px;
-  }
-  .case .n { padding: 0; }
-  .case .t { font-size: 14px; }
-  .case .s { display: none; }
-  .case[aria-current="true"] .n { opacity: .8; }
-  .phone { height: calc(100svh - 56px); min-height: 460px; }
-  .ph-nav {
-    display: flex; align-items: center; gap: 6px;
-    padding: 8px 2px; border-bottom: 1px solid var(--hair);
-  }
-  .ph-nav .btn { min-width: 44px; min-height: 40px; padding: 0 10px; font-size: 16px; }
-  .ph-nav .ph-title { flex: 1; min-width: 0; text-align: center; font-size: 13.5px; font-weight: 700; line-height: 1.3; }
-  .ph-nav .ph-title small { display: block; font: 10px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 400; }
-  .ph-nav { flex-wrap: wrap; border: 1px dashed var(--muted); border-width: 0 0 1px; }
-  .ph-nav .demo-only { flex-basis: 100%; text-align: center; font: 10px/1.4 var(--font-mono); color: var(--muted); }
-  .endnav { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; align-self: stretch; margin-top: 6px; }
-  .endnav::after { content: 'Nút này chỉ có trong demo'; grid-column: 1 / -1; text-align: center; font: 10px var(--font-mono); color: var(--muted); }
-  .endnav .btn { min-height: 44px; font-size: 11px; }
-}
-</style>
-</head>
-<body>
-
-<header class="band topbar">
-  <div class="wrap">
-    <span>CM motorfas / Chatbot AI</span>
-    <span class="hide-sm">Demo chat</span>
-  </div>
-</header>
-
-<!-- 03 GIAO DIỆN CHAT -->
-<section class="band" id="giao-dien">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="sec-no">Demo chat</p>
-      <h2>Xem chatbot trả lời thử</h2>
-      <p class="desc"><strong>10 tình huống</strong> thường gặp. Bấm vào từng tình huống để xem chatbot trả lời như một đoạn video ngắn. Nội dung và giá chỉ là ví dụ, giao diện thật sẽ theo thương hiệu CM motorfas.</p>
-      <p class="note">Đây là bản wireframe để trao đổi, bàn bạc về cách chatbot hoạt động. Giao diện (UI) chính thức với màu sắc, logo, phong cách thương hiệu CM motorfas sẽ được thiết kế riêng ở bước sau.</p>
-    </div>
-    <div class="demo">
-      <div class="mbar">
-        <button class="btn" type="button" id="mPrev" aria-label="Tình huống trước">←</button>
-        <label class="msel"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Chọn tình huống</span><select class="select" id="caseSelect"></select></label>
-        <button class="btn" type="button" id="mReplay" aria-label="Chạy lại">↻</button>
-        <button class="btn btn-primary" type="button" id="mNext" aria-label="Tình huống sau">→</button>
-      </div>
-      <div class="cases" id="caseList" aria-label="Các tình huống"></div>
-      <div class="demo-stage">
-        <div class="phone" aria-label="Demo khung chat">
-          <div class="ph-head">
-            <div><strong>CM motorfas</strong><span class="label">Trợ lý phụ tùng</span></div>
-            <span class="tag" id="acct">Khách thường</span>
-          </div>
-          <div class="ph-nav">
-            <button class="btn" type="button" id="pPrev" aria-label="Tình huống trước">←</button>
-            <span class="ph-title" id="pTitle"><small>Demo</small>Chọn tình huống phía trên</span>
-            <button class="btn btn-primary" type="button" id="pNext" aria-label="Tình huống sau">→</button>
-            <span class="demo-only">Thanh chuyển tình huống chỉ để xem demo cho tiện, không có trong giao diện thật</span>
-          </div>
-          <div class="ph-chat" id="chat" aria-live="polite"></div>
-          <div class="ph-input" aria-hidden="true">
-            <div class="fake-input"><span id="typed"></span><span class="caret"></span></div>
-            <span class="send">→</span>
-          </div>
-        </div>
-        <div class="demo-side">
-          <div class="panel">
-            <div class="panel-head"><span class="label" id="capNo">Tình huống 01</span><span class="meta" id="capTag"></span></div>
-            <div class="cap-body">
-              <h3 id="capTitle"></h3>
-              <p class="desc small" id="capText"></p>
-            </div>
-            <div class="panel-foot">
-              <span>Bấm để xem từng tình huống</span>
-              <span class="row">
-                <button class="btn sm" type="button" id="prevBtn">← Trước</button>
-                <button class="btn sm" type="button" id="replayBtn">Chạy lại</button>
-                <button class="btn sm" type="button" id="nextBtn">Sau →</button>
-              </span>
-            </div>
-          </div>
-                    <p class="note">Chatbot chỉ lấy thông tin có trong dữ liệu CM motorfas, không tự đoán.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TRANG NHÂN VIÊN -->
-<section class="band" id="nhan-vien">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="sec-no">Trang quản lý · Minh họa</p>
-      <h2>Nhân viên nhận khách ở đâu</h2>
-      <p class="desc">Khi khách bấm <strong>"Hỏi nhân viên"</strong> hoặc <strong>"Đặt trước"</strong>, nhân viên thấy ngay yêu cầu kèm tóm tắt: khách cần món gì, xe gì, số lượng, số điện thoại. Phần này đặt ở đâu tùy anh/chị chọn ở <strong>câu 6–7</strong> trong file câu hỏi. Bấm để xem 2 phương án:</p>
-      <div class="tabs plan-tabs" role="group" aria-label="Chọn phương án">
-        <button class="btn" type="button" data-plan="a" aria-pressed="true">A · Trang quản lý riêng</button>
-        <button class="btn" type="button" data-plan="b" aria-pressed="false">B · Gộp vào admin website</button>
-      </div>
-    </div>
-    <div class="stage">
-      <div class="desk" aria-label="Minh họa trang nhân viên">
-        <div class="desk-bar"><span id="planBar"></span><div class="push"><span>● 2 mới</span></div></div>
-        <div class="desk-body">
-          <div class="side" id="planNav"></div>
-          <div class="content">
-            <div class="content-head"><h3>Khách cần hỗ trợ</h3><span class="tag">Hôm nay · 3</span></div>
-            <div class="panel">
-              <div class="req" aria-current="true">
-                <div class="top"><strong>Anh Minh · 0909 xxx xxx</strong><span class="status">Mới</span></div>
-                <span class="small">Muốn mua: Phuộc sau Air Blade 2020 · Chính hãng · 1 cặp</span>
-                <span class="meta">Hỏi giao hàng về Cần Thơ · 10:24</span>
-              </div>
-              <div class="req">
-                <div class="top"><strong>Chị Lan · 0912 xxx xxx</strong><span class="status plan">Đặt trước</span></div>
-                <span class="small">Bộ khóa Smartkey kèm remote · SH 2018 · báo khi có hàng</span>
-                <span class="meta">09:40</span>
-              </div>
-              <div class="req">
-                <div class="top"><strong>Cửa hàng ABC (đại lý)</strong><span class="status done">Đã gọi</span></div>
-                <span class="small">Nồi Exciter 150 · 10 bộ · giá đại lý Nhóm B</span>
-                <span class="meta">Hôm qua</span>
-              </div>
-            </div>
-            <div class="row"><span class="btn btn-primary">Nhận xử lý</span><span class="btn">Xem cuộc chat</span><span class="btn">Đánh dấu đã gọi</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="cells c2 plan-info" style="border-top: 1px solid var(--line)">
-      <div data-info="a">
-        <p class="label">A · Trang quản lý riêng của chatbot</p>
-        <ul class="dash">
-          <li><strong>Dữ liệu sản phẩm riêng</strong> cho chatbot, cập nhật bằng file</li>
-          <li>Nhân viên đăng nhập <strong>một trang riêng</strong> để nhận khách</li>
-          <li>Làm nhanh, không ảnh hưởng website</li>
-          <li>Lưu ý: nếu website cũng bán sản phẩm thì phải cập nhật giá ở 2 nơi</li>
-        </ul>
-      </div>
-      <div data-info="b">
-        <p class="label">B · Gộp vào admin website</p>
-        <ul class="dash">
-          <li>Chatbot <strong>dùng dữ liệu sản phẩm của website</strong></li>
-          <li>Nhân viên nhận khách ngay trên <strong>trang admin quen thuộc</strong>, em thêm mục "Chatbot"</li>
-          <li>Chỉ cập nhật 1 nơi, giá trên web và chatbot luôn giống nhau</li>
-          <li>Lưu ý: cần team website cho phép em kết nối vào hệ thống</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BÁO GIÁ: nhúng file Bao-gia-Chatbot-CM-motorfas.html (đăng cùng thư mục) -->
-<section class="band" id="bao-gia">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="sec-no">Báo giá</p>
-      <h2>Báo giá chatbot</h2>
-    </div>
-    <!-- BAO-GIA:START (tự sinh từ Bao-gia-Chatbot-CM-motorfas.html, đừng sửa tay) -->
-    <div id="baoGiaHost" style="border-top: 1px solid var(--line)"></div>
-    <template id="baoGiaTpl"><style>
-:host {
   color-scheme: light;
   --bg: #ffffff; --text: #0a0a0a; --muted: #5c5c5c; --line: #0a0a0a; --hair: #d9d9d9;
   --inv-bg: #0a0a0a; --inv-text: #ffffff;
@@ -601,52 +17,52 @@ h3 { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; letter-spac
   --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
 }
 * { box-sizing: border-box; }
-.bg-root { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 var(--font-sans); -webkit-font-smoothing: antialiased; }
-.wrap { max-width: 1040px; margin: 0 auto; padding: 40px 24px 56px; display: grid; gap: 28px; }
-.label { margin: 0; font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 var(--font-sans); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1360px; margin: 0 auto; padding: 40px 24px 56px; display: grid; gap: 28px; }
+.label { margin: 0; font: 500 13px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 h1 { margin: 0; font-size: clamp(26px, 4vw, 38px); line-height: 1.15; letter-spacing: -.03em; }
-.desc { margin: 0; color: var(--muted); max-width: 760px; }
+.desc { margin: 0; color: var(--muted); max-width: 900px; }
 .panel { border: 1px solid var(--line); }
 .panel-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; padding: 12px 16px; border-bottom: 1px solid var(--line); }
-.panel-head h2 { margin: 0; font-size: 17px; letter-spacing: -.01em; }
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-th { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); font: 500 10px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); white-space: nowrap; }
+.panel-head h2 { margin: 0; font-size: 19px; letter-spacing: -.01em; }
+table { width: 100%; border-collapse: collapse; font-size: 16px; }
+th { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); font: 500 12px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); white-space: nowrap; }
 td { padding: 10px 12px; border-bottom: 1px solid var(--hair); vertical-align: top; }
 tr:last-child td { border-bottom: 0; }
-.n { font: 12px var(--font-mono); color: var(--muted); width: 44px; }
-.name { font-weight: 600; width: 30%; }
+.n { font: 14px var(--font-mono); color: var(--muted); width: 44px; }
+.name { font-weight: 600; width: 22%; }
 .d { color: var(--muted); }
-.num { text-align: right; white-space: nowrap; font: 13px var(--font-mono); }
-.group td { background: #f2f2f2; font: 600 11px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--text); padding: 7px 12px; }
+.num { text-align: right; white-space: nowrap; font: 15px var(--font-mono); }
+.group td { background: #f2f2f2; font: 600 13px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--text); padding: 7px 12px; }
 .sum td { border-top: 1px solid var(--line); font-weight: 700; background: #f2f2f2; }
-.sum .num { font-weight: 600; font-size: 14px; }
+.sum .num { font-weight: 600; font-size: 16px; }
 .pick { width: 64px; text-align: center; }
 .pick input { width: 18px; height: 18px; accent-color: #0a0a0a; cursor: pointer; }
 tr.on td { background: #f7f7f2; }
 .total { display: grid; grid-template-columns: 1fr auto; gap: 6px 20px; padding: 18px 20px; background: var(--inv-bg); color: var(--inv-text); align-items: baseline; }
-.total .big { font: 600 26px var(--font-mono); text-align: right; }
+.total .big { font: 600 28px var(--font-mono); text-align: right; }
 .total .label { color: inherit; opacity: .7; }
-.note { margin: 0; font: 12px/1.55 var(--font-mono); color: var(--muted); padding-left: 10px; border-left: 2px solid var(--line); }
+.note { margin: 0; font: 14px/1.55 var(--font-mono); color: var(--muted); padding-left: 10px; border-left: 2px solid var(--line); }
 .calc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px 14px; padding: 4px 16px 14px; }
-.field label { display: block; margin-bottom: 4px; font: 500 11px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
-.field input, .field select { width: 100%; min-width: 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 0; background: var(--bg); color: var(--text); font: 15px var(--font-sans); }
+.field label { display: block; margin-bottom: 4px; font: 500 13px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.field input, .field select { width: 100%; min-width: 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 0; background: var(--bg); color: var(--text); font: 17px var(--font-sans); }
 .field.wide { grid-column: 1 / -1; }
 .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .stat { padding: 12px 16px; display: grid; gap: 2px; border-right: 1px solid var(--hair); }
 .stat:last-child { border-right: 0; }
-.stat b { font: 600 20px var(--font-mono); }
-.stat .sub { font-size: 12px; color: var(--muted); }
-.status { margin: 14px 16px; padding: 10px 12px; border: 1px solid var(--line); font-size: 14px; }
+.stat b { font: 600 22px var(--font-mono); }
+.stat .sub { font-size: 14px; color: var(--muted); }
+.status { margin: 14px 16px; padding: 10px 12px; border: 1px solid var(--line); font-size: 16px; }
 .status.warn { background: #fff6dc; }
 .status.bad { background: #fde7e7; }
 .more-td { display: none; }
-.more { background: none; border: 0; padding: 4px 0 0; font: 500 12px var(--font-mono); color: var(--text); text-decoration: underline; cursor: pointer; }
+.more { background: none; border: 0; padding: 4px 0 0; font: 500 14px var(--font-mono); color: var(--text); text-decoration: underline; cursor: pointer; }
 @media (max-width: 720px) {
   .more-td { display: block; grid-column: 1 / -1; }
   .d.clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .ai.perm tr { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .ai.perm td.name, .ai.perm tr.group td { grid-column: 1 / -1; }
-  .ai.perm td.num { text-align: left; font-size: 12px; white-space: normal; }
+  .ai.perm td.num { text-align: left; font-size: 14px; white-space: normal; }
   .calc-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .stats { grid-template-columns: minmax(0, 1fr); }
   .wrap > * { min-width: 0; }
@@ -661,523 +77,307 @@ tr.on td { background: #f7f7f2; }
   td { padding: 0; border: 0; }
   .n { display: none; }
   .name { width: auto; grid-column: 1; }
-  .d { grid-column: 1 / -1; font-size: 13px; }
+  .d { grid-column: 1 / -1; font-size: 15px; }
   .num.p { grid-column: 2; grid-row: 1; }
   .pick { grid-column: 2; grid-row: 2; width: auto; text-align: right; }
   .group, .sum { padding: 0; }
   .group td { padding: 7px 12px; }
   .sum td { padding: 10px 12px; border-top: 0; }
   .sum td:first-child, .sum td:empty { display: none; }
-  .total .big { font-size: 22px; }
+  .total .big { font-size: 24px; }
 }
 @media (max-width: 720px) {
   .ai tr { grid-template-columns: 1fr; }
   .ai td.num { text-align: left; }
   .ai td.num::before { content: attr(data-l); color: var(--muted); }
 }
-</style><div class="bg-root"><div class="wrap">
-  <header style="display: grid; gap: 8px">
-    <p class="label">Báo giá sơ bộ · 31/10/2026 · Lê Tiến Khang</p>
-    <h1>Chatbot AI tra cứu phụ tùng CM motorfas</h1>
-    <p class="desc">Gói cơ bản gồm các tính năng theo file yêu cầu và <a href="https://wireframechatbotcmmotorfas.vercel.app/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline; font-weight: 600">bản demo</a>. Tuỳ chọn cộng thêm là các tính năng có thể làm thêm khi cần, báo giá riêng. Đơn vị VNĐ.</p>
-    <div class="desc" style="font-size: 14px; margin-top: 10px"><b style="color: var(--text)">Gói cơ bản mang lại:</b><ul style="margin: 6px 0 0; padding-left: 18px; display: grid; gap: 3px"><li><b style="color: var(--text)">Bán hàng 24/7:</b> khách hỏi giờ nào cũng được trả lời ngay, đúng món, đúng giá, đúng xe.</li><li><b style="color: var(--text)">Không sót khách:</b> khách muốn mua là nhân viên nhận tin Telegram liền, gọi lại chốt đơn.</li><li><b style="color: var(--text)">Đỡ việc nhân viên:</b> không phải trả lời mãi câu “bao nhiêu, còn không, lắp xe gì”.</li><li><b style="color: var(--text)">Chủ nắm hết:</b> tự đổi giá, thêm hàng, phân quyền nhân viên, biết khách hỏi gì nhiều, kiểm soát tiền AI.</li><li><b style="color: var(--text)">Chi phí thấp:</b> vận hành chỉ khoảng 130.000đ mỗi tháng, cộng tiền AI tính theo số câu khách hỏi.</li></ul></div>
+.chung { display: inline-block; margin-left: 4px; padding: 0 5px; border: 1px solid var(--line); font: 500 11.5px var(--font-mono); text-transform: uppercase; letter-spacing: .04em; vertical-align: 1px; white-space: nowrap; }
+.ai td.d { color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.req { padding: 0 5px; background: #f2f2f2; font: 500 11.5px var(--font-mono); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
+.chung { margin-left: 0; }
+.wide-name td.name { width: 78%; }
+.toc { margin: 4px 0 0; padding-left: 22px; display: grid; gap: 2px; color: var(--muted); }
+.toc a { color: var(--text); text-decoration: underline; text-underline-offset: 2px; }
+html { scroll-behavior: smooth; }
+ul.fn { margin: 0; padding-left: 16px; display: grid; gap: 2px; }
+@media (max-width: 720px) { .ai td.num { white-space: normal; } .d.clamp { display: block; max-height: 6.6em; overflow: hidden; -webkit-line-clamp: unset; } }
+
+/* Bố cục trực quan */
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.tile { border: 1px solid var(--line); padding: 14px 16px; display: grid; gap: 2px; }
+.tile b { font: 600 30px var(--font-mono); letter-spacing: -.02em; }
+.tile span { font-weight: 600; }
+.tile small { color: var(--muted); font-size: 14px; }
+.block { display: grid; gap: 14px; }
+.block-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; border-bottom: 2px solid var(--line); padding-bottom: 8px; }
+.block-head h2 { margin: 0; font-size: 24px; letter-spacing: -.02em; }
+.block-head .label { margin-left: auto; }
+.no { display: inline-grid; place-items: center; width: 32px; height: 32px; background: var(--inv-bg); color: var(--inv-text); font: 600 16px var(--font-mono); align-self: center; }
+.flows { display: grid; gap: 10px; }
+.flow { border: 1px solid var(--line); padding: 12px 14px; display: grid; grid-template-columns: 130px 1fr; gap: 10px; align-items: center; }
+.flow-name { margin: 0; font-weight: 700; }
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 0; align-items: center; }
+.steps li { position: relative; background: #f2f2f2; padding: 4px 10px; font-size: 15px; margin-left: 26px; }
+.steps li:first-child { margin-left: 0; }
+.steps li + li::before { content: '→'; position: absolute; left: -19px; color: var(--muted); }
+.group-title { margin: 6px 0 0; font: 600 13px var(--font-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.scr { border: 1px solid var(--line); background: var(--bg); }
+.scr[open] { grid-column: span 1; background: #fafafa; }
+.scr summary { list-style: none; cursor: pointer; padding: 12px 14px; display: grid; gap: 4px; }
+.scr summary::-webkit-details-marker { display: none; }
+.scr .sn { font: 13px var(--font-mono); color: var(--muted); }
+.scr b { font-size: 17px; }
+.scr .sum { color: var(--muted); font-size: 15px; }
+.scr .req { justify-self: start; padding: 0 6px; background: #f2f2f2; font: 500 11.5px var(--font-mono); text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.scr .more { font: 500 13px var(--font-mono); text-decoration: underline; color: var(--text); }
+.scr[open] .more { display: none; }
+.scr ul.fn { margin: 0; padding: 0 14px 14px 32px; display: grid; gap: 4px; font-size: 15px; }
+.scr2 { border: 1px solid var(--line); padding: 12px 14px; display: grid; gap: 3px; align-content: start; }
+.scr2 .sn { font: 13px var(--font-mono); color: var(--muted); }
+.scr2 b { font-size: 17px; }
+.scr2 .sd { color: var(--muted); font-size: 15px; }
+.price-box { border: 2px solid var(--line); padding: 14px 18px; display: grid; grid-template-columns: auto 1fr; gap: 6px 24px; align-items: center; }
+.price-box > div { display: grid; gap: 2px; }
+.price-box > div b { font: 600 32px var(--font-mono); letter-spacing: -.02em; }
+.price-box .combo b { font-weight: 600; }
+.price-box .old { color: var(--muted); text-decoration: line-through; font: 15px var(--font-mono); }
+.price-box .combo { grid-column: 1 / -1; color: var(--text); border-top: 1px solid var(--hair); padding-top: 8px; font-size: 13.5px !important; }
+.price-box p { margin: 0; color: var(--muted); font-size: 15px; }
+@media (max-width: 620px) { .price-box { grid-template-columns: minmax(0, 1fr); } }
+.tl { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); position: relative; }
+.tl::before { content: ''; position: absolute; left: 8px; right: 8px; top: 49px; height: 2px; background: var(--line); }
+.tl li { position: relative; padding: 0 14px 0 0; display: grid; gap: 4px; align-content: start; }
+.tl .when { font: 600 14px var(--font-mono); text-transform: uppercase; letter-spacing: .04em; display: grid; gap: 2px; min-height: 40px; }
+.tl .when em { font: 400 12.5px var(--font-mono); font-style: normal; color: var(--muted); text-transform: none; letter-spacing: 0; }
+.tl .dot { width: 18px; height: 18px; border: 2px solid var(--line); background: var(--bg); border-radius: 50%; position: relative; z-index: 1; margin: 0 0 8px; }
+.tl li:has(.pay) .dot { background: var(--inv-bg); }
+.tl b { font-size: 17px; }
+.tl .what { color: var(--muted); font-size: 15px; }
+.tl .demo { margin-top: 8px; justify-self: start; border: 1px dashed var(--line); padding: 3px 8px; font: 500 12.5px var(--font-mono); }
+.tl .pay { margin-top: 8px; justify-self: start; border: 1px solid var(--line); display: grid; }
+.tl .pay span { padding: 3px 8px; font: 500 12.5px var(--font-mono); color: var(--muted); }
+.tl .pay b { padding: 4px 8px; background: var(--inv-bg); color: var(--inv-text); font: 600 15px var(--font-mono); }
+.paybar { display: flex; height: 34px; border: 1px solid var(--line); margin-top: 4px; }
+.paybar span { min-width: 0; text-overflow: ellipsis; display: grid; place-items: center; font: 600 13px var(--font-mono); white-space: nowrap; overflow: hidden; border-right: 1px solid var(--line); }
+.paybar span:first-child { background: var(--inv-bg); color: var(--inv-text); }
+.paybar span:nth-child(2) { background: #555; color: #fff; }
+.paybar span:last-child { border-right: 0; }
+@media (max-width: 860px) {
+  .tl { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .tl::before { left: 8px; right: auto; top: 6px; bottom: 6px; width: 2px; height: auto; }
+  .tl li { padding: 0 0 0 34px; }
+  .tl .dot { position: absolute; left: 0; top: 2px; margin: 0; }
+  .tl .when { min-height: 0; grid-auto-flow: column; justify-content: start; gap: 8px; align-items: baseline; }
+  .paybar span { font-size: 11px; }
+}
+.cols2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.cols3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.card { border: 1px solid var(--line); padding: 14px 16px; display: grid; gap: 8px; align-content: start; }
+.card h3 { margin: 0; font-size: 18px; }
+.card.ok { background: #f6f9f4; }
+.tag { margin: 0; font: 600 13px var(--font-mono); text-transform: uppercase; letter-spacing: .05em; }
+.small { margin: 0; color: var(--muted); font-size: 15px; }
+.big-text { margin: 0; font-size: 22px; font-weight: 700; }
+.opts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.opts li { border-left: 3px solid var(--hair); padding: 2px 0 2px 10px; display: grid; gap: 2px; }
+.opts li span { color: var(--muted); font-size: 15px; }
+.opts li.rec { border-left-color: var(--line); }
+.ask { border: 1px dashed var(--line); padding: 10px 14px; font-size: 16px; }
+.checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.checks > div { border: 1px solid var(--line); padding: 12px 14px 12px 40px; position: relative; display: grid; gap: 2px; }
+.checks > div::before { content: '✓'; position: absolute; left: 14px; top: 11px; font-weight: 700; }
+.checks span { color: var(--muted); font-size: 15px; }
+.cost { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+.cost-main { background: var(--inv-bg); color: var(--inv-text); padding: 18px 20px; display: grid; gap: 4px; align-content: center; }
+.cost-main .label { color: inherit; opacity: .7; }
+.cost-main b { font: 600 32px var(--font-mono); letter-spacing: -.02em; }
+.cost-note { margin-top: 6px; font-size: 14px; opacity: .75; }
+.cost-free, .prices, .ticks { list-style: none; margin: 0; padding: 0; display: grid; }
+.cost-free { border: 1px solid var(--line); padding: 4px 16px; }
+.cost-free li, .prices li { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--hair); }
+.cost-free li:last-child, .prices li:last-child { border-bottom: 0; }
+.cost-free b, .prices b { font: 600 15px var(--font-mono); white-space: nowrap; }
+.prices.two { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+.prices.two li:nth-last-child(2) { border-bottom: 0; }
+.ticks { gap: 6px; }
+.ticks li { padding-left: 22px; position: relative; }
+.prices .why { display: block; color: var(--muted); font-size: 13.5px; line-height: 1.45; margin-top: 2px; }
+.ticks .small { font-size: 14px; }
+.ticks li::before { content: '✓'; position: absolute; left: 0; font-weight: 700; }
+@media (max-width: 860px) {
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid, .cols3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .grid, .cols2, .cols3, .checks, .cost, .prices.two { grid-template-columns: minmax(0, 1fr); }
+  .prices.two li:nth-last-child(2) { border-bottom: 1px solid var(--hair); }
+  .flow { grid-template-columns: 1fr; }
+  .block-head .label { margin-left: 44px; }
+  .tile b { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display: grid; gap: 10px">
+    <p class="label">Báo giá sơ bộ · 19/11/2026 · Lê Tiến Khang</p>
+    <h1>Website bán phụ tùng CM motorfas</h1>
+    <p class="desc">Bán lẻ và bán sỉ trên cùng một website, làm theo file yêu cầu của anh/chị.</p>
   </header>
 
-  <section class="panel">
-    <div class="panel-head"><h2>A. Gói cơ bản</h2><span class="label" id="baseCount"></span></div>
-    <table>
-      <thead><tr><th>#</th><th>Tính năng</th><th>Mô tả</th><th class="num">Chi phí</th></tr></thead>
-      <tbody id="base"></tbody>
-    </table>
-  </section>
-
-  <section class="panel">
-    <div class="panel-head"><h2>Phân quyền trong trang quản lý</h2><span class="label">Đi kèm gói cơ bản</span></div>
-    <div style="padding: 14px 16px 4px"><p class="desc" style="font-size: 14px">Mỗi người đăng nhập chỉ thấy đúng phần việc của mình. Chủ có quyền cao nhất và là người duy nhất thấy toàn bộ bảng giá sỉ, chi phí và dữ liệu sao lưu.</p></div>
-    <table class="ai perm">
-      <thead><tr><th>Việc</th><th class="num">Chủ</th><th class="num">Quản lý</th><th class="num">Nhân viên</th></tr></thead>
-      <tbody><tr class="group"><td colspan="4">Sản phẩm</td></tr><tr><td class="name">Xem sản phẩm, giá lẻ, tồn kho</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">Có</td></tr><tr><td class="name">Xem giá sỉ</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">Khi Chủ cho phép</td></tr><tr><td class="name">Thêm, sửa từng sản phẩm</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Tải file Excel cập nhật</td><td class="num" data-l="Chủ: ">Có, tự duyệt</td><td class="num" data-l="Quản lý: ">Tải lên, chờ Chủ duyệt</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Xuất Excel bảng giá (có giá sỉ)</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">—</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Xem lịch sử cập nhật</td><td class="num" data-l="Chủ: ">Có, khôi phục được</td><td class="num" data-l="Quản lý: ">Chỉ xem</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr class="group"><td colspan="4">Khách và nhân viên</td></tr><tr><td class="name">Danh sách khách cần hỗ trợ, đánh dấu đã gọi</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">Có</td></tr><tr><td class="name">Nhận thông báo email, Telegram</td><td class="num" data-l="Chủ: ">Tuỳ cài đặt</td><td class="num" data-l="Quản lý: ">Tuỳ cài đặt</td><td class="num" data-l="Nhân viên: ">Tuỳ cài đặt</td></tr><tr><td class="name">Cài thời gian nhắc khách chờ quá hạn (ví dụ 15 phút)</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Tạo, khóa tài khoản, đặt lại mật khẩu và phân quyền</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">—</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr class="group"><td colspan="4">Chatbot và hệ thống</td></tr><tr><td class="name">Sửa nội dung chatbot (lời chào, thông tin cửa hàng, giao hàng, bảo hành)</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Sửa bảng từ đồng nghĩa</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Xem lại lịch sử chat</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Xem thống kê lượt hỏi, món hỏi nhiều</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">Có</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Xem chi phí AI, đặt ngân sách, bật/tắt AI</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">—</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Cài đặt kết nối: website gắn chatbot, tài khoản AI, đổi nhà cung cấp AI</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">—</td><td class="num" data-l="Nhân viên: ">—</td></tr><tr><td class="name">Tải bản sao lưu dữ liệu</td><td class="num" data-l="Chủ: ">Có</td><td class="num" data-l="Quản lý: ">—</td><td class="num" data-l="Nhân viên: ">—</td></tr></tbody>
-    </table>
-  </section>
-
-  <section class="panel">
-    <div class="panel-head"><h2>B. Tuỳ chọn cộng thêm</h2><span class="label">Báo giá riêng khi cần</span></div>
-    <table>
-      <thead><tr><th>Mã</th><th>Tính năng</th><th>Mô tả</th></tr></thead>
-      <tbody id="opts"></tbody>
-    </table>
-  </section>
-
-  <section class="total" aria-live="polite">
-    <span class="label">Tổng chi phí gói cơ bản</span><span class="big" id="total"></span>
-  </section>
-
-  <section class="panel">
-    <div class="panel-head"><h2>C. Chi phí AI hằng tháng</h2><span class="label">CM trả trực tiếp cho nhà cung cấp AI</span></div>
-    <div style="padding: 14px 16px 4px; display: grid; gap: 8px">
-      <p class="desc" style="font-size: 14px">Mỗi lần khách hỏi, chatbot dùng AI để hiểu câu hỏi và trả lời, nên tốn một khoản nhỏ tính theo từng câu. CM chọn một nhà cung cấp AI (Claude, ChatGPT hoặc Gemini) và thanh toán thẳng bằng tài khoản của chủ sở hữu, không qua em. Đổi nhà cung cấp chỉ cần đổi cài đặt, không phải làm lại chatbot. Trang quản lý có giới hạn lượt hỏi và cảnh báo khi gần chạm ngân sách.</p>
-    </div>
-    <table class="ai">
-      <thead><tr><th>AI</th><th class="num">1 câu hỏi</th><th class="num">100 câu/ngày<br>(≈ 3.000/tháng)</th><th class="num">300 câu/ngày<br>(≈ 9.000/tháng)</th><th class="num">1.000 câu/ngày<br>(≈ 30.000/tháng)</th></tr></thead>
-      <tbody><tr class="group"><td colspan="5">Rẻ nhất</td></tr><tr><td class="name">Claude Haiku 5.5<br><span class="meta" style="font-weight:400">Anthropic</span></td><td class="num" data-l="1 câu: ">khoảng 35đ</td><td class="num" data-l="100 câu/ngày: ">105.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="300 câu/ngày: ">315.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="1.000 câu/ngày: ">1.050.000đ<span class="meta" style="font-weight:400"> /tháng</span></td></tr><tr><td class="name">GPT-6 Luna<br><span class="meta" style="font-weight:400">OpenAI (ChatGPT)</span></td><td class="num" data-l="1 câu: ">khoảng 35đ</td><td class="num" data-l="100 câu/ngày: ">105.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="300 câu/ngày: ">315.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="1.000 câu/ngày: ">1.050.000đ<span class="meta" style="font-weight:400"> /tháng</span></td></tr><tr><td class="name">Gemini 3.1 Flash-Lite<br><span class="meta" style="font-weight:400">Google</span></td><td class="num" data-l="1 câu: ">khoảng 90đ</td><td class="num" data-l="100 câu/ngày: ">270.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="300 câu/ngày: ">810.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="1.000 câu/ngày: ">2.700.000đ<span class="meta" style="font-weight:400"> /tháng</span></td></tr><tr class="group"><td colspan="5">Thông minh hơn</td></tr><tr><td class="name">Gemini 3.6 Flash<br><span class="meta" style="font-weight:400">Google · giá tăng gấp đôi từ 01/2027</span></td><td class="num" data-l="1 câu: ">khoảng 265đ</td><td class="num" data-l="100 câu/ngày: ">795.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="300 câu/ngày: ">2.400.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="1.000 câu/ngày: ">7.950.000đ<span class="meta" style="font-weight:400"> /tháng</span></td></tr><tr><td class="name">GPT-6.1 Terra<br><span class="meta" style="font-weight:400">OpenAI (ChatGPT)</span></td><td class="num" data-l="1 câu: ">khoảng 350đ</td><td class="num" data-l="100 câu/ngày: ">1.050.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="300 câu/ngày: ">3.150.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="1.000 câu/ngày: ">10.500.000đ<span class="meta" style="font-weight:400"> /tháng</span></td></tr><tr><td class="name">Claude Sonnet 5.5<br><span class="meta" style="font-weight:400">Anthropic</span></td><td class="num" data-l="1 câu: ">khoảng 700đ</td><td class="num" data-l="100 câu/ngày: ">2.100.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="300 câu/ngày: ">6.300.000đ<span class="meta" style="font-weight:400"> /tháng</span></td><td class="num" data-l="1.000 câu/ngày: ">21.000.000đ<span class="meta" style="font-weight:400"> /tháng</span></td></tr></tbody>
-    </table>
-    <div style="padding: 10px 16px 14px; display: grid; gap: 6px">
-      <p class="note">Em đề xuất bắt đầu với nhóm "Rẻ nhất". Chạy thử bằng bộ câu hỏi mẫu, nếu trả lời tiếng Việt chưa tốt thì chuyển lên nhóm "Thông minh hơn".</p>
-      <p class="note">Số liệu là ước tính theo bảng giá chính thức của Anthropic, OpenAI, Google (10/2026), tỉ giá khoảng 26.000đ/USD, mỗi câu trả lời trung bình. Giá nhà cung cấp có thể thay đổi. Chi phí thực tế xem được trong trang quản lý.</p>
-    </div>
-    <div style="padding: 16px 16px 10px; border-top: 1px solid var(--line); display: grid; gap: 6px">
-      <h3 style="margin: 0; font-size: 15px">Mỗi tháng trả bao nhiêu? Tự tính theo lượng khách</h3>
-      <p class="desc" style="font-size: 14px">Chọn AI và nhập lượng khách, số tiền mỗi tháng tự tính lại. Số có sẵn là ví dụ: giờ cao điểm 60 khách, giờ bình thường 15 khách (lúc 10, lúc 20).</p>
-    </div>
-    <div class="calc-grid">
-      <div class="field wide"><label for="cAi">AI sử dụng</label><select id="cAi"></select></div>
-      <div class="field"><label for="cPeak">Khách mỗi giờ lúc cao điểm</label><input id="cPeak" type="number" min="0" max="1000" step="1" value="60" inputmode="numeric"></div><div class="field"><label for="cPeakH">Số giờ cao điểm mỗi ngày</label><input id="cPeakH" type="number" min="0" max="24" step="1" value="2" inputmode="numeric"></div><div class="field"><label for="cNorm">Khách mỗi giờ lúc bình thường</label><input id="cNorm" type="number" min="0" max="1000" step="1" value="15" inputmode="numeric"></div><div class="field"><label for="cNormH">Số giờ bình thường mỗi ngày</label><input id="cNormH" type="number" min="0" max="24" step="1" value="8" inputmode="numeric"></div><div class="field"><label for="cQ">Mỗi khách hỏi khoảng (câu)</label><input id="cQ" type="number" min="0" max="200" step="1" value="10" inputmode="numeric"></div>
-    </div>
-    <div class="stats">
-      <div class="stat"><span class="label">Số câu hỏi mỗi tháng</span><b id="rQ"></b></div>
-      <div class="stat"><span class="label">Tiền AI mỗi tháng</span><b id="rAi"></b></div>
-      <div class="stat"><span class="label">Tổng phải trả mỗi tháng</span><b id="rAll"></b><span class="sub">gồm máy chủ khoảng 130.000đ</span></div>
-    </div>
-    <p class="status" id="rCap"></p>
-    <div style="padding: 4px 16px 10px; display: grid; gap: 6px">
-      <h3 style="margin: 0; font-size: 15px">Hệ thống chịu được bao nhiêu khách cùng lúc?</h3>
-      <p class="desc" style="font-size: 14px">Hệ thống được làm và chạy thử cho <b>60 khách hỏi cùng lúc</b>. Đông hơn vẫn chạy được, chỉ cần làm thêm vài việc dưới đây.</p>
-    </div>
-    <table class="ai">
-      <thead><tr><th>Khách cùng lúc</th><th class="num" style="text-align:left">Cần làm gì</th><th class="num">Tốn thêm</th></tr></thead>
-      <tbody><tr><td class="name">Đến 60 khách</td><td class="num" data-l="Cần làm: " style="white-space:normal;text-align:left">Không cần làm gì. Đã chạy thử trước khi bàn giao.</td><td class="num" data-l="Tốn thêm: " style="white-space: normal">Không</td></tr><tr><td class="name">61–80 khách<br><span class="meta" style="font-weight:400">ví dụ 70 khách</span></td><td class="num" data-l="Cần làm: " style="white-space:normal;text-align:left">Vẫn chạy bình thường. Nên nạp tài khoản AI từ 100 USD để AI không bị giới hạn lúc đông.</td><td class="num" data-l="Tốn thêm: " style="white-space: normal">Không (tiền nạp trừ dần vào tiền AI)</td></tr><tr><td class="name">81–400 khách</td><td class="num" data-l="Cần làm: " style="white-space:normal;text-align:left">Nạp tài khoản AI từ 100 USD, tăng bộ nhớ máy chủ, chạy thử lại với số khách mới.</td><td class="num" data-l="Tốn thêm: " style="white-space: normal">Máy chủ thêm vài USD/tháng</td></tr><tr><td class="name">Trên 400 khách</td><td class="num" data-l="Cần làm: " style="white-space:normal;text-align:left">Cần xem lại toàn bộ hệ thống và gói lưu trữ dữ liệu.</td><td class="num" data-l="Tốn thêm: " style="white-space: normal">Báo giá riêng</td></tr></tbody>
-    </table>
-    <div style="padding: 10px 16px 14px; display: grid; gap: 6px">
-      <p class="note">Tiền AI là ước tính: số thấp là khi bật bộ nhớ đệm (rẻ hơn khoảng 40%), số cao là trường hợp xấu nhất. Tiền thật tính theo số câu khách hỏi và xem được trong trang quản lý.</p>
-      <p class="note">Lỡ đông quá mức, khách chỉ phải chờ thêm vài giây, chatbot tự xử lý lần lượt, không báo lỗi. Mỗi khách tối đa 30 câu mỗi giờ để tránh tốn tiền vô ích.</p>
-    </div>
-  </section>
-
-
-  <p class="note">Chi phí vận hành khác do chủ sở hữu trả trực tiếp: trang quản lý trên Vercel miễn phí · backend trên Railway khoảng 5 USD/tháng · dữ liệu MongoDB Atlas miễn phí (512MB) · sao lưu Cloudflare R2 miễn phí · tên miền nếu dùng riêng.</p>
-</div></div></template>
-    <script>
-    (() => {
-      const host = document.getElementById('baoGiaHost');
-      const shadow = host.attachShadow({ mode: 'open' });
-      shadow.appendChild(document.getElementById('baoGiaTpl').content.cloneNode(true));
-      const doc = {
-        getElementById: (id) => shadow.getElementById(id),
-        querySelector: (s) => shadow.querySelector(s),
-        querySelectorAll: (s) => shadow.querySelectorAll(s),
-        createElement: (t) => document.createElement(t),
-        documentElement: document.documentElement,
-        body: document.body,
-      };
-      (function (document) {
-// Giá từng tính năng (VNĐ). Sửa số ở đây, tổng tự tính lại.
-const BASE = [
-  ['Khách chat và tìm phụ tùng', [
-    ['Nút chat trên website', 'Góc website có nút chat, khách bấm vào là hỏi được ngay, không cần cài ứng dụng hay đăng ký. Chỉ cần dán 1 dòng mã là gắn được vào bất kỳ website nào của chủ sở hữu. Xem tốt trên cả điện thoại và máy tính. Ngoài nút chat gắn trên website, còn có một link chat riêng để gửi cho khách qua tin nhắn hoặc dán lên mạng xã hội.', 1000000],
-    ['Hiểu cách khách gõ', 'Khách gõ có dấu hay không dấu, viết tắt, gõ sai chính tả, dùng tên gọi quen miệng, chatbot đều nhận ra đúng món. Ví dụ: “phuộc sau Air Blade”, “phuoc sau air blade”, “phuột sau AB” hay “giảm xóc sau AB” đều được hiểu là cùng một món.', 300000],
-    ['Tìm đúng phụ tùng', 'Khách hỏi theo cách nào cũng tìm ra món cần: gõ mã hàng (ví dụ “35100K35V32”), tên món (“khóa máy smartkey”), hay dòng xe và đời xe (“má phanh Vision 2021”).', 1000000],
-    ['Lọc và sắp xếp', 'Khách thu hẹp kết quả theo loại hàng, hãng, khoảng giá. Ví dụ: “chỉ hàng chính hãng”, “dưới 500 nghìn”. Các lựa chọn được xếp từ rẻ đến đắt.', 600000],
-    ['Hỏi lại cho đúng món', 'Khi khách hỏi chưa đủ thông tin, chatbot hỏi lại bằng nút bấm để khách chỉ cần chạm. Ví dụ khách hỏi “má phanh Vision”, chatbot hỏi tiếp “Vision đời nào ạ?” với các nút 2011–2013 / 2014–2020 / 2021 trở đi.', 800000],
-    ['Trả lời như nhân viên bán hàng', 'Trả lời ngắn gọn, lịch sự, đưa lựa chọn trước rồi mới hỏi thêm. Nhớ những gì khách đã nói, không hỏi lại. Chỉ trả lời theo dữ liệu của chủ sở hữu: không biết thì nói chưa có thông tin và mời gặp nhân viên, không tự bịa mã, giá, hàng tồn hay xe lắp vừa. Đây là phần khó nhất: phải hướng dẫn AI và chạy thử nhiều lần với câu hỏi thật để AI không tự bịa giá, mã hay xe lắp vừa, vì một câu trả lời sai có thể làm khách mua nhầm. Không tự kết luận hai món thay thế được cho nhau chỉ vì giống tên hoặc cùng kích thước. Có bộ dữ liệu kiểm thử: khoảng 100 câu hỏi thật kèm câu trả lời đúng, mỗi lần chỉnh chatbot đều chạy lại cả bộ để chắc không trả lời sai.', 1800000],
-  ]],
-  ['Hiển thị sản phẩm', [
-    ['Thẻ sản phẩm', 'Mỗi món hiện thành một thẻ gọn trong khung chat, gồm: ảnh, tên, hãng, mã hãng, mã của chủ sở hữu, biến thể, màu, vị trí lắp (trước/sau, trái/phải), quy cách bán (cái, bộ, cặp), thông số chính và giá.', 800000],
-    ['Còn hàng / hết hàng, xe lắp được', 'Thẻ ghi rõ món đang còn hay hết hàng, và lắp được cho xe nào. Ví dụ: “Lắp: Air Blade 2020–2023”. Chỉ hiện những xe đã được CM xác nhận.', 600000],
-    ['Nhiều lựa chọn cùng lúc', 'Khi có nhiều món phù hợp, chatbot hiện danh sách có ảnh, giá và tình trạng hàng để khách so sánh. Ví dụ: phuộc sau AB có 3 loại chính hãng, OEM, hàng độ.', 600000],
-  ]],
-  ['Giá cho từng loại khách', [
-    ['Giá lẻ cho khách thường', 'Khách vãng lai, hoặc khách chưa phải đại lý, chỉ thấy giá lẻ trên thẻ sản phẩm.', 750000],
-    ['Giá sỉ cho đại lý', 'Đại lý đã đăng nhập trên website của chủ sở hữu thì chatbot tự nhận ra và hiện giá sỉ đúng nhóm đại lý, kèm giá theo số lượng nếu có. Người chưa đăng nhập mà tự nhận là đại lý trong chat thì vẫn chỉ thấy giá lẻ. Phần này dùng lại cách hiển thị của giá lẻ, chỉ thêm bước nhận diện đại lý từ website và lấy đúng cột giá sỉ, nên chi phí thấp hơn. Việc duyệt tài khoản đại lý và chia nhóm đại lý làm trên website của chủ sở hữu; chatbot nhận đúng nhóm từ website. Giá sỉ chỉ được tính trên máy chủ, không bao giờ gửi cả bảng giá sỉ xuống trình duyệt của khách.', 550000],
-  ]],
-  ['Chuyển cho nhân viên', [
-    ['Khách gặp nhân viên', 'Khi khách muốn mua hoặc chatbot chưa trả lời được, chatbot xin tên và số điện thoại của khách. Nhân viên nhận toàn bộ thông tin: khách cần món gì, xe gì, bao nhiêu cái và cả cuộc chat, rồi gọi điện hoặc nhắn Zalo liên hệ trực tiếp với khách. Khách không phải kể lại.', 1000000],
-    ['Danh sách khách chờ', 'Trang quản lý có danh sách khách cần hỗ trợ, kèm thời gian hẹn liên hệ. Nhân viên bấm vào là xem lại cuộc chat, gọi hoặc nhắn tin cho khách, xong bấm “Đã gọi” để cập nhật trạng thái và ghi nhận ai đã hỗ trợ, lúc nào. Khách nào quá giờ hẹn mà chưa ai liên hệ, hệ thống tự nhắc lại cho quản lý và nhân viên. Ví dụ: quá 15 phút chưa ai nhận thì báo lại.', 900000],
-    ['Báo ngay qua email và Telegram', 'Có khách cần hỗ trợ, ngoài hiện trong trang quản lý, nhân viên còn nhận tin ngay qua email và Telegram trên điện thoại (gửi đến email và Telegram đã cài trong tài khoản từng nhân viên). Tin Telegram có đủ tên, số điện thoại, món khách cần và nút “Đã gọi”: nhân viên bấm nút ngay trong Telegram là hệ thống tự cập nhật danh sách khách chờ, ghi nhận ai đã hỗ trợ, và báo cho những người còn lại biết khách đã có người nhận để không gọi trùng.', 1000000],
-  ]],
-  ['Trang quản lý · sản phẩm', [
-    ['Thêm, sửa sản phẩm ngay trên trang quản lý', 'Chủ và Quản lý có thể thêm món mới hoặc sửa từng món ngay trên trang quản lý, không cần làm file Excel: đổi giá lẻ, giá sỉ, tồn kho, xe lắp được, link ảnh, hoặc chuyển sang ngừng bán. Ảnh dùng luôn link có sẵn của chủ sở hữu, link nào không mở được thì hệ thống báo. Sửa xong chatbot dùng thông tin mới ngay, và mọi thay đổi đều được ghi lại.', 1200000],
-    ['Cập nhật nhiều món bằng file Excel', 'Khi cần đổi giá hay thêm hàng loạt, chỉ cần tải file Excel lên. Trước khi áp dụng, hệ thống cho xem rõ món nào đổi giá (giá cũ → giá mới), món nào mới, dòng nào bị lỗi. Chủ bấm “Duyệt” thì chatbot mới dùng giá mới, tránh sửa nhầm. Phần khó là kiểm tra từng dòng trong file (sai định dạng, mã trùng, giá bất thường) và so với dữ liệu cũ trước khi áp dụng, để một file sai không làm hỏng cả bảng giá.', 750000],
-    ['Xuất Excel bảng giá', 'Nút “Xuất Excel” tải về toàn bộ bảng giá đúng mẫu file nhập, có cả giá lẻ và giá sỉ từng nhóm đại lý. Chỉ tài khoản Chủ (quyền cao nhất) mới thấy và dùng được nút này, nhân viên không xem hay tải được bảng giá sỉ. File tải về cũng là bản sao lưu dễ đọc, sửa xong tải lên lại là cập nhật.', 100000],
-    ['Xem lại các lần cập nhật', 'Lưu lại mọi thay đổi, dù sửa trực tiếp hay qua file Excel: ai làm, lúc nào, đổi những gì. Lỡ sửa nhầm thì quay lại bản trước được. Lịch sử giữ 20 ngày gần nhất rồi tự xoá, để tiết kiệm bộ nhớ vì đang dùng gói lưu trữ miễn phí.', 500000],
-  ]],
-  ['Trang quản lý · cài đặt', [
-    ['Nội dung chatbot', 'Quản lý tự sửa được, không cần nhờ lập trình: tên chatbot, hình đại diện, màu sắc, câu chào, thông tin cơ bản của cửa hàng (địa chỉ, giờ mở cửa, số điện thoại), thông tin giao hàng và bảo hành. Chatbot trả lời theo đúng nội dung này.', 550000],
-    ['Bảng từ đồng nghĩa', 'Quản lý tự thêm cách gọi khác của món hàng và dòng xe, chatbot hiểu ngay, không cần nhờ lập trình. Ví dụ: “phuột = phuộc”, “giảm xóc = phuộc”, “AB = Air Blade”, “hàng zin = chính hãng”.', 400000],
-  ]],
-  ['Trang quản lý · nhân viên và thống kê', [
-    ['Tài khoản nhân viên', 'Có 3 cấp quyền: Chủ (quyền cao nhất), Quản lý, Nhân viên. Mỗi tài khoản chỉ thấy đúng phần được phép (xem bảng phân quyền bên dưới). Mỗi tài khoản cài email và Telegram riêng, chọn có nhận thông báo khách cần hỗ trợ hay không. Nhân viên nghỉ thì khóa tài khoản, thông báo cũng dừng gửi.', 500000],
-    ['Xem lại lịch sử chat', 'Xem lại mọi cuộc chat trong 25 ngày gần nhất, tìm theo ngày, số điện thoại hoặc từ khoá. Thấy rõ khách hỏi gì, chatbot trả lời gì, để biết chỗ nào trả lời chưa đúng mà bổ sung dữ liệu hoặc từ đồng nghĩa.', 500000],
-    ['Thống kê và kiểm soát chi phí', 'Xem mỗi ngày có bao nhiêu lượt hỏi, món nào được hỏi nhiều, khách tìm gì mà chưa có. Bảng chi phí AI: hôm nay, tháng này đã dùng bao nhiêu token và hết bao nhiêu tiền (tính từ số liệu nhà cung cấp AI trả về sau mỗi câu), kèm số câu hỏi để biết trung bình mỗi câu tốn bao nhiêu. Đặt ngân sách tháng: gần chạm thì báo qua Telegram, chạm thì tự tắt AI. Có công tắc bật/tắt AI bất cứ lúc nào: khi tắt, khung chat vẫn mở nhưng không gọi AI, chỉ hiện thông tin cửa hàng và xin tên, số điện thoại để nhân viên gọi lại, nên không tốn thêm tiền AI. Nội dung chat chỉ giữ 25 ngày, quá 25 ngày hệ thống tự xoá hẳn để dữ liệu luôn nằm trong gói lưu trữ miễn phí. Số liệu thống kê vẫn được giữ lâu dài. Giới hạn lượt hỏi cho từng khách (ví dụ tối đa 30 câu mỗi giờ), để một người hỏi liên tục hoặc phá cũng không làm tốn tiền AI.', 2400000],
-    ['Ghi nhớ câu hỏi hay gặp (không cần làm)', 'Đã cân nhắc và đề xuất không làm, nên không tính tiền. Lý do: hai câu gần giống nhau như “phuộc sau AB 2020” và “phuộc sau AB 2023” rất dễ bị coi là một, dẫn tới trả nhầm món. Trong khi đó, nhà cung cấp AI đã có sẵn bộ nhớ đệm giúp giảm khoảng 40% tiền AI mà không có rủi ro sai, nên phần tiết kiệm thêm không đáng. Câu hỏi về địa chỉ, giờ mở cửa, giao hàng, bảo hành vẫn được trả lời theo nội dung cài đặt ở mục 19.', 600000, 'bỏ'],
-  ]],
-  ['Cài đặt và bàn giao', [
-    ['Cài đặt, chạy thử, sao lưu và bàn giao', 'Cài toàn bộ hệ thống bằng tài khoản đứng tên chủ sở hữu, chọn cách rẻ nhất mà vẫn chạy ổn định: trang quản lý (cài đặt, phân quyền, xem thống kê) chạy trên Vercel, gói miễn phí; phần xử lý chạy các tính năng của chatbot (backend) chạy trên Railway, khoảng 5 USD/tháng do chủ sở hữu trả; dữ liệu sản phẩm và chat lưu trên MongoDB Atlas, gói miễn phí 512MB. Dữ liệu tự sao lưu ra một nơi khác lúc 2 giờ sáng mỗi ngày, vào kho lưu trữ riêng tư Cloudflare R2 đứng tên chủ sở hữu (dung lượng miễn phí, chi phí gần như bằng 0); giữ 7 bản gần nhất và 4 bản hằng tuần, sao lưu lỗi thì báo qua Telegram, đã thử khôi phục trước khi bàn giao. Chạy thử bằng bộ câu hỏi mẫu hai bên thống nhất, sửa đến khi trả lời đúng. Hướng dẫn sử dụng và bàn giao toàn bộ mã nguồn.', 2000000],
-  ]],
-];
-const OPTS = [
-  ['A', 'Nhân viên chat trực tiếp với khách', 'Nhân viên vào cùng khung chat, trả lời khách ngay như nhắn tin.'],
-  ['B', 'Đặt hàng ngay trong chat', 'Khách chọn món bằng nút “Thêm vào giỏ” hoặc nhắn như nói chuyện: “lấy 2 cặp phuộc này”, “bỏ cái khóa ra”, “đổi thành 3 cái”. Giỏ hiện tạm tính theo đúng giá của khách (lẻ hoặc sỉ). Khách để lại tên, số điện thoại, địa chỉ giao hàng rồi bấm “Đặt hàng”, nhận mã đơn ngay trong chat. Đơn vào trang quản lý và báo qua email, Telegram; nhân viên gọi xác nhận, báo cách thanh toán, rồi bấm “Đã xác nhận” (bấm ngay trong Telegram cũng được). Trang quản lý có danh sách đơn theo trạng thái: Mới → Đã xác nhận → Đã giao, hoặc Huỷ. Khách hỏi “đơn của tôi sao rồi” thì chatbot báo trạng thái theo mã đơn. Đơn hàng lưu lâu dài, không tự xoá như nội dung chat. Chưa gồm thanh toán online.'],
-  ['C', 'Đặt trước món hết hàng', 'Cần có tuỳ chọn B. Món đang hết hàng khách vẫn đặt được như đơn thường, đơn được ghi “Đặt trước”. Khi có hàng, nhân viên gọi lại xác nhận và giao.'],
-  ['D', 'Chatbot trên Zalo', 'Khách nhắn vào Zalo OA của chủ sở hữu cũng được chatbot trả lời.'],
-  ['E', 'Chatbot trên Facebook', 'Khách nhắn vào Fanpage của chủ sở hữu cũng được chatbot trả lời.'],
-  ['F', 'Tìm phụ tùng bằng ảnh', 'Khách chụp ảnh món cần tìm gửi lên, chatbot gợi ý món giống và hỏi thêm cho chắc.'],
-  ['G', 'Trang báo giá cho nhân viên', 'Trang riêng trong trang quản lý để nhân viên tra mã, tồn kho và chọn báo giá sỉ hoặc giá lẻ cho từng khách khi khách gọi điện hoặc đến cửa hàng. Không chọn mục này thì nhân viên vẫn dùng chatbot như khách thường (thấy giá lẻ).'],
-];
-const vnd = (n) => n.toLocaleString('vi-VN') + 'đ';
-const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-
-let i = 0, baseTotal = 0, html = '';
-for (const [g, items] of BASE) {
-  html += `<tr class="group"><td colspan="4">${esc(g)}</td></tr>`;
-  // Mục có đánh dấu 'bỏ': hiện giá gạch ngang, không cộng vào tổng.
-  for (const [name, d, price, skip] of items) {
-    i++; if (!skip) baseTotal += price;
-    html += `<tr><td class="n">${String(i).padStart(2, '0')}</td><td class="name">${esc(name)}</td><td class="d">${esc(d)}</td><td class="num p">${skip ? `<s style="color: var(--muted)">${vnd(price)}</s>` : vnd(price)}</td></tr>`;
-  }
-}
-html += `<tr class="sum"><td></td><td class="name">Cộng gói cơ bản</td><td></td><td class="num p">${vnd(baseTotal)}</td></tr>`;
-document.getElementById('base').innerHTML = html;
-document.getElementById('baseCount').textContent = i + ' tính năng';
-
-document.getElementById('opts').innerHTML = OPTS.map(([c, name, d]) =>
-  `<tr><td class="n">${c}</td><td class="name">${esc(name)}</td><td class="d">${esc(d)}</td></tr>`
-).join('');
-document.getElementById('total').textContent = vnd(baseTotal);
-
-// Điện thoại: mô tả dài thu gọn 3 dòng, bấm "Xem thêm" để mở.
-document.querySelectorAll('#base td.d, #opts td.d').forEach((td) => {
-  if (td.textContent.length < 160) return;
-  td.classList.add('clamp');
-  const more = document.createElement('td');
-  more.className = 'more-td';
-  more.innerHTML = '<button type="button" class="more">Xem thêm</button>';
-  more.firstChild.addEventListener('click', (e) => {
-    const open = td.classList.toggle('clamp');
-    e.target.textContent = open ? 'Xem thêm' : 'Thu gọn';
-  });
-  td.closest('tr').appendChild(more);
-});
-// Bảng tự tính tiền AI mỗi tháng (giá mỗi câu lấy từ bảng chi phí AI ở trên).
-const AI_PRICES = [
-  ['Claude Haiku 5.5 (Anthropic)', 35], ['GPT-6 Luna (OpenAI)', 35], ['Gemini 3.1 Flash-Lite (Google)', 90],
-  ['Gemini 3.6 Flash (Google)', 265], ['GPT-6.1 Terra (OpenAI)', 350], ['Claude Sonnet 5.5 (Anthropic)', 700],
-];
-const SERVER_VND = 130000;
-const cAi = document.getElementById('cAi');
-cAi.innerHTML = AI_PRICES.map(([n, p], k) => `<option value="${k}"${k === 1 ? ' selected' : ''}>${esc(n.replace(/ \(.*\)$/, ''))} · ${p}đ/câu</option>`).join('');
-const num = (id) => Math.max(0, +document.getElementById(id).value || 0);
-const round1k = (n) => Math.round(n / 1000) * 1000;
-function calc() {
-  const perQ = AI_PRICES[+cAi.value][1];
-  const peak = num('cPeak');
-  const qMonth = (peak * num('cPeakH') + num('cNorm') * num('cNormH')) * num('cQ') * 30;
-  const hi = qMonth * perQ, lo = hi * 0.6;
-  document.getElementById('rQ').textContent = qMonth.toLocaleString('vi-VN');
-  document.getElementById('rAi').textContent = vnd(round1k(lo)) + ' – ' + vnd(round1k(hi));
-  document.getElementById('rAll').textContent = vnd(round1k(lo + SERVER_VND)) + ' – ' + vnd(round1k(hi + SERVER_VND));
-  const st = document.getElementById('rCap');
-  st.className = 'status' + (peak > 80 ? ' bad' : peak > 60 ? ' warn' : '');
-  st.textContent = peak <= 60
-    ? `Giờ cao điểm ${peak} khách: trong mức hệ thống đã chạy thử (60 khách cùng lúc), không cần làm gì thêm.`
-    : peak <= 80
-      ? `Giờ cao điểm ${peak} khách: vẫn chạy bình thường. Nên nạp tài khoản AI từ 100 USD để AI không bị giới hạn lúc đông.`
-      : `Giờ cao điểm ${peak} khách: vượt mức đã chạy thử. Cần nạp tài khoản AI từ 100 USD, tăng máy chủ và chạy thử lại (xem bảng bên dưới).`;
-}
-document.querySelector('.calc-grid').addEventListener('input', calc);
-calc();
-
-// Khi được nhúng trong trang demo: báo chiều cao để khung tự giãn theo nội dung.
-if (window.parent !== window) {
-  const postHeight = () => parent.postMessage({ baoGiaHeight: document.documentElement.scrollHeight }, '*');
-  new ResizeObserver(postHeight).observe(document.body);
-  window.addEventListener('load', postHeight);
-}
-})(doc);
-    })();
-    </script>
-    <!-- BAO-GIA:END -->
+  <div class="tiles">
+    <div class="tile"><b>19</b><span>trang</span><small>11 trang khách mua hàng xem, 8 trang cửa hàng quản lý</small></div>
+    <div class="tile"><b>~500K</b><span>mỗi tháng</span><small>tiền máy chủ, chưa gồm phí cổng thanh toán, ship</small></div>
+    <div class="tile"><b>6 tháng</b><span>bảo hành</span><small>tính từ ngày bàn giao</small></div>
+    <div class="tile"><b>100%</b><span>bàn giao</span><small>mã nguồn, dữ liệu, tài khoản</small></div>
   </div>
-</section>
 
-<footer class="band">
-  <div class="wrap" style="padding: 16px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap">
-    <span class="label">CM motorfas · Chatbot AI tra cứu phụ tùng</span>
-    <span class="label">Demo chat v1 · 30.10.2026</span>
-  </div>
-</footer>
+  <section class="block" id="p1">
+    <div class="block-head"><span class="no">1</span><h2>Khách mua hàng thế nào</h2></div>
+    <div class="flows">
+      <div class="flow"><p class="flow-name">Khách lẻ</p><ol class="steps"><li>Trang chủ</li><li>Tìm kiếm hoặc lọc theo xe</li><li>Xem sản phẩm</li><li>Giỏ hàng</li><li>Đặt hàng</li><li>Nhận mã đơn</li></ol></div>
+      <div class="flow"><p class="flow-name">Khách sỉ</p><ol class="steps"><li>Đăng ký</li><li>Cửa hàng xác nhận</li><li>Thấy giá sỉ của nhóm</li><li>Đặt nhiều mã hoặc gửi yêu cầu báo giá</li><li>Thành đơn hàng</li></ol></div>
+      <div class="flow"><p class="flow-name">Cửa hàng</p><ol class="steps"><li>Xem đơn mới</li><li>Xác nhận</li><li>Đang giao</li><li>Hoàn tất</li></ol></div>
+    </div>
+  </section>
 
-<script>
+  <section class="block" id="p2">
+    <div class="block-head"><span class="no">2</span><h2>Website gồm những trang nào</h2><span class="label">19 trang</span></div>
+    <p class="group-title">Trang khách mua hàng xem · 11 trang</p>
+    <div class="grid">
+      <div class="scr2"><span class="sn">01</span><b>Trang chủ</b><span class="sd">Banner, ô tìm kiếm, danh mục phụ tùng.</span></div>
+      <div class="scr2"><span class="sn">02</span><b>Danh mục sản phẩm</b><span class="sd">Xem hàng theo danh mục; lọc theo thương hiệu, loại phụ tùng, dòng xe.</span></div>
+      <div class="scr2"><span class="sn">03</span><b>Tìm kiếm</b><span class="sd">Tìm theo tên, mã SKU, có dấu hay không dấu, tên gọi quen của thợ (theo danh sách cửa hàng nhập), hãng, dòng, đời xe.</span></div>
+      <div class="scr2"><span class="sn">04</span><b>Chi tiết sản phẩm</b><span class="sd">Ảnh, thông số, xe tương thích, giá lẻ; khách sỉ thấy giá sỉ.</span></div>
+      <div class="scr2"><span class="sn">05</span><b>Giỏ hàng</b><span class="sd">Sửa số lượng, xem tạm tính; khách sỉ tự áp giá nhóm và giá theo số lượng.</span></div>
+      <div class="scr2"><span class="sn">06</span><b>Đặt hàng</b><span class="sd">Điền thông tin giao hàng, chọn thanh toán và giao hàng, nhận mã đơn. Khách lẻ không cần tài khoản.</span></div>
+      <div class="scr2"><span class="sn">07</span><b>Đăng nhập, đăng ký (khách sỉ)</b><span class="sd">Đăng ký bằng họ, tên, số điện thoại, email, mật khẩu, đồng ý điều khoản; xác nhận bằng mã OTP gửi qua email. Đăng nhập bằng email và mật khẩu; quên mật khẩu thì nhận mã OTP qua email. Khách sỉ chờ cửa hàng xác nhận.</span></div>
+      <div class="scr2"><span class="sn">08</span><b>Đặt nhiều mã (khách sỉ)</b><span class="sd">Nhập nhiều mã và số lượng vào một đơn.</span></div>
+      <div class="scr2"><span class="sn">09</span><b>Yêu cầu báo giá (khách sỉ)</b><span class="sd">Gửi danh sách cần báo giá, xem giá cửa hàng trả, xác nhận là thành đơn.</span></div>
+      <div class="scr2"><span class="sn">10</span><b>Bài viết</b><span class="sd">Bài hướng dẫn kỹ thuật, mỗi bài có tiêu đề SEO riêng.</span></div>
+      <div class="scr2"><span class="sn">11</span><b>Liên hệ</b><span class="sd">Trang liên hệ và các trang nội dung cửa hàng tự sửa.</span></div>
+    </div>
+    <p class="group-title">Trang quản lý của cửa hàng · 8 trang</p>
+    <div class="grid">
+      <div class="scr2"><span class="sn">12</span><b>Đăng nhập quản trị</b><span class="sd">Tài khoản riêng cho cửa hàng.</span></div>
+      <div class="scr2"><span class="sn">13</span><b>Đơn hàng</b><span class="sd">Xem đơn, cập nhật trạng thái xử lý, trả lời yêu cầu báo giá.</span></div>
+      <div class="scr2"><span class="sn">14</span><b>Sản phẩm</b><span class="sd">Thêm, sửa sản phẩm: SKU, ảnh, thuộc tính, thông số, xe tương thích, tồn kho, giá lẻ, giá sỉ, giá theo số lượng, đường dẫn và tiêu đề SEO.</span></div>
+      <div class="scr2"><span class="sn">15</span><b>Danh mục và danh sách xe</b><span class="sd">Danh mục, loại phụ tùng, thương hiệu; hãng, dòng, đời xe.</span></div>
+      <div class="scr2"><span class="sn">16</span><b>Nhập, xuất Excel/CSV</b><span class="sd">Nhập, xuất sản phẩm hàng loạt bằng file.</span></div>
+      <div class="scr2"><span class="sn">17</span><b>Khách sỉ và bảng giá</b><span class="sd">Xác nhận tài khoản khách sỉ, xếp nhóm; bảng giá theo nhóm và theo số lượng.</span></div>
+      <div class="scr2"><span class="sn">18</span><b>Nội dung</b><span class="sd">Banner, hình ảnh, nội dung trang, bài viết.</span></div>
+      <div class="scr2"><span class="sn">19</span><b>Cài đặt</b><span class="sd">Thông tin cửa hàng, thanh toán, giao hàng, danh sách tên gọi quen của thợ.</span></div>
+    </div>
+    <p class="group-title">Làm chung cho cả website</p>
+    <div class="grid">
+      <div class="scr2"><span class="sn">20</span><b>Thiết kế giao diện</b><span class="sd">Hiện đại, theo màu, logo cửa hàng, ưu tiên điện thoại; 1 bản thiết kế, chỉnh tối đa 2 lần.</span></div>
+      <div class="scr2"><span class="sn">21</span><b>SEO và tốc độ</b><span class="sd">Đường dẫn, tiêu đề SEO, web tải nhanh, hiển thị tốt trên điện thoại. Không cam kết thứ hạng trên Google.</span></div>
+      <div class="scr2"><span class="sn">22</span><b>Cài đặt, đào tạo và bàn giao</b><span class="sd">Cài máy chủ, nhập file sản phẩm cửa hàng gửi lần đầu, hướng dẫn quản trị, bàn giao mã nguồn.</span></div>
+    </div>
+  </section>
 
-/* ---------- Chat demo ---------- */
-const card = (o) => `<div class="pcard${o.out ? ' out' : ''}">
-  ${o.noImg ? '' : '<div class="pimg">Ảnh sản phẩm</div>'}
-  <div class="pbody">
-    <span class="pname">${o.name}</span>
-    <span class="meta">${o.meta}</span>
-    <span class="meta">${o.codes}</span>
-    ${o.fit ? `<span class="small">${o.fit}</span>` : ''}
-    ${o.extra || ''}
-    <div class="row" style="justify-content: space-between"><span class="price">${o.price}</span>${o.out ? '<span class="status todo">Tạm hết hàng</span>' : '<span class="status done">Còn hàng</span>'}</div>
-  </div>
-  <span class="btn pask">Hỏi nhân viên về món này</span>
-</div>`;
-const opt = (name, meta, price, inStock) => `<div class="opt${inStock ? '' : ' out'}"><span class="oimg">Ảnh</span><div class="obody"><strong class="small">${name}</strong><span class="meta">${meta}</span><div class="row" style="justify-content: space-between"><span class="price">${price}</span><span class="status ${inStock ? 'done' : 'todo'}">${inStock ? 'Còn hàng' : 'Hết hàng'}</span></div>${inStock ? '' : '<span class="btn sm">Đặt trước</span>'}</div></div>`;
-const mini = (name, price, inStock) => `<div class="pmini"><span class="thumb"></span><div style="flex: 1; display: grid"><strong class="small">${name}</strong><span class="meta">${price}</span></div><span class="status ${inStock ? 'done' : 'todo'}">${inStock ? 'Còn' : 'Hết'}</span></div>`;
+  <section class="block" id="p3">
+    <div class="block-head"><span class="no">3</span><h2>Thanh toán và giao hàng</h2><span class="label">Phần anh/chị cần chọn</span></div>
+    <div class="cols2">
+      <div class="card ok">
+        <p class="tag">Có sẵn trong gói</p>
+        <ul class="ticks">
+          <li><b>Trả tiền khi nhận hàng (COD)</b><br><span class="small">Đơn ghi rõ số tiền shipper cần thu.</span></li>
+          <li><b>Tự cài phí giao hàng</b><br><span class="small">Cửa hàng tự đặt phí theo khu vực, cân nặng, hoặc miễn phí từ một mức đơn.</span></li>
+        </ul>
+        <p class="small">Hai phần này em làm luôn, không cần đăng ký với bên nào.</p>
+      </div>
+      <div class="card">
+        <p class="tag">Anh/chị chọn giúp em</p>
+        <h3>1. Thanh toán online</h3>
+        <p class="small">Gói đã gồm kết nối 1 cổng. Anh/chị chọn và đăng ký tài khoản, em kết nối vào website.</p>
+        <ul class="opts">
+          <li class="rec"><b>SePay (em đề xuất)</b><span>Quét QR, tiền vào thẳng tài khoản cửa hàng, không mất % mỗi đơn.</span></li>
+          <li><b>payOS</b><span>Giống SePay.</span></li>
+          <li><b>VNPay, MoMo</b><span>Nhận thẻ, ví điện tử; mất % mỗi đơn.</span></li>
+        </ul>
+        <h3>2. Hãng giao hàng</h3>
+        <p class="small">Gói đã gồm kết nối 1 hãng (GHN, GHTK, Viettel Post…). Anh/chị đăng ký tài khoản với hãng, em kết nối để website tự tính phí ship và tạo đơn giao.</p>
+      </div>
+    </div>
+    <div class="ask"><b>Anh/chị báo em:</b> chọn cổng thanh toán nào · chọn hãng giao hàng nào (hoặc chỉ dùng phí tự cài).</div>
+  </section>
 
-const ALL_CASES = [
-  { tag: 'Còn hàng', title: 'Tìm theo mã, sản phẩm còn hàng', sub: 'Khách gõ mã hàng',
-    text: 'Khách gõ mã hàng. Chatbot trả đúng thẻ sản phẩm: ảnh, mã hãng, mã CM, xe lắp được (đã xác minh), giá lẻ và trạng thái Còn hàng.',
-    steps: [
-      ['me', 'PH-AB-01'],
-      ['bot', 'Dạ đây là sản phẩm mã <strong>PH-AB-01</strong> ạ:'],
-      ['raw', card({ name: 'Phuộc sau Air Blade (cặp)', meta: 'Honda · Chính hãng · Cặp · Đen', codes: 'Mã hãng 52400-XXX · Mã CM PH-AB-01', fit: 'Lắp: Air Blade 2020–2023 ✓ đã xác minh', price: '000.000đ' })]
-    ] },
-  { tag: 'Hết hàng', title: 'Sản phẩm đang hết hàng', sub: 'Gõ không dấu, món đã hết',
-    text: 'Khách gõ không dấu, sai chính tả ("vison"). Chatbot vẫn hiểu là lọc gió Vision. Tồn kho lấy từ dữ liệu CM: hết hàng thì báo rõ và mời gặp nhân viên, không tự gợi ý hàng thay thế.',
-    steps: [
-      ['me', 'loc gio vison con khong shop'],
-      ['bot', 'Dạ lọc gió Vision hiện <strong>đang hết hàng</strong> ạ:'],
-      ['raw', card({ out: true, name: 'Lọc gió Vision', meta: 'Honda · Chính hãng · Cái', codes: 'Mã hãng 17210-XXX · Mã CM LG-VS-03', fit: 'Lắp: Vision 2021 trở đi ✓', price: '000.000đ' })],
-      ['bot', 'Anh/chị muốn em nhờ nhân viên kiểm tra ngày có hàng không ạ?'],
-      ['chips', ['Có, gặp nhân viên', 'Tìm món khác']]
-    ] },
-  { tag: 'Nhiều lựa chọn', title: 'Viết tắt, có nhiều lựa chọn', sub: 'phuột = phuộc, AB = Air Blade',
-    text: 'Khách gõ tắt và sai chính tả. Chatbot hiểu "phuột" là phuộc, "AB" là Air Blade, đưa lựa chọn trước. Khách bấm nút để lọc, không phải gõ thêm.',
-    steps: [
-      ['me', 'phuột sau AB 2020'],
-      ['bot', 'Phuộc sau cho Air Blade 2020 có 3 lựa chọn ạ:'],
-      ['raw', `<div class="list">${opt('Phuộc sau chính hãng Honda', 'Honda · Cặp · Mã CM PH-AB-01', '000.000đ', true)}${opt('Phuộc sau hàng OEM', 'OEM · Cặp · Mã CM PH-AB-02', '000.000đ', true)}${opt('Phuộc sau hàng độ', 'Độ · Cặp · Mã CM PH-AB-03', '000.000đ', false)}</div>`],
-      ['chips', ['Chỉ hàng chính hãng', 'Lọc theo giá']],
-      ['pick', 'Chỉ hàng chính hãng'],
-      ['bot', 'Dạ hàng chính hãng có 1 món ạ:'],
-      ['raw', card({ name: 'Phuộc sau Air Blade (cặp)', meta: 'Honda · Chính hãng · Cặp · Đen', codes: 'Mã hãng 52400-XXX · Mã CM PH-AB-01', fit: 'Lắp: Air Blade 2020–2023 ✓', price: '000.000đ' })]
-    ] },
-  { tag: 'Tìm theo giá', title: 'Tìm ổ khóa rẻ cho xe', sub: 'Hỏi dòng xe, loại khóa, xếp theo giá',
-    text: 'Khách chỉ nói muốn tìm ổ khóa rẻ. Chatbot hỏi dòng xe, đời xe và loại khóa bằng nút bấm, rồi đưa các lựa chọn xếp từ rẻ đến đắt, có ảnh và tình trạng hàng. Mẫu đã hết hàng thì khách có thể đặt trước, nhân viên sẽ liên hệ báo khi có hàng.',
-    steps: [
-      ['me', 'có ổ khóa xe loại rẻ không shop'],
-      ['bot', 'Dạ quý khách cho em xin <strong>dòng xe và đời xe</strong> (ví dụ Air Blade 2018, Vision 2021…) để em tìm đúng ổ khóa cho mình ạ.'],
-      ['chips', ['Air Blade 2018', 'Vision 2021', 'SH 2018', 'Xe khác']],
-      ['pick', 'SH 2018'],
-      ['bot', 'Mình cần <strong>ổ khóa điện (ổ khóa cổ)</strong> hay chỉ cần <strong>ổ khóa yên/xăng</strong> ạ?'],
-      ['chips', ['Ổ khóa điện (ổ khóa cổ)', 'Ổ khóa yên/xăng']],
-      ['pick', 'Ổ khóa điện (ổ khóa cổ)'],
-      ['bot', 'Ổ khóa điện cho SH 2018 có 3 lựa chọn, em xếp từ rẻ đến đắt ạ:'],
-      ['raw', `<div class="list">${opt('Bộ khóa Smartkey hàng OEM', 'OEM · Bộ · Lắp: SH 2017–2019 ✓', '000.000đ', true)}${opt('Bộ khóa Smartkey không remote', 'Honda chính hãng · Bộ · Lắp: SH 2017–2019 ✓', '000.000đ', true)}${opt('Bộ khóa Smartkey kèm remote', 'Honda chính hãng · Bộ · Lắp: SH 2017–2019 ✓', '000.000đ', false)}</div>`],
-      ['bot', 'Mẫu <strong>kèm remote hiện đã hết hàng</strong> ạ. Nếu mình cần mẫu này, mình có thể <strong>đặt trước</strong>, nhân viên sẽ liên hệ báo mình khi có hàng.'],
-      ['chips', ['Đặt trước mẫu kèm remote', 'Chọn mẫu còn hàng']]
-    ] },
-  { tag: 'Hỏi lại', title: 'Thiếu thông tin, bot hỏi lại', sub: 'Hỏi đời xe, trước hay sau',
-    text: 'Câu hỏi thiếu thông tin quan trọng. Chatbot hỏi lại bằng nút bấm (đời xe, phanh trước hay sau) để chọn đúng món, khách không phải gõ.',
-    steps: [
-      ['me', 'má phanh vision'],
-      ['bot', 'Vision đời nào ạ? Mỗi đời má phanh khác nhau.'],
-      ['chips', ['2011–2013', '2014–2020', '2021 trở đi']],
-      ['pick', '2021 trở đi'],
-      ['bot', 'Anh/chị cần phanh trước hay sau ạ?'],
-      ['chips', ['Trước', 'Sau', 'Cả hai']],
-      ['pick', 'Sau'],
-      ['raw', card({ name: 'Má phanh sau Vision', meta: 'Honda · Chính hãng · Bộ', codes: 'Mã hãng 43130-XXX · Mã CM MP-VS-05', fit: 'Lắp: Vision 2021 trở đi ✓', price: '000.000đ' })]
-    ] },
-  { tag: 'Chưa chắc', title: 'Chưa xác minh lắp vừa', sub: 'Bot không đoán, chuyển nhân viên',
-    text: 'Dữ liệu chưa xác minh món này lắp được xe khách hỏi. Chatbot nói rõ là chưa có dữ liệu, cho biết xe đã xác minh, và mời gặp nhân viên. Không đoán.',
-    steps: [
-      ['me', 'phuộc PH-AB-01 lắp được winner x không'],
-      ['bot', 'Dạ em <strong>chưa có dữ liệu xác minh</strong> món này lắp được Winner X.<br>Theo dữ liệu, món này lắp được: Air Blade 2020–2023.'],
-      ['bot', 'Em chuyển anh/chị cho nhân viên kiểm tra giúp nhé?'],
-      ['chips', ['Gặp nhân viên', 'Không cần']]
-    ] },
-  { tag: 'Cần làm rõ · Câu 3', title: 'Khách gửi ảnh phụ tùng', sub: 'Bot gợi ý, không khẳng định · cần làm rõ',
-    text: 'Khách chụp ảnh gửi lên. Chatbot gợi ý món có thể đúng nhưng nói rõ là chưa chắc, rồi hỏi thêm mã trên tem hoặc dòng xe để tìm chính xác. Tính năng này cần làm rõ ở câu 3: có cho khách gửi ảnh hay chỉ hỏi bằng chữ (câu hỏi có ảnh tốn chi phí AI cao hơn).',
-    steps: [
-      ['photo'],
-      ['me', 'cái này là gì shop'],
-      ['bot', 'Ảnh này <strong>có thể là</strong> lọc gió xe tay ga, nhưng em chưa chắc ạ. Anh/chị cho em biết thêm:'],
-      ['chips', ['Nhập mã trên tem', 'Chọn dòng xe', 'Gặp nhân viên']],
-      ['pick', 'Chọn dòng xe'],
-      ['bot', 'Xe của anh/chị là xe gì ạ?'],
-      ['chips', ['Vision', 'Air Blade', 'Lead']],
-      ['pick', 'Lead'],
-      ['raw', card({ name: 'Lọc gió Lead 125', meta: 'Honda · Chính hãng · Cái', codes: 'Mã hãng 17210-XXX · Mã CM LG-LD-02', fit: 'Lắp: Lead 125 2018–2022 ✓', price: '000.000đ' })]
-    ] },
-  { tag: 'Khách sỉ', acct: 'Đại lý · Nhóm B', title: 'Khách sỉ xem giá đại lý', sub: 'Đã đăng nhập, đã được duyệt',
-    text: 'Đại lý đã đăng nhập tài khoản được CM duyệt. Máy chủ nhận ra Nhóm B và gắn giá đại lý, kèm giá theo số lượng. Khách không phải nhập gì thêm.',
-    steps: [
-      ['me', 'phuộc sau AB 2020, lấy 10 cặp'],
-      ['bot', 'Dạ giá đại lý cho 10 cặp ạ:'],
-      ['raw', card({ name: 'Phuộc sau Air Blade (cặp)', meta: 'Honda · Chính hãng · Cặp', codes: 'Mã CM PH-AB-01', extra: '<div class="row"><span class="tag solid">Giá đại lý</span></div><span class="small">Từ 10 cặp: <strong>000.000đ</strong> · Từ 50 cặp: <strong>000.000đ</strong></span><span class="meta">Giá lẻ tham khảo 000.000đ</span>', price: '000.000đ / cặp' })]
-    ] },
-  { tag: 'Bảo mật', title: 'Tự nhận là đại lý', sub: 'Chưa đăng nhập, không thấy giá sỉ',
-    text: 'Khách chưa đăng nhập gõ "tôi là đại lý". Chatbot không hiện giá sỉ vì giá do máy chủ chọn theo tài khoản, không theo lời khách nói. Bot mời đăng nhập hoặc đăng ký.',
-    steps: [
-      ['me', 'tôi là đại lý, cho giá sỉ phuộc AB'],
-      ['bot', 'Dạ giá sỉ chỉ hiện khi anh/chị <strong>đăng nhập tài khoản đại lý</strong> đã được CM motorfas duyệt ạ.'],
-      ['chips', ['Đăng nhập', 'Đăng ký đại lý']],
-      ['bot', 'Hiện em gửi anh/chị giá lẻ để tham khảo:'],
-      ['raw', card({ name: 'Phuộc sau Air Blade (cặp)', meta: 'Honda · Chính hãng · Cặp', codes: 'Mã CM PH-AB-01', price: 'Giá lẻ 000.000đ' })]
-    ] },
-  { tag: 'Chuyển NV', title: 'Khách muốn mua', sub: 'Chuyển nhân viên kèm tóm tắt',
-    text: 'Chatbot không nhận đơn. Khách muốn mua thì bot xin tên và số điện thoại, chuyển cho nhân viên kèm tóm tắt món, xe, số lượng. Khách không phải kể lại.',
-    steps: [
-      ['me', 'phuộc sau AB 2020 chính hãng'],
-      ['bot', 'Dạ đây ạ:'],
-      ['raw', card({ name: 'Phuộc sau Air Blade (cặp)', meta: 'Honda · Chính hãng · Cặp', codes: 'Mã CM PH-AB-01', price: '000.000đ' })],
-      ['me', 'ok lấy 1 cặp, có ship về Cần Thơ không'],
-      ['bot', 'Dạ em chuyển anh/chị cho nhân viên để chốt đơn và tư vấn giao hàng. Anh/chị để lại tên và số điện thoại giúp em ạ.'],
-      ['me', 'Minh 0909 xxx xxx'],
-      ['raw', '<div class="boxed" style="align-self: stretch"><span class="label">Đã chuyển cho nhân viên</span><span class="small">Phuộc sau Air Blade 2020 · Chính hãng · 1 cặp<br>Hỏi giao hàng về Cần Thơ<br>Anh Minh · 0909 xxx xxx</span></div>'],
-      ['bot', 'Nhân viên sẽ gọi lại anh/chị trong giờ làm việc ạ.']
-    ] }
-];
-const CASES = ALL_CASES;
+  <section class="block" id="p4">
+    <div class="block-head"><span class="no">4</span><h2>Công nghệ và bàn giao</h2><span class="label">Theo câu hỏi phần 3 của anh/chị</span></div>
+    <div class="checks">
+      <div><b>Tự lập trình riêng</b><span>Next.js, Node.js, MongoDB: công nghệ phổ biến, dễ tìm người tiếp quản</span></div>
+      <div><b>Bàn giao đầy đủ</b><span>Mã nguồn, dữ liệu, quyền quản trị, tài liệu; mọi tài khoản đứng tên chủ sở hữu</span></div>
+      <div><b>Chuyển đơn vị khác được</b><span>Mang sang hosting hoặc đơn vị khác mà không phải làm lại</span></div>
+      <div><b>Chạy tốt tới 5.000 sản phẩm</b><span>Hàng nhiều lên chỉ cần nhập thêm bằng Excel, không phải làm lại website</span></div>
+      <div><b>Cập nhật bảo mật</b><span>Dùng phiên bản ổn định mới nhất; cập nhật bảo mật theo phần 6</span></div>
+      <div><b>Không phí bản quyền</b><span>Không dùng plugin trả phí; chỉ dùng thư viện mã nguồn mở miễn phí</span></div>
+    </div>
+  </section>
 
-const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const chat = document.getElementById('chat');
-const typed = document.getElementById('typed');
-const list = document.getElementById('caseList');
-let token = 0, cur = 0, auto = false;
+  <section class="block" id="p5">
+    <div class="block-head"><span class="no">5</span><h2>Chi phí vận hành mỗi tháng</h2><span class="label">Chủ sở hữu trả thẳng cho nhà cung cấp</span></div>
+    <div class="cost">
+      <div class="cost-main"><span class="label">Máy chủ VPS</span><b>468.000–520.000đ</b><span>mỗi tháng · Vietnix 2 CPU, 4GB RAM · đủ cho 5.000 sản phẩm</span><span class="cost-note">Giá do nhà cung cấp quy định, có thể thay đổi nhẹ theo thời gian. Nếu tăng nhiều, có thể đổi sang nhà cung cấp khác cho hợp lý.</span></div>
+      <ul class="cost-free">
+        <li><span>Cơ sở dữ liệu</span><b>0đ</b></li>
+        <li><span>Lưu ảnh và sao lưu (Cloudflare R2)</span><b>0đ</b></li>
+        <li><span>Chứng chỉ https</span><b>0đ</b></li>
+        <li><span>Gửi email mã OTP, xác nhận đơn</span><b>0đ</b></li>
+        <li><span>Bản quyền phần mềm</span><b>0đ</b></li>
+        <li><span>Tên miền</span><b>Đã có</b></li>
+      </ul>
+    </div>
+    <p class="note">Ngoài ra: phí cổng thanh toán (VNPay, MoMo) theo % mỗi giao dịch, phí ship theo hãng vận chuyển. Giá VPS 520.000đ khi trả theo tháng, 468.000đ/tháng khi trả theo năm, có thể chưa gồm VAT.</p>
+  </section>
 
-list.innerHTML = '<p class="label cases-title" style="display: none">Chạm vào một tình huống để xem</p>' + CASES.map((c, i) =>
-  `<button class="case" type="button" data-i="${i}"><span class="n">${String(i + 1).padStart(2, '0')}</span><span class="t">${c.title}</span><span class="s">${c.sub}</span></button>`
-).join('');
-if (window.matchMedia('(max-width: 860px)').matches) list.querySelector('.cases-title').style.display = '';
-const sel = document.getElementById('caseSelect');
-sel.innerHTML = '<option value="" disabled selected>Chọn tình huống (' + CASES.length + ')</option>' +
-  CASES.map((c, i) => `<option value="${i}">${String(i + 1).padStart(2, '0')} · ${c.title}</option>`).join('');
-const mobile = window.matchMedia('(max-width: 860px)');
+  <section class="block" id="p6">
+    <div class="block-head"><span class="no">6</span><h2>Bảo hành và hỗ trợ</h2><span class="label">Theo câu hỏi phần 5 của anh/chị</span></div>
+    <div class="cols3">
+      <div class="card ok">
+        <p class="tag">6 tháng đầu</p>
+        <p class="big-text">Miễn phí</p>
+        <p class="small">Website chạy sai so với lúc bàn giao: sửa miễn phí. Em trông máy chủ; có sự cố, anh/chị báo là em ưu tiên xử lý ngay.</p>
+      </div>
+      <div class="card">
+        <p class="tag">Sau 6 tháng</p>
+        <p class="big-text">Có việc mới tính</p>
+        <p class="small">Không phí hằng tháng. Có việc thì báo giá trước, anh/chị đồng ý rồi mới làm.</p>
+      </div>
+      <div class="card">
+        <p class="tag">Muốn thêm, đổi tính năng</p>
+        <ul class="prices">
+          <li><span>Sửa nhỏ: chữ, hình, màu</span><b>150.000đ</b></li>
+          <li><span>Thêm nhỏ: trang, cột Excel, mẫu email</span><b>200.000đ</b></li>
+          <li><span>Thêm bộ lọc, thông tin sản phẩm</span><b>240–300K</b></li>
+          <li><span>Đổi bố cục một trang</span><b>400K</b></li>
+          <li><span>Thêm trang mới<br><small class="why">Khi dữ liệu cho trang đã có sẵn; nếu cần thêm dữ liệu mới thì báo giá riêng</small></span><b>400K</b></li>
+          <li><span>Cập nhật phần mềm (~2 năm/lần)<br><small class="why">Phần mềm nào cũng ra bản mới định kỳ để vá lỗi, giữ an toàn; không cập nhật thì web dễ lỗi, dễ bị tấn công</small></span><b>400K/lần</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ask"><b>Không bao gồm:</b> nhập dữ liệu sản phẩm (cửa hàng tự nhập bằng Excel) · chụp ảnh, viết nội dung, viết bài · thiết kế logo · thêm tính năng ngoài danh sách 19 trang · phí VPS, cổng thanh toán, hãng giao hàng (trả trực tiếp cho nhà cung cấp).</div>
+  </section>
 
-function add(html) {
-  chat.insertAdjacentHTML('beforeend', html);
-  const el = chat.lastElementChild;
-  if (!reduce) el.classList.add('pop');
-  chat.scrollTop = chat.scrollHeight;
-  return el;
-}
-function setPlaceholder() { typed.innerHTML = '<span class="ph">Nhập mã, tên phụ tùng, dòng xe…</span>'; }
+  <section class="block" id="p7">
+    <div class="block-head"><span class="no">7</span><h2>Tiến độ và thanh toán</h2><span class="label">Khoảng 6–7 tuần từ ngày ký, có thể sớm hơn</span></div>
+    <div class="price-box">
+      <div><span class="label">Giá làm website</span><b>20.000.000đ</b></div>
+      <p>Đã gồm kết nối 1 cổng thanh toán và 1 hãng giao hàng; chưa gồm chi phí vận hành ở phần 5.</p>
+      <p class="combo"><b>Ưu đãi combo Website + Chatbot AI: 35.000.000đ.</b> Làm website trước 20.000.000đ; khi làm thêm Chatbot AI, anh/chị chỉ trả thêm 15.000.000đ.</p>
+    </div>
+    <ol class="tl"><li><span class="when">Trước khi ký<em>chưa tính thời gian</em></span><span class="dot"></span><b>Chốt giao diện</b><span class="what">Em gửi giao diện, cập nhật liên tục theo góp ý của anh/chị. Anh/chị chốt xong giao diện thì ký hợp đồng và đặt cọc.</span><span class="pay"><span>Chốt xong → ký hợp đồng, cọc 50%</span><b>10.000.000đ</b></span></li><li><span class="when">Tuần 1–4<em>4 tuần</em></span><span class="dot"></span><b>Làm website</b><span class="what">Làm các tính năng theo danh sách 19 trang, trừ kết nối thanh toán online và đơn vị giao hàng.</span><span class="demo">Có link chạy thử, mỗi tuần cập nhật một lần</span></li><li><span class="when">Cuối tuần 4<em>xem thử</em></span><span class="dot"></span><b>Anh/chị xem thử</b><span class="what">Dùng thử tất cả tính năng trên link chạy thử, trừ thanh toán qua cổng và giao hàng; em sửa theo góp ý trong danh sách 19 trang.</span><span class="pay"><span>Đạt → 30%</span><b>6.000.000đ</b></span></li><li><span class="when">Tuần 5–7<em>2–3 tuần</em></span><span class="dot"></span><b>Kết nối với cổng thanh toán và đơn vị giao hàng</b><span class="what">Kết nối bằng tài khoản của cửa hàng; thử mua thật, thanh toán thật, giao hàng thật; sửa hết lỗi.</span><span class="demo">Đạt → bàn giao</span></li><li><span class="when">Sau 30 ngày<em>dùng thật</em></span><span class="dot"></span><b>Dùng ổn định</b><span class="what">Sau 30 ngày cửa hàng dùng website thật kể từ ngày bàn giao.</span><span class="pay"><span>20% còn lại</span><b>4.000.000đ</b></span></li></ol>
+    <div class="paybar" aria-label="Chia đợt thanh toán">
+      <span style="flex: 50">Cọc 50% · 10tr</span><span style="flex: 30">30% · 6tr</span><span style="flex: 20">20% · 4tr</span>
+    </div>
+    <div class="ask"><b>Anh/chị chuẩn bị:</b> logo, màu thương hiệu · file Excel sản phẩm (có xe tương thích) · danh sách tên gọi quen của thợ · nhóm khách sỉ và bảng giá · nội dung liên hệ, chính sách · tài khoản cổng thanh toán và đơn vị giao hàng (trước tuần 5).</div>
+    <div class="ask"><b>Nghiệm thu:</b> website chạy đúng danh sách 19 trang trong báo giá này.</div>
+    <p class="note">Link chạy thử là website thật đặt ở một tên miền tạm, anh/chị vào bấm thử như khách thật; mỗi tuần em cập nhật thêm tính năng một lần để anh/chị trải nghiệm. Khi bàn giao mới chuyển sang tên miền chính.</p>
+    <p class="note">Tiến độ tính từ ngày ký hợp đồng; thời gian chốt giao diện không tính vào vì tuỳ số lần góp ý. Phần kết nối thanh toán và giao hàng phụ thuộc thời gian cửa hàng đăng ký và được cổng thanh toán, hãng giao hàng duyệt tài khoản, nên thời gian có thể dao động; làm xong phần nào sớm em bàn giao sớm, các bên duyệt nhanh thì xong sớm hơn.</p>
+  </section>
 
-async function play(i) {
-  const my = ++token;
-  cur = (i + CASES.length) % CASES.length;
-  const c = CASES[cur];
-  const sleep = (ms) => new Promise((res, rej) => setTimeout(() => (my === token ? res() : rej('stop')), reduce ? 0 : ms));
-  list.querySelectorAll('.case').forEach((b, k) => b.setAttribute('aria-current', String(k === cur)));
-  document.getElementById('capNo').textContent = 'Tình huống ' + String(cur + 1).padStart(2, '0');
-  document.getElementById('capTag').textContent = c.tag;
-  document.getElementById('capTitle').textContent = c.title;
-  document.getElementById('capText').textContent = c.text;
-  const acct = document.getElementById('acct');
-  acct.textContent = c.acct || 'Khách thường';
-  acct.classList.toggle('solid', !!c.acct);
-  chat.innerHTML = '';
-  setPlaceholder();
-  sel.value = String(cur);
-  document.getElementById('pTitle').innerHTML = `<small>Tình huống ${String(cur + 1).padStart(2, '0')} / ${CASES.length}</small>${c.title}`;
-  if (mobile.matches) {
-    const y = document.querySelector('.phone').getBoundingClientRect().top + window.scrollY - 48;
-    if (Math.abs(window.scrollY - y) > 24) window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
-  }
-  try {
-    add(`<div class="sysnote"><span class="label">Tình huống ${String(cur + 1).padStart(2, '0')} · ${c.tag}</span><strong>${c.title}</strong><span>${c.text}</span></div>`);
-    add('<div class="msg bot">Chào anh/chị, em có thể tìm phụ tùng theo mã, tên hoặc dòng xe ạ.</div>');
-    await sleep(700);
-    for (const [type, v] of c.steps) {
-      if (type === 'me') {
-        typed.textContent = '';
-        for (const ch of v) { typed.textContent += ch; await sleep(55); }
-        await sleep(350);
-        setPlaceholder();
-        add(`<div class="msg me">${v}</div>`);
-        await sleep(450);
-      } else if (type === 'bot') {
-        const t = add('<div class="typing" aria-hidden="true"><span></span><span></span><span></span></div>');
-        await sleep(950);
-        t.remove();
-        add(`<div class="msg bot">${v}</div>`);
-        await sleep(500);
-      } else if (type === 'raw') {
-        await sleep(250);
-        add(v);
-        await sleep(900);
-      } else if (type === 'chips') {
-        add(`<div class="row">${v.map((x) => `<span class="chip">${x}</span>`).join('')}</div>`);
-        await sleep(700);
-      } else if (type === 'pick') {
-        await sleep(500);
-        const chips = [...chat.querySelectorAll('.chip')].filter((x) => x.textContent === v);
-        if (chips.length) chips[chips.length - 1].classList.add('picked');
-        await sleep(500);
-        add(`<div class="msg me">${v}</div>`);
-        await sleep(450);
-      } else if (type === 'photo') {
-        add('<div class="photo">Ảnh khách chụp</div>');
-        await sleep(700);
-      }
-    }
-    await sleep(400);
-    add(`<div class="endnav"><button class="btn" type="button" data-nav="top">↑ Chọn tình huống</button><button class="btn btn-primary" type="button" data-nav="next">Xem tiếp →</button></div>`);
-    if (auto) { await sleep(3500); play(cur + 1); }
-  } catch (e) { /* replaced by a newer run */ }
-}
-
-list.addEventListener('click', (e) => { const b = e.target.closest('.case'); if (b) play(+b.dataset.i); });
-document.getElementById('prevBtn').addEventListener('click', () => play(cur - 1));
-document.getElementById('nextBtn').addEventListener('click', () => play(cur + 1));
-document.getElementById('replayBtn').addEventListener('click', () => play(cur));
-sel.addEventListener('change', () => play(+sel.value));
-document.getElementById('mPrev').addEventListener('click', () => play(cur < 0 ? CASES.length - 1 : cur - 1));
-document.getElementById('mNext').addEventListener('click', () => play(cur + 1));
-document.getElementById('mReplay').addEventListener('click', () => play(cur < 0 ? 0 : cur));
-document.getElementById('pPrev').addEventListener('click', () => play(cur < 0 ? CASES.length - 1 : cur - 1));
-document.getElementById('pNext').addEventListener('click', () => play(cur + 1));
-chat.addEventListener('click', (e) => {
-  const b = e.target.closest('[data-nav]');
-  if (!b) return;
-  if (b.dataset.nav === 'next') play(cur + 1);
-  else list.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-});
-document.querySelectorAll('.play').forEach((b) => b.addEventListener('click', () => {
-  document.getElementById('giao-dien').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-  play(+b.dataset.case - 1);
-}));
-
-// Staff page: switch between the two placement options
-const PLANS = {
-  a: {
-    bar: 'CM motorfas · Quản lý chatbot (trang riêng)',
-    nav: '<p class="nav-group-title">Quản lý chatbot</p>' +
-      '<span class="nav-item" aria-current="page"><span class="n">01</span>Khách cần hỗ trợ</span>' +
-      '<span class="nav-item"><span class="n">02</span>Dữ liệu sản phẩm</span>' +
-      '<span class="nav-item"><span class="n">03</span>Khách sỉ</span>' +
-      '<span class="nav-item"><span class="n">04</span>Thống kê</span>'
-  },
-  b: {
-    bar: 'Admin website CM motorfas',
-    nav: '<p class="nav-group-title">Website · có sẵn</p>' +
-      '<span class="nav-item muted"><span class="n">—</span>Đơn hàng</span>' +
-      '<span class="nav-item muted"><span class="n">—</span>Sản phẩm</span>' +
-      '<span class="nav-item muted"><span class="n">—</span>Khách hàng</span>' +
-      '<p class="nav-group-title">Chatbot · em làm thêm</p>' +
-      '<span class="nav-item" aria-current="page"><span class="n">01</span>Khách cần hỗ trợ</span>' +
-      '<span class="nav-item"><span class="n">02</span>Cài đặt chatbot</span>'
-  }
-};
-function setPlan(p) {
-  document.getElementById('planBar').textContent = PLANS[p].bar;
-  document.getElementById('planNav').innerHTML = PLANS[p].nav;
-  document.querySelectorAll('[data-plan]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.plan === p)));
-  document.querySelectorAll('[data-info]').forEach((d) => d.classList.toggle('inverse', d.dataset.info === p));
-}
-document.querySelectorAll('[data-plan]').forEach((b) => b.addEventListener('click', () => setPlan(b.dataset.plan)));
-setPlan('a');
-
-// Idle until the viewer picks a scenario
-chat.innerHTML = '<div class="msg bot">Bấm vào một tình huống để xem chatbot trả lời ạ.</div><div class="sysnote"><strong>Cách xem trên điện thoại</strong><span>Chạm vào một thẻ tình huống phía trên, hoặc bấm → để xem lần lượt. Mỗi tình huống chạy xong sẽ dừng lại.</span></div>';
-setPlaceholder();
-document.getElementById('capNo').textContent = 'Chưa chọn tình huống';
-document.getElementById('capTag').textContent = CASES.length + ' tình huống';
-document.getElementById('capTitle').textContent = 'Chọn một tình huống để bắt đầu';
-document.getElementById('capText').textContent = 'Bấm vào tình huống trong danh sách, hoặc bấm "Sau →" để xem lần lượt. Mỗi tình huống chạy như một đoạn video ngắn, chạy xong sẽ dừng lại để anh/chị xem kỹ.';
-cur = -1;
-</script>
+</div>
 </body>
 </html>
